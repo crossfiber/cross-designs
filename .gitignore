@@ -1,0 +1,5 @@
+credentials.md
+*.swp
+.DS_Store
+.vscode/
+node_modules/
