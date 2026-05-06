@@ -30,7 +30,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Monoton&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Metal+Mania&family=Pirata+One&family=Rubik+Wet+Paint&family=Monoton&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
 <script type="application/ld+json">
@@ -96,10 +96,13 @@
   --line: rgba(197, 202, 210, 0.18);
   --line-bright: rgba(197, 202, 210, 0.32);
 
-  --font-display: 'Rubik Glitch', 'Impact', system-ui, sans-serif;
+  --font-display: 'Metal Mania', 'Pirata One', 'Impact', system-ui, serif;
+  --font-graf: 'Rubik Wet Paint', 'Pirata One', 'Impact', system-ui, sans-serif;
   --font-headline: 'Monoton', 'Impact', system-ui, sans-serif;
   --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
   --font-body: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  --hot-red: #FF2A1F;
+  --hot-orange: #FF6B1F;
 
   --nav-h: 64px;
   --nav-h-sm: 56px;
@@ -135,16 +138,16 @@ a { color: inherit; text-decoration: none; }
 button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 input, textarea, select { font: inherit; color: inherit; }
 
-/* Scratched grain canvas, layered globally */
+/* Heavy grain canvas, layered globally */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 100;
-  opacity: 0.06;
+  opacity: 0.14;
   mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='320' height='320'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.4 -0.2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 body::after {
   content: "";
@@ -154,12 +157,35 @@ body::after {
   z-index: 99;
   background: repeating-linear-gradient(
     to bottom,
-    rgba(255,255,255,0.025) 0,
-    rgba(255,255,255,0.025) 1px,
+    rgba(255,255,255,0.04) 0,
+    rgba(255,255,255,0.04) 1px,
     transparent 1px,
     transparent 3px
   );
 }
+/* Halftone dot tile, opt-in */
+.halftone {
+  position: relative;
+}
+.halftone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.08) 1px, transparent 1.4px);
+  background-size: 6px 6px;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+.halftone > * { position: relative; z-index: 1; }
+/* Spray paint splat using SVG mask, decorative */
+.splat {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.7;
+  z-index: 0;
+}
+.splat svg { width: 100%; height: 100%; display: block; }
 
 /* ==========================================================
    TYPOGRAPHY
@@ -179,45 +205,8 @@ body::after {
   text-transform: uppercase;
 }
 .mono { font-family: var(--font-mono); }
-.label-mono {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-}
 h1, h2, h3, h4 { margin: 0; }
 p { margin: 0; }
-
-/* Chrome metallic text effect */
-.chrome-fill {
-  background: linear-gradient(180deg,
-    #FFFFFF 0%,
-    #DCE0E6 22%,
-    #8A8E97 50%,
-    #1B1D24 51%,
-    #4D5260 70%,
-    #B0B5BD 88%,
-    #FFFFFF 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 2px 0 rgba(0,0,0,0.55);
-  filter: drop-shadow(0 0 18px rgba(41, 69, 255, 0.35));
-}
-.blue-fill {
-  background: linear-gradient(180deg,
-    #B5C0FF 0%,
-    #5A72FF 35%,
-    #0F1FAA 51%,
-    #2945FF 70%,
-    #94A4FF 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
 
 /* ==========================================================
    LAYOUT PRIMITIVES
@@ -414,8 +403,8 @@ section { position: relative; }
 }
 .nav-brand {
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  letter-spacing: 0.04em;
+  font-size: 1.4rem;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
   color: var(--chrome-bright);
   display: inline-flex;
@@ -451,8 +440,16 @@ section { position: relative; }
   color: var(--chrome);
   transition: color 0.18s ease;
 }
-.nav-links a::before { content: "[ "; opacity: 0.4; }
-.nav-links a::after { content: " ]"; opacity: 0.4; }
+.nav-links a::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: var(--lime);
+  width: 0;
+  transition: width 0.18s ease;
+  margin-top: 4px;
+}
+.nav-links a:hover::after { width: 100%; }
 .nav-links a:hover { color: var(--lime); }
 .nav-cta {
   margin-left: 14px;
@@ -557,9 +554,10 @@ body.drawer-open .nav-burger { visibility: hidden; }
   flex: 1;
 }
 .drawer-links a {
-  font-family: var(--font-headline);
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.005em;
+  line-height: 1.1;
   color: var(--chrome-bright);
   padding: 10px 0;
   border-bottom: 1px dashed var(--line);
@@ -596,14 +594,15 @@ body.drawer-open .nav-burger { visibility: hidden; }
    HERO
    ========================================================== */
 .hero {
-  padding-top: calc(var(--nav-h) + 60px);
-  padding-bottom: 140px;
+  padding-top: calc(var(--nav-h) + 80px);
+  padding-bottom: 160px;
   position: relative;
   background:
-    radial-gradient(ellipse at 50% -10%, rgba(41, 69, 255, 0.35), transparent 55%),
-    radial-gradient(ellipse at 80% 110%, rgba(41, 69, 255, 0.18), transparent 55%),
+    radial-gradient(ellipse at 50% 0%, rgba(41, 69, 255, 0.45), transparent 55%),
+    radial-gradient(ellipse at 80% 110%, rgba(255, 42, 31, 0.18), transparent 55%),
     linear-gradient(180deg, #050609 0%, #08090C 60%, #0B0E18 100%);
   overflow: hidden;
+  text-align: center;
 }
 .hero::before {
   content: "";
@@ -613,102 +612,136 @@ body.drawer-open .nav-burger { visibility: hidden; }
     linear-gradient(to right, rgba(197, 202, 210, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(197, 202, 210, 0.05) 1px, transparent 1px);
   background-size: 60px 60px;
-  background-position: center;
   mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
   pointer-events: none;
 }
-.hero-eyebrow {
+.hero-inner {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 28px;
+  z-index: 2;
+}
+.hero-stamp {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 14px;
-  background: rgba(197, 202, 210, 0.06);
-  border: 1px solid var(--line-bright);
+  padding: 7px 14px;
+  background: var(--hot-red);
+  color: #FFF1E8;
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--chrome);
-  margin-bottom: 26px;
-  border-radius: 2px;
+  margin-bottom: 32px;
+  border: 2px solid #FFF1E8;
+  transform: rotate(-2deg);
+  font-weight: 700;
+  box-shadow: 4px 4px 0 #08090C, 4px 4px 0 1px var(--hot-red);
 }
-.hero-eyebrow .pulse {
-  width: 8px; height: 8px;
+.hero-stamp .pulse {
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--lime);
-  box-shadow: 0 0 10px var(--lime);
+  box-shadow: 0 0 8px var(--lime);
   animation: pulse 1.6s ease-in-out infinite;
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(0.85); }
 }
-.hero-window {
-  margin: 0 auto;
-  max-width: 1100px;
-}
-.hero-window .win-body {
-  padding: 48px 32px 36px;
-  text-align: center;
-  background:
-    radial-gradient(ellipse at center, #0F132A 0%, #050609 70%);
-}
 .hero-wordmark {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 13vw, 9.5rem);
-  line-height: 0.88;
-  letter-spacing: -0.01em;
+  font-size: clamp(4.5rem, 17vw, 13rem);
+  line-height: 0.82;
+  letter-spacing: 0.005em;
   margin: 0;
   text-transform: uppercase;
-  word-break: break-word;
+  word-break: normal;
+  position: relative;
 }
 .hero-wordmark span { display: block; }
-.hero-sub {
+.hero-wordmark .line-1 {
+  color: transparent;
+  background: linear-gradient(180deg,
+    #FFFFFF 0%,
+    #DCE0E6 18%,
+    #6E7280 45%,
+    #1B1D24 50%,
+    #4D5260 60%,
+    #C0C5CD 80%,
+    #FFFFFF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 6px 0 rgba(8, 9, 12, 0.7);
+  filter: drop-shadow(0 0 24px rgba(41, 69, 255, 0.55));
+}
+.hero-wordmark .line-2 {
+  color: transparent;
+  background: linear-gradient(180deg,
+    #5A72FF 0%,
+    #2945FF 30%,
+    #0F1FAA 55%,
+    #2945FF 80%,
+    #94A4FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 24px rgba(41, 69, 255, 0.65));
+  margin-top: -0.05em;
+}
+.hero-spike-row {
   margin: 22px auto 0;
-  max-width: 720px;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-family: var(--font-graf);
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  letter-spacing: 0.05em;
+  color: var(--lime);
+  text-transform: uppercase;
+}
+.hero-spike-row::before, .hero-spike-row::after {
+  content: "";
+  height: 2px;
+  width: 80px;
+  background: linear-gradient(90deg, transparent, var(--lime), transparent);
+}
+.hero-sub {
+  margin: 28px auto 0;
+  max-width: 700px;
   font-family: var(--font-body);
-  font-size: clamp(1rem, 1.6vw, 1.18rem);
+  font-size: clamp(1.05rem, 1.6vw, 1.22rem);
   line-height: 1.55;
   color: var(--text);
 }
 .hero-sub strong { color: var(--lime); font-weight: 600; }
-.hero-info {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  max-width: 760px;
-  margin: 30px auto 0;
-  border: 1px solid var(--line-bright);
-  background: rgba(8, 9, 12, 0.7);
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-.hero-info > div {
-  padding: 12px 14px;
-  border-right: 1px solid var(--line);
-  color: var(--text-mute);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.hero-info > div:last-child { border-right: none; }
-.hero-info b { color: var(--chrome-bright); font-weight: 700; }
 .hero-ctas {
-  margin-top: 30px;
+  margin-top: 32px;
   display: inline-flex;
   flex-wrap: wrap;
   gap: 14px;
   justify-content: center;
 }
+.hero-foot {
+  margin-top: 56px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.hero-foot b { color: var(--chrome-bright); font-weight: 700; }
+.hero-foot .sep { color: var(--blue); opacity: 0.5; }
 .hero-scrollcue {
   margin-top: 36px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
   color: var(--text-mute);
   text-transform: uppercase;
   display: inline-flex;
@@ -716,7 +749,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
   gap: 10px;
 }
 .hero-scrollcue .arrow {
-  width: 18px; height: 18px;
+  width: 14px; height: 14px;
   border-right: 2px solid var(--lime);
   border-bottom: 2px solid var(--lime);
   transform: rotate(45deg);
@@ -726,22 +759,15 @@ body.drawer-open .nav-burger { visibility: hidden; }
   0%, 100% { transform: rotate(45deg) translate(0, 0); }
   50% { transform: rotate(45deg) translate(2px, 2px); }
 }
+.hero .splat-1 { top: -40px; left: -60px; width: 320px; height: 320px; opacity: 0.16; }
+.hero .splat-2 { bottom: 40px; right: -80px; width: 380px; height: 380px; opacity: 0.12; }
 @media (max-width: 768px) {
-  .hero { padding-top: calc(var(--nav-h-sm) + 36px); padding-bottom: 90px; }
-  .hero-window .win-body { padding: 28px 16px 24px; }
-  .hero-info { grid-template-columns: 1fr; }
-  .hero-info > div { border-right: none; border-bottom: 1px solid var(--line); }
-  .hero-info > div:last-child { border-bottom: none; }
+  .hero { padding-top: calc(var(--nav-h-sm) + 50px); padding-bottom: 100px; }
+  .hero-spike-row::before, .hero-spike-row::after { width: 30px; }
+  .hero-foot { gap: 14px; font-size: 0.66rem; }
+  .hero-foot .sep { display: none; }
   .hero-ctas { width: 100%; flex-direction: column; }
   .hero-ctas .btn { width: 100%; }
-  /* Mobile element order: CTA path BEFORE editorial */
-  .hero-window .win-body { display: flex; flex-direction: column; }
-  .hero-window .hero-eyebrow { order: 1; }
-  .hero-window .hero-wordmark { order: 2; }
-  .hero-window .hero-sub { order: 3; }
-  .hero-window .hero-ctas { order: 4; }
-  .hero-window .hero-info { order: 5; }
-  .hero-window .hero-scrollcue { order: 6; }
 }
 
 /* ==========================================================
@@ -790,55 +816,87 @@ body.drawer-open .nav-burger { visibility: hidden; }
    ABOUT
    ========================================================== */
 .about {
-  padding: 120px 0;
+  padding: 130px 0;
   background:
     linear-gradient(180deg, #0B0E18 0%, #08090C 100%);
+  position: relative;
+  overflow: hidden;
+}
+.about::before {
+  content: "AIDEN";
+  position: absolute;
+  top: 30px;
+  right: -40px;
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 22vw, 22rem);
+  line-height: 1;
+  color: rgba(41, 69, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.02em;
 }
 .about-grid {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
-  gap: 50px;
-  align-items: stretch;
-}
-.about-readme .win-body {
-  padding: 26px 28px;
-  background: #08090C;
-  min-height: 100%;
-}
-.about-readme h2 {
-  font-family: var(--font-headline);
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
-  margin-bottom: 22px;
-  text-transform: uppercase;
-}
-.about-readme p {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--text);
-  margin-bottom: 16px;
-}
-.about-readme p.muted { color: var(--text-mute); }
-.about-readme .terminal-line {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--lime);
-  margin-top: 22px;
-  letter-spacing: 0.08em;
-}
-.about-readme .terminal-line::before { content: "> "; color: var(--text-mute); }
-
-.about-cam .win-body {
-  padding: 0;
-  aspect-ratio: 4 / 5;
+  gap: 56px;
+  align-items: start;
   position: relative;
+  z-index: 2;
+}
+.about-text .tag {
+  display: inline-flex;
+  padding: 6px 12px;
+  background: var(--lime);
+  color: #08090C;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+  transform: rotate(-1.5deg);
+  box-shadow: 4px 4px 0 #08090C;
+}
+.about-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+  color: var(--chrome-bright);
+  text-shadow: 0 4px 0 rgba(8, 9, 12, 0.6), 4px 4px 0 var(--blue);
+}
+.about-text h2 .accent { color: var(--hot-red); display: inline; }
+.about-text p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 18px;
+  max-width: 540px;
+}
+.about-text p.muted { color: var(--text-mute); }
+.about-text .sigline {
+  font-family: var(--font-graf);
+  font-size: 1.4rem;
+  color: var(--lime);
+  margin-top: 26px;
+  transform: rotate(-1deg);
+  display: inline-block;
+}
+
+.about-cam {
+  position: relative;
+  aspect-ratio: 4 / 5;
   background:
-    repeating-linear-gradient(45deg, #0B0E18 0px, #0B0E18 4px, #050609 4px, #050609 8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    repeating-linear-gradient(45deg, #0B0E18 0px, #0B0E18 6px, #050609 6px, #050609 12px);
+  border: 2px solid var(--chrome-dark);
+  box-shadow:
+    8px 8px 0 var(--blue),
+    8px 8px 0 1px var(--chrome-dark),
+    inset 0 0 60px rgba(0,0,0,0.6);
   overflow: hidden;
+  transform: rotate(1.2deg);
 }
 .about-cam .nosignal {
   position: absolute;
@@ -848,33 +906,33 @@ body.drawer-open .nav-burger { visibility: hidden; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 16px;
+  gap: 18px;
   padding: 24px;
 }
 .about-cam .nosignal .glyph {
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
   background: linear-gradient(180deg, #1B1E27 0%, #08090C 100%);
-  border: 2px solid var(--chrome-dark);
+  border: 3px solid var(--chrome-dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.6rem;
+  font-size: 3rem;
   color: var(--chrome-dark);
-  box-shadow: inset 0 0 20px rgba(0,0,0,0.7);
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
 }
 .about-cam .nosignal .lbl {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  color: var(--chrome);
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: var(--chrome-bright);
   text-transform: uppercase;
 }
 .about-cam .nosignal .sub {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
   color: var(--text-mute);
   text-transform: uppercase;
   max-width: 220px;
@@ -887,8 +945,8 @@ body.drawer-open .nav-burger { visibility: hidden; }
     to bottom,
     transparent 0px,
     transparent 3px,
-    rgba(0, 0, 0, 0.25) 3px,
-    rgba(0, 0, 0, 0.25) 4px);
+    rgba(0, 0, 0, 0.3) 3px,
+    rgba(0, 0, 0, 0.3) 4px);
 }
 .about-cam .rec {
   position: absolute;
@@ -900,22 +958,23 @@ body.drawer-open .nav-burger { visibility: hidden; }
   font-size: 0.68rem;
   color: var(--chrome-bright);
   letter-spacing: 0.18em;
-  background: rgba(0,0,0,0.6);
-  padding: 4px 8px;
+  background: rgba(0,0,0,0.65);
+  padding: 5px 10px;
   border: 1px solid var(--line-bright);
 }
 .about-cam .rec .red {
   width: 10px; height: 10px; border-radius: 50%;
-  background: #FF2986;
-  box-shadow: 0 0 8px #FF2986;
+  background: var(--hot-red);
+  box-shadow: 0 0 8px var(--hot-red);
   animation: pulse 1.4s ease-in-out infinite;
 }
 @media (max-width: 880px) {
-  .about-grid { grid-template-columns: 1fr; gap: 28px; }
-  .about-cam .win-body { aspect-ratio: 16 / 11; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-cam { aspect-ratio: 16 / 11; transform: rotate(0); max-width: 460px; }
 }
 @media (max-width: 768px) {
   .about { padding: 80px 0; }
+  .about-text h2 { text-shadow: 0 3px 0 rgba(8, 9, 12, 0.6), 3px 3px 0 var(--blue); }
 }
 
 /* ==========================================================
@@ -939,12 +998,14 @@ body.drawer-open .nav-burger { visibility: hidden; }
   align-items: end;
 }
 .work-head h2 {
-  font-family: var(--font-headline);
-  font-size: clamp(2.6rem, 6vw, 5rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: 0.005em;
   margin: 0;
   text-transform: uppercase;
+  color: var(--chrome-bright);
+  text-shadow: 4px 4px 0 var(--lime);
 }
 .work-head .lede {
   font-size: 1.05rem;
@@ -1055,21 +1116,22 @@ body.drawer-open .nav-burger { visibility: hidden; }
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--lime);
+  color: #08090C;
+  background: var(--lime);
   align-self: flex-start;
-  padding: 6px 10px;
-  border: 1px solid rgba(200, 255, 31, 0.35);
-  background: rgba(200, 255, 31, 0.06);
-  border-radius: 2px;
+  padding: 6px 12px;
+  transform: rotate(-1.5deg);
+  box-shadow: 3px 3px 0 #08090C;
 }
 .work-info h3 {
-  font-family: var(--font-headline);
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-  letter-spacing: 0.04em;
-  line-height: 1;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.005em;
+  line-height: 0.95;
   text-transform: uppercase;
   color: var(--chrome-bright);
 }
@@ -1125,40 +1187,71 @@ body.drawer-open .nav-burger { visibility: hidden; }
    SERVICES
    ========================================================== */
 .services {
-  padding: 120px 0;
+  padding: 130px 0;
   background: #08090C;
+  position: relative;
+  overflow: hidden;
 }
 .services-head {
-  margin-bottom: 50px;
-  text-align: center;
+  margin-bottom: 60px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  align-items: end;
 }
-.services-head .label-mono { color: var(--lime); }
 .services-head h2 {
-  font-family: var(--font-headline);
-  font-size: clamp(2.4rem, 5.5vw, 4.4rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
-  margin: 14px auto 18px;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 7vw, 6rem);
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  margin: 0;
   text-transform: uppercase;
+  color: var(--chrome-bright);
+  text-shadow: 4px 4px 0 var(--hot-red);
 }
 .services-head p {
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text-mute);
-  max-width: 640px;
-  margin: 0 auto;
+  max-width: 360px;
+  border-left: 3px solid var(--lime);
+  padding-left: 18px;
+  line-height: 1.6;
 }
 .services-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  gap: 24px;
 }
-.svc-card .win-body {
-  padding: 30px 26px 28px;
+.svc-card {
+  position: relative;
+  padding: 32px 26px 28px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   background: linear-gradient(180deg, #0F132A 0%, #08090C 100%);
-  min-height: 380px;
+  border: 2px solid var(--chrome-dark);
+  min-height: 420px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  box-shadow: 6px 6px 0 var(--blue);
+}
+.svc-card:nth-child(2) { box-shadow: 6px 6px 0 var(--lime); }
+.svc-card:nth-child(3) { box-shadow: 6px 6px 0 var(--hot-red); }
+.svc-card:hover {
+  transform: translate(-3px, -3px);
+  border-color: var(--lime);
+  box-shadow: 9px 9px 0 var(--blue);
+}
+.svc-card:nth-child(2):hover { box-shadow: 9px 9px 0 var(--lime); }
+.svc-card:nth-child(3):hover { box-shadow: 9px 9px 0 var(--hot-red); }
+.svc-card .num {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  line-height: 1;
+  color: rgba(197, 202, 210, 0.12);
+  pointer-events: none;
 }
 .svc-card .ico {
   width: 56px; height: 56px;
@@ -1168,14 +1261,23 @@ body.drawer-open .nav-burger { visibility: hidden; }
   background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 100%);
   color: #FFFFFF;
   font-size: 1.4rem;
-  border: 1px solid #08099E;
+  border: 2px solid #08099E;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 14px rgba(41, 69, 255, 0.4);
-  border-radius: 2px;
+}
+.svc-card:nth-child(2) .ico {
+  background: linear-gradient(180deg, var(--lime) 0%, var(--lime-dim) 100%);
+  color: #08090C;
+  border-color: #4A6700;
+}
+.svc-card:nth-child(3) .ico {
+  background: linear-gradient(180deg, var(--hot-red) 0%, #B91A11 100%);
+  border-color: #6B0E07;
 }
 .svc-card h3 {
-  font-family: var(--font-headline);
-  font-size: 1.5rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
   text-transform: uppercase;
   color: var(--chrome-bright);
 }
@@ -1190,19 +1292,20 @@ body.drawer-open .nav-burger { visibility: hidden; }
   padding: 0; margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 .svc-card ul li {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-mute);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--chrome);
+  letter-spacing: 0.04em;
 }
 .svc-card ul li::before {
-  content: "+ ";
+  content: "+  ";
   color: var(--lime);
+  font-weight: 700;
 }
+.svc-card:nth-child(3) ul li::before { color: var(--hot-red); }
 .svc-card .rate {
   font-family: var(--font-mono);
   font-size: 0.74rem;
@@ -1213,17 +1316,19 @@ body.drawer-open .nav-burger { visibility: hidden; }
   padding-top: 14px;
   border-top: 1px dashed var(--line);
 }
+.svc-card:nth-child(3) .rate { color: var(--hot-red); }
 @media (max-width: 980px) {
+  .services-head { grid-template-columns: 1fr; gap: 18px; }
   .services-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
-  .svc-card .win-body { min-height: 0; padding: 22px 18px; }
-  .svc-card h3 { font-size: 1.2rem; }
+  .svc-card { min-height: 0; padding: 22px 18px; }
+  .svc-card h3 { font-size: 1.4rem; }
   .svc-card .desc { font-size: 0.88rem; }
 }
 @media (max-width: 560px) {
-  .svc-card .win-body { padding: 18px 14px; }
-  .svc-card h3 { font-size: 1.05rem; }
+  .svc-card { padding: 20px 16px; }
+  .svc-card h3 { font-size: 1.2rem; }
   .svc-card .desc { font-size: 0.84rem; }
-  .svc-card ul li { font-size: 0.7rem; }
+  .svc-card ul li { font-size: 0.74rem; }
 }
 @media (max-width: 768px) { .services { padding: 80px 0; } }
 
@@ -1246,22 +1351,24 @@ body.drawer-open .nav-burger { visibility: hidden; }
   margin-bottom: 50px;
 }
 .process-head h2 {
-  font-family: var(--font-headline);
-  font-size: clamp(2.4rem, 5vw, 4.2rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6.5vw, 5.6rem);
+  line-height: 0.92;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
+  color: var(--chrome-bright);
+  text-shadow: 4px 4px 0 var(--blue);
 }
 .process-head .stamp {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.16em;
+  font-family: var(--font-graf);
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--text-mute);
-  border: 1px dashed var(--chrome-dark);
-  padding: 10px 14px;
+  color: var(--lime);
+  padding: 8px 14px;
   align-self: end;
   justify-self: end;
+  transform: rotate(-2deg);
 }
 .process-list {
   display: flex;
@@ -1285,12 +1392,13 @@ body.drawer-open .nav-burger { visibility: hidden; }
   text-shadow: 0 0 22px rgba(41, 69, 255, 0.5);
 }
 .proc-step h3 {
-  font-family: var(--font-headline);
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
   color: var(--chrome-bright);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  line-height: 0.95;
 }
 .proc-step p {
   color: var(--text-mute);
@@ -1339,12 +1447,14 @@ body.drawer-open .nav-burger { visibility: hidden; }
   background: #08090C;
 }
 .contact-form h2 {
-  font-family: var(--font-headline);
-  font-size: clamp(2rem, 4vw, 3rem);
-  line-height: 1;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
   margin-bottom: 10px;
+  color: var(--chrome-bright);
+  text-shadow: 3px 3px 0 var(--hot-red);
 }
 .contact-form .lede {
   color: var(--text-mute);
@@ -1410,9 +1520,10 @@ body.drawer-open .nav-burger { visibility: hidden; }
   height: 100%;
 }
 .contact-side h3 {
-  font-family: var(--font-headline);
-  font-size: 1.3rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
   text-transform: uppercase;
   color: var(--chrome-bright);
 }
@@ -1500,12 +1611,14 @@ body.drawer-open .nav-burger { visibility: hidden; }
   background: #08090C;
 }
 .modal h3 {
-  font-family: var(--font-headline);
-  font-size: 1.8rem;
-  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
   text-transform: uppercase;
   margin-bottom: 12px;
   color: var(--lime);
+  text-shadow: 3px 3px 0 #08090C;
 }
 .modal p {
   color: var(--text);
@@ -1530,11 +1643,13 @@ body.drawer-open .nav-burger { visibility: hidden; }
 }
 .foot-brand h4 {
   font-family: var(--font-display);
-  font-size: 1.6rem;
-  letter-spacing: 0.04em;
+  font-size: 2.2rem;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
   text-transform: uppercase;
   color: var(--chrome-bright);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  text-shadow: 3px 3px 0 var(--blue);
 }
 .foot-brand p {
   color: var(--text-mute);
@@ -1543,12 +1658,14 @@ body.drawer-open .nav-burger { visibility: hidden; }
   max-width: 360px;
 }
 .foot h5 {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.18em;
+  font-family: var(--font-graf);
+  font-size: 1.2rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--lime);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+  transform: rotate(-2deg);
+  display: inline-block;
 }
 .foot ul {
   list-style: none;
@@ -1652,7 +1769,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
 <div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true"></div>
 <aside class="drawer" id="drawer" aria-hidden="true" aria-label="Mobile menu">
   <div class="drawer-head">
-    <span class="dt">// MENU.EXE</span>
+    <span class="dt">Menu</span>
     <button class="drawer-close" id="drawer-close" aria-label="Close menu">
       <i class="fa-solid fa-xmark" aria-hidden="true"></i>
     </button>
@@ -1682,53 +1799,48 @@ body.drawer-open .nav-burger { visibility: hidden; }
      HERO
      ========================================================== -->
 <section class="hero" aria-label="Hero">
-  <div class="container">
-    <div class="hero-window win">
-      <div class="win-titlebar">
-        <span class="dot" aria-hidden="true"></span>
-        <span class="title">SYS://CROSSDESIGNS/HOME.EXE</span>
-        <span class="win-controls" aria-hidden="true">
-          <span>_</span><span>&#9744;</span><span>&times;</span>
-        </span>
-      </div>
-      <div class="win-body">
-        <span class="hero-eyebrow">
-          <span class="pulse" aria-hidden="true"></span>
-          Booted 2026 // Miami, FL
-        </span>
-        <h1 class="hero-wordmark">
-          <span class="chrome-fill">CROSS</span>
-          <span class="chrome-fill">DESIGNS</span>
-        </h1>
-        <p class="hero-sub">
-          <strong>Aiden Camacho</strong> builds Y2K-leaning, conversion-focused websites for independent brands. Custom front-ends, on-page SEO, and full redesigns. No templates, no filler.
-        </p>
-        <div class="hero-info" role="group" aria-label="Identity">
-          <div><span>Operator</span><b>A. Camacho</b></div>
-          <div><span>Status</span><b style="color: var(--lime);">// Accepting Work</b></div>
-          <div><span>Base</span><b>Miami, FL // Remote</b></div>
-        </div>
-        <div class="hero-ctas">
-          <a class="btn btn-primary" href="#contact">
-            <i class="fa-solid fa-rocket" aria-hidden="true"></i>
-            Start a Project
-          </a>
-          <a class="btn btn-ghost" href="#work">
-            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
-            See Live Builds
-          </a>
-        </div>
-        <div class="hero-scrollcue" aria-hidden="true">
-          Scroll for portfolio
-          <span class="arrow"></span>
-        </div>
-      </div>
-      <div class="win-statusbar">
-        <span class="seg green">// READY</span>
-        <span class="seg">UPTIME 100%</span>
-        <span class="seg spacer"></span>
-        <span class="seg">FPS 60</span>
-        <span class="seg">v1.0.0</span>
+  <span class="splat splat-1" aria-hidden="true">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#C8FF1F" d="M100 10c8 18 22 14 32 30s24 6 38 22-2 30 8 46-8 28-2 44-22 18-36 28-12 22-30 14-30 8-44-2-12-22-22-32-22-12-22-30 16-12 14-30-8-22 4-36 18 4 28-12 22-46 32-42z"/></svg>
+  </span>
+  <span class="splat splat-2" aria-hidden="true">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path fill="#FF2A1F" d="M50 30c20-8 36 4 54 0s30 14 50 18-2 28 8 44-2 32-12 44-22-2-38 8-30 14-44 4-22-18-32-28-22-22-12-38 8-44 26-52z"/></svg>
+  </span>
+  <div class="hero-inner">
+    <span class="hero-stamp">
+      <span class="pulse" aria-hidden="true"></span>
+      Booted 2026 - Miami, FL
+    </span>
+    <h1 class="hero-wordmark">
+      <span class="line-1">Cross</span>
+      <span class="line-2">Designs</span>
+    </h1>
+    <div class="hero-spike-row" aria-hidden="true">
+      <span>web design + dev</span>
+    </div>
+    <p class="hero-sub">
+      <strong>Aiden Camacho</strong> builds Y2K-leaning, conversion-focused websites for independent brands. Custom front-ends, on-page SEO, and full redesigns. No templates, no filler.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#contact">
+        <i class="fa-solid fa-rocket" aria-hidden="true"></i>
+        Start a Project
+      </a>
+      <a class="btn btn-ghost" href="#work">
+        <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+        See Live Builds
+      </a>
+    </div>
+    <div class="hero-foot" aria-label="Identity">
+      <span><b>A. Camacho</b> / Operator</span>
+      <span class="sep">+</span>
+      <span style="color: var(--lime);"><b style="color: var(--lime);">Accepting Work</b></span>
+      <span class="sep">+</span>
+      <span><b>Miami, FL</b> / Remote</span>
+    </div>
+    <div style="margin-top: 30px;">
+      <div class="hero-scrollcue" aria-hidden="true">
+        Scroll for portfolio
+        <span class="arrow"></span>
       </div>
     </div>
   </div>
@@ -1742,10 +1854,10 @@ body.drawer-open .nav-burger { visibility: hidden; }
     <div class="trust-strip">
       <span class="dot" aria-hidden="true"></span>
       <span class="seg"><b>2 Live Builds</b> in production</span>
-      <span class="sep">::</span>
-      <span class="seg">Custom front-end + SEO + brand</span>
-      <span class="sep">::</span>
-      <span class="seg">Independent studio. Direct line to the builder.</span>
+      <span class="sep">+</span>
+      <span class="seg">Custom front-end, SEO, brand</span>
+      <span class="sep">+</span>
+      <span class="seg">Direct line to the builder</span>
     </div>
   </div>
 </section>
@@ -1757,56 +1869,26 @@ body.drawer-open .nav-burger { visibility: hidden; }
   <div class="container">
     <div class="about-grid">
 
-      <div class="about-readme win">
-        <div class="win-titlebar">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="title">README.TXT</span>
-          <span class="win-controls" aria-hidden="true">
-            <span>_</span><span>&#9744;</span><span>&times;</span>
-          </span>
-        </div>
-        <div class="win-body">
-          <span class="label-mono" style="display:block;margin-bottom:8px;color:var(--lime);">// FILE: about_aiden.txt</span>
-          <h2><span class="chrome-fill">Hi, I'm</span><br><span class="blue-fill">Aiden.</span></h2>
-          <p>
-            I run Cross Designs, a one-person web studio. I've been building sites for a few years now: small businesses, independent creators, and brands that need a real online presence without disappearing into another Squarespace template.
-          </p>
-          <p class="muted">
-            Most of what I do falls into three buckets: redesigning sites that look like every other site in their category, building from scratch when there's no site at all, and tightening on-page SEO so the work actually gets found. Every build ships as hand-coded HTML, CSS, and JS. No bloat, no page builders, no surprises in the lighthouse score.
-          </p>
-          <div class="terminal-line">end_of_file // see services.exe</div>
-        </div>
-        <div class="win-statusbar">
-          <span class="seg">LINES 12</span>
-          <span class="seg">UTF-8</span>
-          <span class="seg spacer"></span>
-          <span class="seg green">// SAVED</span>
-        </div>
+      <div class="about-text">
+        <span class="tag">The Operator</span>
+        <h2>Hi, I'm <span class="accent">Aiden.</span></h2>
+        <p>
+          I run Cross Designs, a one-person web studio. I've been building sites for a few years: small businesses, independent creators, and brands that need a real online presence without disappearing into another Squarespace template.
+        </p>
+        <p class="muted">
+          Most of what I do falls into three buckets: redesigning sites that look like every other site in their category, building from scratch when there's no site at all, and tightening on-page SEO so the work gets found. Every build ships as hand-coded HTML, CSS, and JS. No bloat, no page builders, no surprises in the lighthouse score.
+        </p>
+        <span class="sigline">~ A. Camacho ~</span>
       </div>
 
-      <div class="about-cam win">
-        <div class="win-titlebar">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="title">WEBCAM_01.JPG</span>
-          <span class="win-controls" aria-hidden="true">
-            <span>_</span><span>&#9744;</span><span>&times;</span>
-          </span>
+      <div class="about-cam" aria-label="Headshot placeholder">
+        <span class="rec"><span class="red"></span> REC 00:01:42</span>
+        <div class="nosignal">
+          <div class="glyph"><i class="fa-solid fa-user-astronaut" aria-hidden="true"></i></div>
+          <div class="lbl">Headshot Needed</div>
+          <div class="sub">drop final photo here</div>
         </div>
-        <div class="win-body">
-          <span class="rec"><span class="red"></span> REC // 00:01:42</span>
-          <div class="nosignal" aria-label="Headshot placeholder">
-            <div class="glyph"><i class="fa-solid fa-user-astronaut" aria-hidden="true"></i></div>
-            <div class="lbl">[ HEADSHOT NEEDED ]</div>
-            <div class="sub">// drop final photo here //</div>
-          </div>
-          <div class="scan" aria-hidden="true"></div>
-        </div>
-        <div class="win-statusbar">
-          <span class="seg">CAM_01</span>
-          <span class="seg">640x800</span>
-          <span class="seg spacer"></span>
-          <span class="seg">// LOCAL</span>
-        </div>
+        <div class="scan" aria-hidden="true"></div>
       </div>
 
     </div>
@@ -1820,7 +1902,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
   <div class="container">
 
     <div class="work-head">
-      <h2><span class="chrome-fill">Live</span><br><span class="blue-fill">Builds.</span></h2>
+      <h2>Live<br>Builds.</h2>
       <p class="lede">
         Two production sites, both live right now, both built end-to-end in this studio. Click into the embed for a live preview or launch the real site in a new tab.
       </p>
@@ -1859,7 +1941,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           </div>
         </div>
         <div class="win-statusbar">
-          <span class="seg green">// 200 OK</span>
+          <span class="seg green">200 OK</span>
           <span class="seg">HTTPS</span>
           <span class="seg spacer"></span>
           <span class="seg">CDN: GH-PAGES</span>
@@ -1867,7 +1949,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
       </div>
 
       <div class="work-info">
-        <span class="work-tag">// Project 01 // Sports + Coaching</span>
+        <span class="work-tag">Project 01 + Sports + Coaching</span>
         <h3>Redline Golf Academy</h3>
         <span class="url">redlinegolfacademy.com</span>
         <p>
@@ -1925,7 +2007,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           </div>
         </div>
         <div class="win-statusbar">
-          <span class="seg green">// 200 OK</span>
+          <span class="seg green">200 OK</span>
           <span class="seg">HTTPS</span>
           <span class="seg spacer"></span>
           <span class="seg">CDN: GH-PAGES</span>
@@ -1933,7 +2015,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
       </div>
 
       <div class="work-info">
-        <span class="work-tag">// Project 02 // Author + Creator</span>
+        <span class="work-tag">Project 02 + Author + Creator</span>
         <h3>Casi Camacho</h3>
         <span class="url">casicamacho.com</span>
         <p>
@@ -1967,83 +2049,58 @@ body.drawer-open .nav-burger { visibility: hidden; }
 <section class="services" id="services" aria-label="Services">
   <div class="container">
     <div class="services-head">
-      <span class="label-mono">// SERVICES.EXE</span>
-      <h2><span class="chrome-fill">What I Build.</span></h2>
-      <p>Three offers. All three include design, build, deploy, and a real handoff. Pick the one that matches where the project actually is.</p>
+      <h2>What <br>I Build.</h2>
+      <p>Three offers. Each includes design, build, deploy, and a real handoff. Pick the one that fits where your project actually is.</p>
     </div>
 
     <div class="services-grid">
 
-      <article class="svc-card win">
-        <div class="win-titlebar">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="title">SVC_01.PKG</span>
-          <span class="win-controls" aria-hidden="true">
-            <span>_</span><span>&#9744;</span><span>&times;</span>
-          </span>
-        </div>
-        <div class="win-body">
-          <span class="ico"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></span>
-          <h3>Custom Builds</h3>
-          <p class="desc">
-            Full website built from scratch. Real design system, hand-coded front-end, and a layout shaped around what the brand actually sells.
-          </p>
-          <ul>
-            <li>Design + build + deploy</li>
-            <li>Hand-coded, no page builder</li>
-            <li>Mobile-first responsive</li>
-            <li>Fast loads, clean Lighthouse</li>
-          </ul>
-          <div class="rate">// Project-based</div>
-        </div>
+      <article class="svc-card">
+        <span class="num">01</span>
+        <span class="ico"><i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i></span>
+        <h3>Custom Builds</h3>
+        <p class="desc">
+          Full website built from scratch. Real design system, hand-coded front-end, layout shaped around what the brand actually sells.
+        </p>
+        <ul>
+          <li>Design, build, deploy</li>
+          <li>Hand-coded, no page builder</li>
+          <li>Mobile-first responsive</li>
+          <li>Fast loads, clean Lighthouse</li>
+        </ul>
+        <div class="rate">Project-based</div>
       </article>
 
-      <article class="svc-card win">
-        <div class="win-titlebar">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="title">SVC_02.PKG</span>
-          <span class="win-controls" aria-hidden="true">
-            <span>_</span><span>&#9744;</span><span>&times;</span>
-          </span>
-        </div>
-        <div class="win-body">
-          <span class="ico"><i class="fa-solid fa-arrows-spin" aria-hidden="true"></i></span>
-          <h3>Web Redesigns</h3>
-          <p class="desc">
-            Existing site that looks like every competitor. Redesigned end-to-end so the visual identity actually communicates what the business does.
-          </p>
-          <ul>
-            <li>Conversion audit first</li>
-            <li>Visual identity refresh</li>
-            <li>Layout + copy hierarchy</li>
-            <li>Migrate or rebuild on request</li>
-          </ul>
-          <div class="rate">// Project-based</div>
-        </div>
+      <article class="svc-card">
+        <span class="num">02</span>
+        <span class="ico"><i class="fa-solid fa-arrows-spin" aria-hidden="true"></i></span>
+        <h3>Web Redesigns</h3>
+        <p class="desc">
+          Existing site looks like every competitor. Redesigned end-to-end so the visual identity actually communicates what the business does.
+        </p>
+        <ul>
+          <li>Conversion audit first</li>
+          <li>Visual identity refresh</li>
+          <li>Layout and copy hierarchy</li>
+          <li>Migrate or rebuild on request</li>
+        </ul>
+        <div class="rate">Project-based</div>
       </article>
 
-      <article class="svc-card win">
-        <div class="win-titlebar">
-          <span class="dot" aria-hidden="true"></span>
-          <span class="title">SVC_03.PKG</span>
-          <span class="win-controls" aria-hidden="true">
-            <span>_</span><span>&#9744;</span><span>&times;</span>
-          </span>
-        </div>
-        <div class="win-body">
-          <span class="ico"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></span>
-          <h3>SEO</h3>
-          <p class="desc">
-            On-page SEO, technical fixes, and structured data. The work that makes Google understand what the site is and rank it for the queries that matter.
-          </p>
-          <ul>
-            <li>Technical + on-page audit</li>
-            <li>Schema + meta + canonical</li>
-            <li>Local SEO for service businesses</li>
-            <li>Performance + Core Web Vitals</li>
-          </ul>
-          <div class="rate">// Engagement-based</div>
-        </div>
+      <article class="svc-card">
+        <span class="num">03</span>
+        <span class="ico"><i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i></span>
+        <h3>SEO</h3>
+        <p class="desc">
+          On-page SEO, technical fixes, structured data. The work that makes Google understand what the site is and rank it for the queries that matter.
+        </p>
+        <ul>
+          <li>Technical and on-page audit</li>
+          <li>Schema, meta, canonical</li>
+          <li>Local SEO for service biz</li>
+          <li>Performance and Core Web Vitals</li>
+        </ul>
+        <div class="rate">Engagement-based</div>
       </article>
 
     </div>
@@ -2056,8 +2113,8 @@ body.drawer-open .nav-burger { visibility: hidden; }
 <section class="process" id="process" aria-label="Process">
   <div class="container">
     <div class="process-head">
-      <h2><span class="chrome-fill">How a build</span><br><span class="blue-fill">actually goes.</span></h2>
-      <span class="stamp">// PROC.EXE :: 4 STEPS</span>
+      <h2>How a build<br>actually goes.</h2>
+      <span class="stamp">~ four steps ~</span>
     </div>
 
     <div class="process-list">
@@ -2067,7 +2124,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <h3>Brief + Diagnosis</h3>
           <p>Free call. We talk through the business, the audience, what's currently working, and what isn't. Most projects come back with a one-page diagnosis before any design starts.</p>
         </div>
-        <span class="meta">// 20-30 min</span>
+        <span class="meta">20-30 min</span>
       </div>
       <div class="proc-step">
         <span class="proc-num">02</span>
@@ -2075,7 +2132,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <h3>Design Direction</h3>
           <p>Visual identity, type, color, signature elements. You see a real direction (not a Pinterest board) and sign off before any code gets written.</p>
         </div>
-        <span class="meta">// 1 week</span>
+        <span class="meta">1 week</span>
       </div>
       <div class="proc-step">
         <span class="proc-num">03</span>
@@ -2083,7 +2140,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <h3>Hand-Coded Build</h3>
           <p>Front-end in HTML, CSS, and JS, no template starter. Mobile and desktop are designed separately. SEO and schema are baked in from the first commit.</p>
         </div>
-        <span class="meta">// 2-3 weeks</span>
+        <span class="meta">2-3 weeks</span>
       </div>
       <div class="proc-step">
         <span class="proc-num">04</span>
@@ -2091,7 +2148,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <h3>Ship + Handoff</h3>
           <p>Deployed to your hosting (or mine) with a written handoff: how to update content, where the assets live, what to do post-launch.</p>
         </div>
-        <span class="meta">// Ongoing support</span>
+        <span class="meta">Ongoing support</span>
       </div>
     </div>
   </div>
@@ -2113,24 +2170,24 @@ body.drawer-open .nav-burger { visibility: hidden; }
           </span>
         </div>
         <div class="win-body">
-          <h2><span class="chrome-fill">Start a project.</span></h2>
+          <h2>Start a project.</h2>
           <p class="lede">Tell me what you're building (or what you wish you had instead of what you've got now). I read every message.</p>
 
           <form id="contact-form" novalidate>
             <div class="field-grid">
               <div class="field" data-field="name">
-                <label for="f-name">// Name</label>
+                <label for="f-name">Name</label>
                 <input id="f-name" type="text" name="name" required autocomplete="name" />
                 <span class="err">Add a name so I know who I'm talking to.</span>
               </div>
               <div class="field" data-field="email">
-                <label for="f-email">// Email</label>
+                <label for="f-email">Email</label>
                 <input id="f-email" type="email" name="email" required autocomplete="email" />
                 <span class="err">That looks incomplete. Try something like you@yourdomain.com</span>
               </div>
             </div>
             <div class="field" data-field="kind">
-              <label for="f-kind">// Project Type</label>
+              <label for="f-kind">Project Type</label>
               <select id="f-kind" name="kind" required>
                 <option value="">Select one</option>
                 <option value="custom">Custom build from scratch</option>
@@ -2141,7 +2198,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
               <span class="err">Pick the closest fit. We can refine on the call.</span>
             </div>
             <div class="field" data-field="message">
-              <label for="f-message">// What are we building?</label>
+              <label for="f-message">What are we building?</label>
               <textarea id="f-message" name="message" required placeholder="A few sentences is enough. Links, deadlines, budget range if you have one."></textarea>
               <span class="err">Add a sentence or two so I can come back prepared.</span>
             </div>
@@ -2149,11 +2206,11 @@ body.drawer-open .nav-burger { visibility: hidden; }
               <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
               Send Inquiry
             </button>
-            <p class="promise">// Direct line to Aiden. A real reply, when it matters.</p>
+            <p class="promise">Direct line to Aiden. A real reply, when it matters.</p>
           </form>
         </div>
         <div class="win-statusbar">
-          <span class="seg green">// READY</span>
+          <span class="seg green">Ready</span>
           <span class="seg">SECURE</span>
           <span class="seg spacer"></span>
           <span class="seg">FORM v1</span>
@@ -2174,7 +2231,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <div class="info-row">
             <span class="ico"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
             <div class="body">
-              <span>// Email</span>
+              <span>Email</span>
               <a href="mailto:miami.hype1@gmail.com">miami.hype1@gmail.com</a>
             </div>
           </div>
@@ -2182,15 +2239,15 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <div class="info-row">
             <span class="ico"><i class="fa-solid fa-location-crosshairs" aria-hidden="true"></i></span>
             <div class="body">
-              <span>// Base</span>
-              <strong>Miami, FL // Remote-friendly</strong>
+              <span>Base</span>
+              <strong>Miami, FL + Remote-friendly</strong>
             </div>
           </div>
 
           <div class="info-row">
             <span class="ico"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>
             <div class="body">
-              <span>// Reply window</span>
+              <span>Reply window</span>
               <strong>Within 1 business day</strong>
             </div>
           </div>
@@ -2198,9 +2255,9 @@ body.drawer-open .nav-burger { visibility: hidden; }
           <div class="placeholder">[ ADD PHONE / SOCIALS / CALENDLY HERE ]</div>
         </div>
         <div class="win-statusbar">
-          <span class="seg">// LOCAL</span>
+          <span class="seg">Local</span>
           <span class="seg spacer"></span>
-          <span class="seg green">// ONLINE</span>
+          <span class="seg green">Online</span>
         </div>
       </aside>
 
@@ -2223,7 +2280,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
       </span>
     </div>
     <div class="win-body">
-      <h3 id="modal-title">// Inquiry sent.</h3>
+      <h3 id="modal-title">Inquiry Sent.</h3>
       <p>Thanks for the message. I'll come back to you inside one business day with next steps and a few clarifying questions.</p>
       <button class="btn btn-primary" id="modal-close">
         <i class="fa-solid fa-check" aria-hidden="true"></i>
@@ -2249,7 +2306,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
       </div>
 
       <div>
-        <h5>// Sitemap</h5>
+        <h5>Sitemap</h5>
         <ul>
           <li><a href="#work">Work</a></li>
           <li><a href="#about">About</a></li>
@@ -2260,7 +2317,7 @@ body.drawer-open .nav-burger { visibility: hidden; }
       </div>
 
       <div>
-        <h5>// Builds</h5>
+        <h5>Builds</h5>
         <ul>
           <li><a href="https://redlinegolfacademy.com" target="_blank" rel="noopener">Redline Golf Academy</a></li>
           <li><a href="https://casicamacho.com" target="_blank" rel="noopener">Casi Camacho</a></li>
@@ -2270,8 +2327,8 @@ body.drawer-open .nav-burger { visibility: hidden; }
     </div>
 
     <div class="foot-bottom">
-      <span>(c) 2026 Cross Designs // Built by Aiden Camacho</span>
-      <span class="build-info">// v1.0.0 :: hand-coded :: Miami, FL</span>
+      <span>(c) 2026 Cross Designs &nbsp;+&nbsp; Built by Aiden Camacho</span>
+      <span class="build-info">v1.0.0 &nbsp;+&nbsp; hand-coded &nbsp;+&nbsp; Miami, FL</span>
     </div>
   </div>
 </footer>
