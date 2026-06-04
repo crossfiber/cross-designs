@@ -285,7 +285,7 @@
 (function(){
   "use strict";
   // ====== CONFIG: paste your deployed Google Apps Script Web App URL here ======
-  var ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  var ENDPOINT = "https://script.google.com/macros/s/AKfycbyM38dqAq21UocH77Mn4auiSnOM7M0p-iHL78E3wCh0Xvhyoxt_qLyIUERqEfv8iiLE6Q/exec";
   // =============================================================================
 
   var form = document.getElementById('intakeForm');
@@ -319,8 +319,10 @@
     var btn=document.getElementById('submitBtn');
     btn.disabled=true; btn.textContent='Sending...';
 
-    var data=new FormData(form);
-    data.append('submitted_at', new Date().toISOString());
+    var fd=new FormData(form);
+    fd.append('submitted_at', new Date().toISOString());
+    var data=new URLSearchParams();
+    fd.forEach(function(v,k){ data.append(k,v); });
 
     if(ENDPOINT.indexOf('http')!==0){
       // not configured yet: still show success so the page is testable
