@@ -59,14 +59,14 @@
     width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--ink);background:var(--paper);
     border:2px solid var(--ink);border-radius:12px 7px 12px 7px;padding:12px 14px}
   textarea{resize:vertical;min-height:88px}
-  input:focus,textarea:focus,select:focus{outline:none;box-shadow:3px 3px 0 var(--ink)}
+  input:focus,textarea:focus,select:focus{outline:none;background:var(--white)}
   .choices{display:flex;flex-direction:column;gap:9px;margin-top:4px}
   .choices.row{flex-flow:row wrap;gap:10px 18px}
   .choice{display:flex;align-items:center;gap:9px;font-size:.98rem;cursor:pointer}
   .choice input{width:18px;height:18px;accent-color:var(--ink);flex-shrink:0}
   .err{display:none;font-size:.85rem;color:var(--ink);font-weight:600;margin-top:6px}
   .err::before{content:"\21B3  "}
-  .field.invalid input,.field.invalid textarea,.field.invalid select{box-shadow:2px 2px 0 var(--ink)}
+  .field.invalid input,.field.invalid textarea,.field.invalid select{background:#fff;border-color:var(--ink)}
   .field.invalid .err{display:block}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
@@ -84,6 +84,7 @@
   .done .marker{font-family:'Permanent Marker',cursive;font-size:2rem;margin-bottom:14px;display:block}
   .done p{color:var(--pencil);font-size:1.1rem;max-width:46ch;margin:0 auto}
   body.sent form{display:none}
+  body.sent .intro{display:none}
   body.sent .done{display:block}
 
   footer{border-top:2px solid var(--ink);background:var(--ink);color:#B9B5AC;padding:22px 0;font-size:.9rem}
@@ -120,7 +121,7 @@
     </span>
     <h1>Let's build your site.</h1>
     <p>Thanks for coming on board. Fill this out as completely as you can. <b>The more detail and the more real photos you give me, the faster I can build a site that actually brings you customers.</b> If something does not apply, just write N/A.</p>
-    <p style="font-size:.95rem">Got files to send (logo, photos)? Drop a shareable link below, or just email them to me after you submit this.</p>
+    <p style="font-size:.95rem">You can upload your logo and photos right here in the form, no need to email them separately.</p>
   </section>
 
   <form id="intakeForm" novalidate>
@@ -266,7 +267,7 @@
 
   <div class="done">
     <span class="marker">Got it. Thank you.</span>
-    <p>I have your info and I will review everything and reach out with next steps. If you have a logo or photos to send, email them over to <a href="mailto:aidencamacho576@gmail.com" style="border-bottom:2px solid var(--ink)">aidencamacho576@gmail.com</a> whenever you are ready.</p>
+    <p>Your intake is in, including any logo and photos you uploaded. I will look everything over and get back to you shortly. Need me in the meantime? Reach me at <a href="mailto:cross@crossdesigned.com" style="border-bottom:2px solid var(--ink)">cross@crossdesigned.com</a>.</p>
   </div>
 
 </div>
