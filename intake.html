@@ -171,6 +171,24 @@
       <div class="sec-h"><span class="n">02</span> About Your Business</div>
       <div class="field" id="f-what"><label>In your own words, what do you do? <span class="req">*</span></label><textarea name="what_you_do"></textarea><span class="err">Tell me what you do.</span></div>
       <div class="field" id="f-services"><label>List the services you offer <span class="req">*</span></label><textarea name="services_offered"></textarea><span class="err">List your services.</span></div>
+      <div class="field"><label>Do you want any pricing listed on the site, or keep it "call for a quote"?</label>
+        <div class="choices row">
+          <label class="choice"><input type="radio" name="pricing_pref" value="List pricing"> List pricing</label>
+          <label class="choice"><input type="radio" name="pricing_pref" value="Call for a quote"> Call for a quote</label>
+          <label class="choice"><input type="radio" name="pricing_pref" value="Some of both"> Some of both</label>
+        </div>
+      </div>
+      <div class="field" id="f-pricing-list" hidden>
+        <label>Your services and their prices <span class="hint">Add each service with the price you want shown. This is exactly what will appear on your site, so write it how customers should see it.</span></label>
+        <div id="priceRows">
+          <div class="price-row">
+            <input type="text" class="ps-name" placeholder="Service">
+            <input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">
+          </div>
+        </div>
+        <button type="button" class="addrow" id="addPriceRow">+ Add another service</button>
+        <input type="hidden" name="pricing_details">
+      </div>
       <div class="field"><label>What are you best known for, or what is your specialty?</label><textarea name="specialty"></textarea></div>
       <div class="field"><label>Who are your typical customers?</label><input type="text" name="typical_customers"></div>
       <div class="field"><label>What makes you different from others in your area? (faster response, more experience, a specialty, mobile service, etc.)</label><textarea name="differentiator"></textarea></div>
@@ -234,24 +252,6 @@
     <div class="sec">
       <div class="sec-h"><span class="n">06</span> Content You Can Provide</div>
       <div class="field"><label>Do you have any customer reviews or testimonials I can use? (paste them in, or tell me where to find them)</label><textarea name="testimonials"></textarea></div>
-      <div class="field"><label>Do you want any pricing listed on the site, or keep it "call for a quote"?</label>
-        <div class="choices row">
-          <label class="choice"><input type="radio" name="pricing_pref" value="List pricing"> List pricing</label>
-          <label class="choice"><input type="radio" name="pricing_pref" value="Call for a quote"> Call for a quote</label>
-          <label class="choice"><input type="radio" name="pricing_pref" value="Some of both"> Some of both</label>
-        </div>
-      </div>
-      <div class="field" id="f-pricing-list" hidden>
-        <label>Your services and their prices <span class="hint">Add each service with the price you want shown. This is exactly what will appear on your site, so write it how customers should see it.</span></label>
-        <div id="priceRows">
-          <div class="price-row">
-            <input type="text" class="ps-name" placeholder="Service">
-            <input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">
-          </div>
-        </div>
-        <button type="button" class="addrow" id="addPriceRow">+ Add another service</button>
-        <input type="hidden" name="pricing_details">
-      </div>
       <div class="field"><label>What questions do customers always ask you? (these make a great FAQ section and help with SEO)</label><textarea name="common_questions"></textarea></div>
     </div>
 
@@ -323,21 +323,50 @@
   var priceBlock = document.getElementById('f-pricing-list');
   var priceRows = document.getElementById('priceRows');
   var prefRadios = form.querySelectorAll('[name="pricing_pref"]');
+
+  function parseServices(){
+    var el=form.querySelector('[name="services_offered"]');
+    var t=el?el.value:'';
+    return t.split(/[\n,]+/).map(function(x){return x.trim();}).filter(Boolean);
+  }
+  function makeRow(name, removable){
+    var row=document.createElement('div');
+    row.className='price-row';
+    var safe=(name||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    row.innerHTML='<input type="text" class="ps-name" placeholder="Service" value="'+safe+'">'+
+      '<input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">'+
+      (removable?'<button type="button" class="price-x" aria-label="Remove this service">&times;</button>':'');
+    var x=row.querySelector('.price-x');
+    if(x) x.addEventListener('click', function(){ row.remove(); });
+    return row;
+  }
+  function rowsArePristine(){
+    var rows=priceRows.querySelectorAll('.price-row');
+    for(var i=0;i<rows.length;i++){
+      if(rows[i].querySelector('.ps-name').value.trim() || rows[i].querySelector('.ps-price').value.trim()) return false;
+    }
+    return true;
+  }
+  function populateFromServices(){
+    var svc=parseServices();
+    if(!svc.length || !rowsArePristine()) return;
+    priceRows.innerHTML='';
+    svc.forEach(function(name,i){ priceRows.appendChild(makeRow(name, i>0)); });
+    if(!priceRows.children.length) priceRows.appendChild(makeRow('', false));
+  }
   function syncPriceBlock(){
     var v=''; prefRadios.forEach(function(r){ if(r.checked) v=r.value; });
-    priceBlock.hidden = !(v==='List pricing' || v==='Some of both');
+    var show=(v==='List pricing' || v==='Some of both');
+    priceBlock.hidden=!show;
+    if(show) populateFromServices();
   }
   prefRadios.forEach(function(r){ r.addEventListener('change', syncPriceBlock); });
+  var svcEl=form.querySelector('[name="services_offered"]');
+  if(svcEl) svcEl.addEventListener('input', function(){ if(!priceBlock.hidden) populateFromServices(); });
   syncPriceBlock();
 
   document.getElementById('addPriceRow').addEventListener('click', function(){
-    var row=document.createElement('div');
-    row.className='price-row';
-    row.innerHTML='<input type="text" class="ps-name" placeholder="Service">'+
-      '<input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">'+
-      '<button type="button" class="price-x" aria-label="Remove this service">&times;</button>';
-    row.querySelector('.price-x').addEventListener('click', function(){ row.remove(); });
-    priceRows.appendChild(row);
+    priceRows.appendChild(makeRow('', true));
   });
 
   function collectPricing(){
