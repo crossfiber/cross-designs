@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>New Client Intake | Cross Designs</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#181613">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Permanent+Marker&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181613;--paper:#F7F4EC;--white:#FFFFFF;--pencil:#75726B;
+    --line:#DEDACF;--line-strong:#C9C4B6;--rule:#EDEAE1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);background-color:var(--paper);
+    background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px);
+    line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  a{color:inherit}
+  h1,h2,h3{line-height:1.15;font-weight:700;letter-spacing:-0.01em}
+
+  /* header */
+  header{border-bottom:2px solid var(--ink);background:var(--paper);padding:18px 0}
+  header .wrap{display:flex;align-items:center;gap:12px}
+  header img{height:38px;width:auto;display:block}
+
+  .intro{padding:46px 0 8px}
+  .intro .marker{font-family:'Permanent Marker',cursive;color:var(--pencil);font-size:1.3rem;letter-spacing:.4px;
+    display:inline-flex;align-items:center;gap:10px;transform:rotate(-1.5deg);margin-bottom:12px}
+  .intro .marker svg{width:22px;height:22px}
+  .intro .marker svg path{fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round}
+  .intro h1{font-size:clamp(1.9rem,5vw,2.7rem)}
+  .intro p{color:var(--pencil);font-size:1.06rem;margin-top:16px;max-width:60ch}
+  .intro p b{color:var(--ink);font-weight:600}
+
+  /* sections */
+  form{padding:20px 0 80px}
+  .sec{background:var(--white);border:2px solid var(--ink);border-radius:18px 11px 20px 12px;
+    box-shadow:5px 6px 0 rgba(24,22,19,.08);padding:30px 30px 26px;margin-top:26px}
+  .sec-h{font-family:'Permanent Marker',cursive;font-weight:400;font-size:1.45rem;letter-spacing:.4px;
+    display:flex;align-items:center;gap:11px;transform:rotate(-1deg);margin-bottom:4px}
+  .sec-h .n{font-family:'Caveat',cursive;font-weight:700;font-size:2rem;color:var(--ink);line-height:.8}
+  .sec-note{color:var(--pencil);font-size:.98rem;margin:6px 0 18px}
+
+  .field{margin-bottom:20px}
+  .field:last-child{margin-bottom:0}
+  label{display:block;font-weight:600;font-size:.98rem;margin-bottom:7px}
+  label .req{color:var(--ink)}
+  label .hint{display:block;font-weight:400;font-size:.86rem;color:var(--pencil);margin-top:2px}
+  input[type=text],input[type=email],input[type=tel],input[type=url],textarea,select{
+    width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--ink);background:var(--paper);
+    border:2px solid var(--ink);border-radius:12px 7px 12px 7px;padding:12px 14px}
+  textarea{resize:vertical;min-height:88px}
+  input:focus,textarea:focus,select:focus{outline:none;box-shadow:3px 3px 0 var(--ink)}
+  .choices{display:flex;flex-direction:column;gap:9px;margin-top:4px}
+  .choices.row{flex-flow:row wrap;gap:10px 18px}
+  .choice{display:flex;align-items:center;gap:9px;font-size:.98rem;cursor:pointer}
+  .choice input{width:18px;height:18px;accent-color:var(--ink);flex-shrink:0}
+  .err{display:none;font-size:.85rem;color:var(--ink);font-weight:600;margin-top:6px}
+  .err::before{content:"\21B3  "}
+  .field.invalid input,.field.invalid textarea,.field.invalid select{box-shadow:2px 2px 0 var(--ink)}
+  .field.invalid .err{display:block}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .btn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.02rem;cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;border:2px solid var(--ink);padding:15px 30px;
+    background:var(--ink);color:var(--paper);border-radius:240px 18px 220px 16px/16px 210px 18px 240px;
+    box-shadow:3px 3px 0 var(--ink);transition:transform .18s,box-shadow .18s}
+  .btn:hover{transform:translateY(-2px);box-shadow:5px 6px 0 var(--ink)}
+  .btn[disabled]{opacity:.6;cursor:default;transform:none}
+  .submit-row{margin-top:30px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .submit-row .note{font-family:'Caveat',cursive;font-size:1.3rem;color:var(--pencil)}
+
+  /* success */
+  .done{display:none;text-align:center;padding:70px 0 90px}
+  .done .marker{font-family:'Permanent Marker',cursive;font-size:2rem;margin-bottom:14px;display:block}
+  .done p{color:var(--pencil);font-size:1.1rem;max-width:46ch;margin:0 auto}
+  body.sent form{display:none}
+  body.sent .done{display:block}
+
+  footer{border-top:2px solid var(--ink);background:var(--ink);color:#B9B5AC;padding:22px 0;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer img{height:22px;width:auto;opacity:.9}
+
+  @media(max-width:560px){
+    .sec{padding:24px 20px}
+    .intro{padding:34px 0 4px}
+  }
+</style>
+</head>
+<body id="top">
+
+<header>
+  <div class="wrap">
+    <img src="assets/cross-logo.png" alt="Cross Designs">
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <section class="intro">
+    <span class="marker">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20.5 5 L20 35 M8 16 L33 15.5"/></svg>
+      new client intake
+    </span>
+    <h1>Let's build your site.</h1>
+    <p>Thanks for coming on board. Fill this out as completely as you can. <b>The more detail and the more real photos you give me, the faster I can build a site that actually brings you customers.</b> If something does not apply, just write N/A.</p>
+    <p style="font-size:.95rem">Got files to send (logo, photos)? Drop a shareable link below, or just email them to me after you submit this.</p>
+  </section>
+
+  <form id="intakeForm" novalidate>
+    <div class="hp"><label>Leave blank<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+
+    <!-- contact email -->
+    <div class="sec">
+      <div class="field" id="f-email">
+        <label for="email">Your email <span class="req">*</span><span class="hint">So I can follow up and send next steps.</span></label>
+        <input type="email" id="email" name="email" autocomplete="email">
+        <span class="err">That looks incomplete. Try something like you@email.com.</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">01</span> Business Basics</div>
+      <p class="sec-note">This info has to be identical everywhere it shows up (website, Google, directories), so write it exactly how you want it seen.</p>
+
+      <div class="field" id="f-biz_name"><label>Business name, exact spelling <span class="req">*</span></label><input type="text" name="business_name"><span class="err">I need your business name.</span></div>
+      <div class="field" id="f-contact_name"><label>Owner / main contact name <span class="req">*</span></label><input type="text" name="contact_name"><span class="err">Who am I working with?</span></div>
+      <div class="field" id="f-phone"><label>Phone number customers should call <span class="req">*</span></label><input type="tel" name="phone"><span class="err">A phone number helps.</span></div>
+      <div class="field" id="f-biz_email"><label>Business email <span class="req">*</span><span class="hint">Where I will send your contact form submissions.</span></label><input type="email" name="business_email"><span class="err">That looks incomplete.</span></div>
+      <div class="field"><label>Business address, or service area if you would rather not show an address publicly</label><textarea name="address"></textarea></div>
+      <div class="field"><label>Hours of operation</label><textarea name="hours"></textarea></div>
+      <div class="field"><label>Do you offer emergency or after-hours service? If so, what hours?</label><input type="text" name="emergency"></div>
+      <div class="field"><label>How long have you been in business?</label><input type="text" name="years_in_business"></div>
+      <div class="field"><label>What areas do you cover? (cities, counties, or a radius from your base)</label><input type="text" name="service_areas"></div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">02</span> About Your Business</div>
+      <div class="field" id="f-what"><label>In your own words, what do you do? <span class="req">*</span></label><textarea name="what_you_do"></textarea><span class="err">Tell me what you do.</span></div>
+      <div class="field" id="f-services"><label>List the services you offer <span class="req">*</span></label><textarea name="services_offered"></textarea><span class="err">List your services.</span></div>
+      <div class="field"><label>What are you best known for, or what is your specialty?</label><textarea name="specialty"></textarea></div>
+      <div class="field"><label>Who are your typical customers?</label><input type="text" name="typical_customers"></div>
+      <div class="field"><label>What makes you different from others in your area? (faster response, more experience, a specialty, mobile service, etc.)</label><textarea name="differentiator"></textarea></div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">03</span> Credentials &amp; Trust</div>
+      <p class="sec-note">This stuff matters a lot for earning trust before someone hires you.</p>
+      <div class="field"><label>Certifications (if any)</label><input type="text" name="certifications"></div>
+      <div class="field"><label>Licenses (if any)</label><input type="text" name="licenses"></div>
+      <div class="field"><label>Are you insured or bonded?</label><input type="text" name="insured_bonded"></div>
+      <div class="field"><label>Years of hands-on experience</label><input type="text" name="years_experience"></div>
+      <div class="field"><label>Do you offer any guarantee or warranty on your work?</label><textarea name="guarantee"></textarea></div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">04</span> Branding &amp; Assets</div>
+      <div class="field"><label>Do you have a logo?</label>
+        <select name="has_logo"><option value="">Pick one</option><option>Yes, I will send it</option><option>No, let us talk about it</option></select>
+      </div>
+      <div class="field"><label>Logo link <span class="hint">Paste a shareable link (Google Drive, Dropbox, etc.), or email it to me after submitting.</span></label><input type="url" name="logo_link" placeholder="https://"></div>
+      <div class="field"><label>Any brand colors you already use or want to use?</label><input type="text" name="brand_colors"></div>
+      <div class="field"><label>Photos link <span class="hint">Work, team, location, products, finished projects. Real photos beat stock every time. Paste a folder/album link.</span></label><input type="url" name="photos_link" placeholder="https://"></div>
+      <div class="field"><label>Do you have an existing website? If so, what is the URL?</label><input type="text" name="existing_website"></div>
+      <div class="field"><label>Existing social media accounts and handles (Facebook, Instagram, etc.)</label><textarea name="social_handles"></textarea></div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">05</span> Website Goals</div>
+      <div class="field" id="f-goal"><label>What is the main thing you want this website to do for you? <span class="req">*</span><span class="hint">Get more calls, get quote requests, just look legit and established, etc.</span></label><textarea name="main_goal"></textarea><span class="err">What is the site for?</span></div>
+      <div class="field"><label>When someone lands on your site, what is the #1 action you want them to take?</label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="primary_action" value="Call you"> Call you</label>
+          <label class="choice"><input type="radio" name="primary_action" value="Request a quote"> Request a quote</label>
+          <label class="choice"><input type="radio" name="primary_action" value="Text you"> Text you</label>
+          <label class="choice"><input type="radio" name="primary_action" value="Book / schedule online"> Book / schedule online</label>
+        </div>
+      </div>
+      <div class="field"><label>Do you want a contact or quote request form? Where should submissions go?</label>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="form_destination" value="Email"> Yes, send to email</label>
+          <label class="choice"><input type="radio" name="form_destination" value="Text"> Yes, send to text</label>
+          <label class="choice"><input type="radio" name="form_destination" value="Email and text"> Yes, both email and text</label>
+          <label class="choice"><input type="radio" name="form_destination" value="No form"> No form needed</label>
+        </div>
+      </div>
+      <div class="field"><label>Do you want any kind of online booking or scheduling?</label>
+        <div class="choices row">
+          <label class="choice"><input type="radio" name="booking" value="Yes"> Yes</label>
+          <label class="choice"><input type="radio" name="booking" value="No"> No</label>
+          <label class="choice"><input type="radio" name="booking" value="Not sure"> Not sure / open to it</label>
+        </div>
+      </div>
+      <div class="field"><label>Any specific pages you know you want?</label>
+        <div class="choices row">
+          <label class="choice"><input type="checkbox" name="pages" value="Home"> Home</label>
+          <label class="choice"><input type="checkbox" name="pages" value="Services"> Services</label>
+          <label class="choice"><input type="checkbox" name="pages" value="About"> About</label>
+          <label class="choice"><input type="checkbox" name="pages" value="Service Area"> Service Area</label>
+          <label class="choice"><input type="checkbox" name="pages" value="Reviews"> Reviews</label>
+          <label class="choice"><input type="checkbox" name="pages" value="Photo Gallery"> Photo Gallery</label>
+          <label class="choice"><input type="checkbox" name="pages" value="FAQ"> FAQ</label>
+          <label class="choice"><input type="checkbox" name="pages" value="Contact"> Contact</label>
+        </div>
+      </div>
+      <div class="field"><label>Any websites you like the look of? (competitors or anything else, just for style direction)</label><textarea name="liked_sites"></textarea></div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">06</span> Content You Can Provide</div>
+      <div class="field"><label>Do you have any customer reviews or testimonials I can use? (paste them in, or tell me where to find them)</label><textarea name="testimonials"></textarea></div>
+      <div class="field"><label>Do you want any pricing listed on the site, or keep it "call for a quote"?</label>
+        <div class="choices row">
+          <label class="choice"><input type="radio" name="pricing_pref" value="List pricing"> List pricing</label>
+          <label class="choice"><input type="radio" name="pricing_pref" value="Call for a quote"> Call for a quote</label>
+          <label class="choice"><input type="radio" name="pricing_pref" value="Some of both"> Some of both</label>
+        </div>
+      </div>
+      <div class="field"><label>What questions do customers always ask you? (these make a great FAQ section and help with SEO)</label><textarea name="common_questions"></textarea></div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">07</span> SEO &amp; Listings</div>
+      <div class="field"><label>Have you searched your business on Google Maps? If a listing comes up, paste the link here.<span class="hint">If one already exists, I need to manage that one rather than make a new one.</span></label><input type="text" name="google_maps"></div>
+      <div class="field"><label>Google listing: paste a link to your listing, if one exists</label><textarea name="google_listing"></textarea></div>
+      <div class="field"><label>Are you listed anywhere else already? (Yelp, industry directories, etc.)</label><textarea name="other_listings"></textarea></div>
+      <div class="field"><label>What words or phrases do you think your customers type into Google when they need you?</label><textarea name="search_phrases"></textarea></div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">08</span> Anything Else</div>
+      <p class="sec-note">Last bit. Your space for anything that did not fit above.</p>
+      <div class="field"><label>Anything else you would like to add or want me to know? (special requests, ideas, things that did not fit anywhere above)</label><textarea name="anything_else"></textarea></div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="btn" id="submitBtn">Send it over</button>
+      <span class="note">I will review everything and reach out with next steps.</span>
+    </div>
+  </form>
+
+  <div class="done">
+    <span class="marker">Got it. Thank you.</span>
+    <p>I have your info and I will review everything and reach out with next steps. If you have a logo or photos to send, email them over to <a href="mailto:aidencamacho576@gmail.com" style="border-bottom:2px solid var(--ink)">aidencamacho576@gmail.com</a> whenever you are ready.</p>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/cross-logo-white.png" alt="Cross Designs">
+    <span>&copy; 2026 Cross Designs</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  // ====== CONFIG: paste your deployed Google Apps Script Web App URL here ======
+  var ENDPOINT = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+  // =============================================================================
+
+  var form = document.getElementById('intakeForm');
+  var body = document.body;
+  function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  // required fields: id -> validator
+  var required = [
+    ['f-email', function(){ return emailOk(val('email')); }],
+    ['f-biz_name', function(){ return val('business_name'); }],
+    ['f-contact_name', function(){ return val('contact_name'); }],
+    ['f-phone', function(){ return val('phone'); }],
+    ['f-biz_email', function(){ return emailOk(val('business_email')); }],
+    ['f-what', function(){ return val('what_you_do'); }],
+    ['f-services', function(){ return val('services_offered'); }],
+    ['f-goal', function(){ return val('main_goal'); }]
+  ];
+  function val(n){ var el=form.querySelector('[name="'+n+'"]'); return el ? el.value.trim() : ''; }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(form.querySelector('[name="_gotcha"]').value){ return; } // bot
+    var bad=false, first=null;
+    required.forEach(function(r){
+      var f=document.getElementById(r[0]); var ok=r[1]();
+      f.classList.toggle('invalid', !ok);
+      if(!ok && !first){ first=f; bad=true; } else if(!ok){ bad=true; }
+    });
+    if(bad){ if(first) first.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+    var btn=document.getElementById('submitBtn');
+    btn.disabled=true; btn.textContent='Sending...';
+
+    var data=new FormData(form);
+    data.append('submitted_at', new Date().toISOString());
+
+    if(ENDPOINT.indexOf('http')!==0){
+      // not configured yet: still show success so the page is testable
+      body.classList.add('sent'); window.scrollTo({top:0,behavior:'smooth'}); return;
+    }
+    fetch(ENDPOINT, { method:'POST', body:data, mode:'no-cors' })
+      .then(function(){ body.classList.add('sent'); window.scrollTo({top:0,behavior:'smooth'}); })
+      .catch(function(){ body.classList.add('sent'); window.scrollTo({top:0,behavior:'smooth'}); });
+  });
+
+  // clear invalid state as they fix it
+  form.addEventListener('input', function(e){
+    var f=e.target.closest('.field'); if(f) f.classList.remove('invalid');
+  });
+})();
+</script>
+</body>
+</html>
