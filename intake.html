@@ -79,6 +79,18 @@
   .submit-row{margin-top:30px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
   .submit-row .note{font-family:'Caveat',cursive;font-size:1.3rem;color:var(--pencil)}
 
+  /* service + price builder */
+  [hidden]{display:none!important}
+  #priceRows{margin-top:4px}
+  .price-row{display:flex;gap:10px;margin-bottom:10px}
+  .price-row .ps-name{flex:1 1 58%}
+  .price-row .ps-price{flex:1 1 42%}
+  .price-x{flex:0 0 auto;width:42px;border:2px solid var(--ink);background:var(--paper);border-radius:10px 6px 10px 6px;font-size:1.2rem;line-height:1;cursor:pointer;color:var(--ink)}
+  .price-x:hover{background:var(--white)}
+  .addrow{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.92rem;cursor:pointer;background:var(--paper);border:2px solid var(--ink);border-radius:10px 6px 10px 6px;padding:9px 16px;box-shadow:2px 2px 0 var(--ink);margin-top:2px}
+  .addrow:hover{background:var(--white)}
+  @media(max-width:560px){.price-row{flex-wrap:wrap}.price-row .ps-name{flex:1 1 100%}.price-row .ps-price{flex:1 1 70%}}
+
   /* success */
   .done{display:none;text-align:center;padding:30px 0}
   .done .marker{font-family:'Permanent Marker',cursive;font-size:2rem;margin-bottom:14px;display:block}
@@ -229,6 +241,17 @@
           <label class="choice"><input type="radio" name="pricing_pref" value="Some of both"> Some of both</label>
         </div>
       </div>
+      <div class="field" id="f-pricing-list" hidden>
+        <label>Your services and their prices <span class="hint">Add each service with the price you want shown. This is exactly what will appear on your site, so write it how customers should see it.</span></label>
+        <div id="priceRows">
+          <div class="price-row">
+            <input type="text" class="ps-name" placeholder="Service">
+            <input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">
+          </div>
+        </div>
+        <button type="button" class="addrow" id="addPriceRow">+ Add another service</button>
+        <input type="hidden" name="pricing_details">
+      </div>
       <div class="field"><label>What questions do customers always ask you? (these make a great FAQ section and help with SEO)</label><textarea name="common_questions"></textarea></div>
     </div>
 
@@ -296,6 +319,39 @@
   ];
   function val(n){ var el=form.querySelector('[name="'+n+'"]'); return el ? el.value.trim() : ''; }
 
+  // ---- service + price builder (shows only when they want pricing listed) ----
+  var priceBlock = document.getElementById('f-pricing-list');
+  var priceRows = document.getElementById('priceRows');
+  var prefRadios = form.querySelectorAll('[name="pricing_pref"]');
+  function syncPriceBlock(){
+    var v=''; prefRadios.forEach(function(r){ if(r.checked) v=r.value; });
+    priceBlock.hidden = !(v==='List pricing' || v==='Some of both');
+  }
+  prefRadios.forEach(function(r){ r.addEventListener('change', syncPriceBlock); });
+  syncPriceBlock();
+
+  document.getElementById('addPriceRow').addEventListener('click', function(){
+    var row=document.createElement('div');
+    row.className='price-row';
+    row.innerHTML='<input type="text" class="ps-name" placeholder="Service">'+
+      '<input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">'+
+      '<button type="button" class="price-x" aria-label="Remove this service">&times;</button>';
+    row.querySelector('.price-x').addEventListener('click', function(){ row.remove(); });
+    priceRows.appendChild(row);
+  });
+
+  function collectPricing(){
+    var hid=form.querySelector('[name="pricing_details"]');
+    if(priceBlock.hidden){ hid.value=''; return; }
+    var lines=[];
+    priceRows.querySelectorAll('.price-row').forEach(function(row){
+      var n=row.querySelector('.ps-name').value.trim();
+      var pr=row.querySelector('.ps-price').value.trim();
+      if(n||pr) lines.push(n + (pr ? (' - ' + pr) : ''));
+    });
+    hid.value = lines.join(' | ');
+  }
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
     if(form.querySelector('[name="_gotcha"]').value){ return; } // bot
@@ -310,6 +366,7 @@
     var btn=document.getElementById('submitBtn');
     btn.disabled=true; btn.textContent='Sending...';
 
+    collectPricing();
     var fd=new FormData(form);
     fd.append('submitted_at', new Date().toISOString());
     var data=new URLSearchParams();
