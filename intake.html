@@ -170,24 +170,19 @@
     <div class="sec">
       <div class="sec-h"><span class="n">02</span> About Your Business</div>
       <div class="field" id="f-what"><label>In your own words, what do you do? <span class="req">*</span></label><textarea name="what_you_do"></textarea><span class="err">Tell me what you do.</span></div>
-      <div class="field" id="f-services"><label>List the services you offer <span class="req">*</span></label><textarea name="services_offered"></textarea><span class="err">List your services.</span></div>
-      <div class="field"><label>Do you want any pricing listed on the site, or keep it "call for a quote"?</label>
-        <div class="choices row">
-          <label class="choice"><input type="radio" name="pricing_pref" value="List pricing"> List pricing</label>
-          <label class="choice"><input type="radio" name="pricing_pref" value="Call for a quote"> Call for a quote</label>
-          <label class="choice"><input type="radio" name="pricing_pref" value="Some of both"> Some of both</label>
-        </div>
-      </div>
-      <div class="field" id="f-pricing-list" hidden>
-        <label>Your services and their prices <span class="hint">Add each service with the price you want shown. This is exactly what will appear on your site, so write it how customers should see it.</span></label>
+      <div class="field" id="f-services">
+        <label>List the services you offer <span class="req">*</span><span class="hint">One service per row. Add a price next to any you want shown on your site, or leave it blank to keep that one as "call for a quote." Mix and match freely.</span></label>
         <div id="priceRows">
           <div class="price-row">
             <input type="text" class="ps-name" placeholder="Service">
-            <input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">
+            <input type="text" class="ps-price" placeholder="Price (optional)">
           </div>
         </div>
         <button type="button" class="addrow" id="addPriceRow">+ Add another service</button>
+        <span class="err">List at least one service.</span>
+        <input type="hidden" name="services_offered">
         <input type="hidden" name="pricing_details">
+        <input type="hidden" name="pricing_pref">
       </div>
       <div class="field"><label>What are you best known for, or what is your specialty?</label><textarea name="specialty"></textarea></div>
       <div class="field"><label>Who are your typical customers?</label><input type="text" name="typical_customers"></div>
@@ -319,71 +314,43 @@
   ];
   function val(n){ var el=form.querySelector('[name="'+n+'"]'); return el ? el.value.trim() : ''; }
 
-  // ---- service + price builder (shows only when they want pricing listed) ----
-  var priceBlock = document.getElementById('f-pricing-list');
+  // ---- services + optional prices builder ----
   var priceRows = document.getElementById('priceRows');
-  var prefRadios = form.querySelectorAll('[name="pricing_pref"]');
 
-  function parseServices(){
-    var el=form.querySelector('[name="services_offered"]');
-    var t=el?el.value:'';
-    return t.split(/[\n,]+/).map(function(x){return x.trim();}).filter(Boolean);
-  }
   function makeRow(name, removable){
     var row=document.createElement('div');
     row.className='price-row';
     var safe=(name||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
     row.innerHTML='<input type="text" class="ps-name" placeholder="Service" value="'+safe+'">'+
-      '<input type="text" class="ps-price" placeholder="Price (e.g. $149, or $99 to $199)">'+
+      '<input type="text" class="ps-price" placeholder="Price (optional)">'+
       (removable?'<button type="button" class="price-x" aria-label="Remove this service">&times;</button>':'');
     var x=row.querySelector('.price-x');
     if(x) x.addEventListener('click', function(){ row.remove(); });
     return row;
   }
-  function rowsArePristine(){
-    var rows=priceRows.querySelectorAll('.price-row');
-    for(var i=0;i<rows.length;i++){
-      if(rows[i].querySelector('.ps-name').value.trim() || rows[i].querySelector('.ps-price').value.trim()) return false;
-    }
-    return true;
-  }
-  function populateFromServices(){
-    var svc=parseServices();
-    if(!svc.length || !rowsArePristine()) return;
-    priceRows.innerHTML='';
-    svc.forEach(function(name,i){ priceRows.appendChild(makeRow(name, i>0)); });
-    if(!priceRows.children.length) priceRows.appendChild(makeRow('', false));
-  }
-  function syncPriceBlock(){
-    var v=''; prefRadios.forEach(function(r){ if(r.checked) v=r.value; });
-    var show=(v==='List pricing' || v==='Some of both');
-    priceBlock.hidden=!show;
-    if(show) populateFromServices();
-  }
-  prefRadios.forEach(function(r){ r.addEventListener('change', syncPriceBlock); });
-  var svcEl=form.querySelector('[name="services_offered"]');
-  if(svcEl) svcEl.addEventListener('input', function(){ if(!priceBlock.hidden) populateFromServices(); });
-  syncPriceBlock();
-
   document.getElementById('addPriceRow').addEventListener('click', function(){
     priceRows.appendChild(makeRow('', true));
   });
 
-  function collectPricing(){
-    var hid=form.querySelector('[name="pricing_details"]');
-    if(priceBlock.hidden){ hid.value=''; return; }
-    var lines=[];
+  function serializeServices(){
+    var names=[], priced=[], anyPrice=false, anyBlank=false;
     priceRows.querySelectorAll('.price-row').forEach(function(row){
       var n=row.querySelector('.ps-name').value.trim();
       var pr=row.querySelector('.ps-price').value.trim();
-      if(n||pr) lines.push(n + (pr ? (' - ' + pr) : ''));
+      if(!n) return;
+      names.push(n);
+      if(pr){ priced.push(n + ' - ' + pr); anyPrice=true; } else { anyBlank=true; }
     });
-    hid.value = lines.join(' | ');
+    form.querySelector('[name="services_offered"]').value = names.join(', ');
+    form.querySelector('[name="pricing_details"]').value = priced.join(' | ');
+    var pref = anyPrice ? (anyBlank ? 'Some of both' : 'List pricing') : 'Call for a quote';
+    form.querySelector('[name="pricing_pref"]').value = names.length ? pref : '';
   }
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
     if(form.querySelector('[name="_gotcha"]').value){ return; } // bot
+    serializeServices();
     var bad=false, first=null;
     required.forEach(function(r){
       var f=document.getElementById(r[0]); var ok=r[1]();
@@ -395,7 +362,6 @@
     var btn=document.getElementById('submitBtn');
     btn.disabled=true; btn.textContent='Sending...';
 
-    collectPricing();
     var fd=new FormData(form);
     fd.append('submitted_at', new Date().toISOString());
     var data=new URLSearchParams();
