@@ -94,6 +94,12 @@
     .sec{padding:24px 20px}
     .intro{padding:34px 0 4px}
   }
+  /* Uploadcare widget, matched to the site */
+  .uploadcare--widget{display:inline-flex!important;align-items:center;gap:10px;flex-wrap:wrap}
+  .uploadcare--widget__button{font-family:'Space Grotesk',sans-serif!important;font-weight:600!important;font-size:.95rem!important;border:2px solid var(--ink)!important;background:var(--paper)!important;color:var(--ink)!important;border-radius:12px 7px 12px 7px!important;padding:11px 18px!important;box-shadow:2px 2px 0 var(--ink)!important;text-transform:none!important;line-height:1!important}
+  .uploadcare--widget__button:hover{background:var(--white)!important}
+  .uploadcare--widget__button_type_open{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important}
+  .uploadcare--widget__text{font-family:'Space Grotesk',sans-serif!important;color:var(--pencil)!important;font-size:.92rem!important}
 </style>
 </head>
 <body id="top">
@@ -172,9 +178,9 @@
       <div class="field"><label>Do you have a logo?</label>
         <select name="has_logo"><option value="">Pick one</option><option>Yes, I will send it</option><option>No, let us talk about it</option></select>
       </div>
-      <div class="field"><label>Logo link <span class="hint">Paste a shareable link (Google Drive, Dropbox, etc.), or email it to me after submitting.</span></label><input type="url" name="logo_link" placeholder="https://"></div>
+      <div class="field"><label>Your logo <span class="hint">Upload your logo, highest quality you have. PNG, JPG, SVG, or PDF.</span></label><input type="hidden" role="uploadcare-uploader" name="logo_link" data-public-key="cabcb6e252ae5c50976c" data-clearable="true" data-tabs="file url gdrive dropbox" /></div>
       <div class="field"><label>Any brand colors you already use or want to use?</label><input type="text" name="brand_colors"></div>
-      <div class="field"><label>Photos link <span class="hint">Work, team, location, products, finished projects. Real photos beat stock every time. Paste a folder/album link.</span></label><input type="url" name="photos_link" placeholder="https://"></div>
+      <div class="field"><label>Photos of your work <span class="hint">Team, location, products, finished projects. Real photos beat stock every time, add as many as you want.</span></label><input type="hidden" role="uploadcare-uploader" name="photos_link" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true" /></div>
       <div class="field"><label>Do you have an existing website? If so, what is the URL?</label><input type="text" name="existing_website"></div>
       <div class="field"><label>Existing social media accounts and handles (Facebook, Instagram, etc.)</label><textarea name="social_handles"></textarea></div>
     </div>
@@ -240,6 +246,7 @@
       <div class="sec-h"><span class="n">07</span> SEO &amp; Listings</div>
       <div class="field"><label>Have you searched your business on Google Maps? If a listing comes up, paste the link here.<span class="hint">If one already exists, I need to manage that one rather than make a new one.</span></label><input type="text" name="google_maps"></div>
       <div class="field"><label>Google listing: paste a link to your listing, if one exists</label><textarea name="google_listing"></textarea></div>
+      <div class="field"><label>Google listing screenshot (optional)<span class="hint">A screenshot of your current Google listing, if you have one.</span></label><input type="hidden" role="uploadcare-uploader" name="google_listing_screenshot" data-public-key="cabcb6e252ae5c50976c" data-images-only="true" data-clearable="true" /></div>
       <div class="field"><label>Are you listed anywhere else already? (Yelp, industry directories, etc.)</label><textarea name="other_listings"></textarea></div>
       <div class="field"><label>What words or phrases do you think your customers type into Google when they need you?</label><textarea name="search_phrases"></textarea></div>
     </div>
@@ -272,6 +279,8 @@
   </div>
 </footer>
 
+<script>UPLOADCARE_PUBLIC_KEY="cabcb6e252ae5c50976c";UPLOADCARE_TABS="file url gdrive dropbox";</script>
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
 <script>
 (function(){
   "use strict";
