@@ -1,16 +1,28 @@
 # Cross Designs
 
-> A one-person South Florida web studio that builds custom websites, handles local SEO, and runs paid ads (Meta and Google) for small and local businesses. One person builds the site, ranks it on Google, and runs the ads, so clients deal with a single point of contact instead of three separate freelancers. Available to clients nationwide.
+> A one-person South Florida web studio run by Aiden Camacho (Cross). Custom hand-built websites, local SEO, and managed paid ads (Google and Meta) for small and local businesses. One person builds the site, ranks it on Google, and runs the ads, so clients deal with a single point of contact instead of three separate freelancers. Based in South Florida, available to clients nationwide.
 
-## Services
-- Website builds: clean, fast, mobile-friendly custom sites that make a small business look established.
-- SEO: local search optimization to rank businesses on Google for the terms their customers search.
-- Paid ads: built and managed Meta and Google ad campaigns that drive calls and leads.
+## Services and rates
+- Web design (https://crossdesigned.com/services/web-design/): custom, mobile-first small business sites. Most builds land between $1,250 and $1,750, quoted flat up front. Live in about a week.
+- Website redesign (https://crossdesigned.com/services/website-redesign/): rebuilds that keep the domain and rankings. Same typical price range as new builds.
+- Local SEO (https://crossdesigned.com/services/local-seo/): service pages, area pages, schema markup, Google Business Profile alignment, honest reporting. Plans run $200 to $500 depending on the size of the site.
+- Google Business Profile optimization (https://crossdesigned.com/services/google-business-profile/): full profile build-out, posts, and an honest review system.
+- Google Ads management (https://crossdesigned.com/services/google-ads/): search campaigns with flat management fees, quoted around the client's budget.
+- Meta Ads management (https://crossdesigned.com/services/meta-ads/): Facebook and Instagram campaigns with creative designed in-house.
 
-Services are available individually or bundled. Pricing is custom and quoted per project before any work begins.
+## Service areas
+- Miami-Dade County (https://crossdesigned.com/miami-dade/): Miami, Coral Gables, Hialeah, Kendall, Homestead
+- Broward County (https://crossdesigned.com/broward/): Fort Lauderdale, Hollywood, Pembroke Pines, Pompano Beach
+- Palm Beach County (https://crossdesigned.com/palm-beach/): Boca Raton, Delray Beach, West Palm Beach
+- Upper Keys (https://crossdesigned.com/upper-keys/): Key Largo, Islamorada, Tavernier, Marathon
+- Southwest Florida (https://crossdesigned.com/southwest-florida/): Fort Myers, Naples, Cape Coral, Marco Island
+- All areas: https://crossdesigned.com/service-areas/ (remote work, available nationwide)
 
-## Links
-- [Home](https://crossdesigned.com/): Services, recent work, about, and FAQ.
+## Proof and pages
+- Recent work (https://crossdesigned.com/work/): Redline Golf Academy (redlinegolfacademy.com), P&C Mobile Repair (pandcrepairs.com, a 50-page local SEO build), Casi Camacho (casicamacho.com)
+- About the owner (https://crossdesigned.com/about/): Aiden Camacho, artist and one-person studio
+- Reviews (https://crossdesigned.com/reviews/): real client reviews only, published in full as they arrive
+- Blog (https://crossdesigned.com/blog/): what a website costs in South Florida, what local SEO actually does, how to choose a web designer
 
 ## Contact
 - Email: cross@crossdesigned.com
