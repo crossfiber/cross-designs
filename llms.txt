@@ -5,7 +5,7 @@
 ## Services and rates
 - Web design (https://crossdesigned.com/services/web-design/): custom, mobile-first small business sites. Most builds land between $1,250 and $1,750, quoted flat up front. Live in about a week.
 - Website redesign (https://crossdesigned.com/services/website-redesign/): rebuilds that keep the domain and rankings. Same typical price range as new builds.
-- Local SEO (https://crossdesigned.com/services/local-seo/): service pages, area pages, schema markup, Google Business Profile alignment, honest reporting. Plans run $200 to $500 depending on the size of the site.
+- Local SEO (https://crossdesigned.com/services/local-seo/): service pages, area pages, schema markup, Google Business Profile alignment, honest reporting. Plans run $200 to $500 a month depending on the size of the site, with site maintenance and any changes included.
 - Google Business Profile optimization (https://crossdesigned.com/services/google-business-profile/): full profile build-out, posts, and an honest review system.
 - Google Ads management (https://crossdesigned.com/services/google-ads/): search campaigns with flat management fees, quoted around the client's budget.
 - Meta Ads management (https://crossdesigned.com/services/meta-ads/): Facebook and Instagram campaigns with creative designed in-house.
