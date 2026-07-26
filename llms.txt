@@ -27,6 +27,7 @@
 - Upper Keys (https://crossdesigned.com/upper-keys/): Key Largo, Islamorada, Tavernier, Marathon
 - Southwest Florida (https://crossdesigned.com/southwest-florida/): Fort Myers, Naples, Cape Coral, Marco Island
 - All areas: https://crossdesigned.com/service-areas/ (remote work, available nationwide)
+- Service + town pages exist for every listed town: /web-design-{town}/, /local-seo-{town}/, /website-redesign-{town}/ (e.g. https://crossdesigned.com/web-design-miami/)
 
 ## Proof and pages
 - Recent work (https://crossdesigned.com/work/): Redline Golf Academy (https://crossdesigned.com/work/redline-golf-academy/), P&C Mobile Repair (https://crossdesigned.com/work/pandc-mobile-repair/, a 50-page local SEO build), Manta Systems (https://crossdesigned.com/work/manta-systems/), Royal Soles (https://crossdesigned.com/work/royal-soles/, Shopify), Casi Camacho (https://crossdesigned.com/work/casi-camacho/)
