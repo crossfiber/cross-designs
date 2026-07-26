@@ -535,6 +535,11 @@ form{padding:26px 22px}
 .seo-price p{color:var(--pencil);font-size:1rem;margin-top:10px}
 .seo-price p b{color:var(--ink)}
 @media(max-width:780px){.price-grid{grid-template-columns:1fr;gap:26px}}
+.city-wrap{position:relative}
+.city-suggest{position:absolute;left:0;right:0;top:100%;z-index:60;background:var(--white,#fff);border:2px solid var(--ink,#181613);border-radius:12px 7px 12px 7px;margin-top:6px;box-shadow:4px 5px 0 rgba(24,22,19,.15);max-height:230px;overflow-y:auto;display:none}
+.city-suggest.open{display:block}
+.city-suggest button{display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:'Space Grotesk',system-ui,sans-serif;font-size:.95rem;color:var(--ink,#181613);padding:10px 14px}
+.city-suggest button:hover,.city-suggest button.hot{background:var(--paper,#F7F4EC)}
 </style>
 </head>
 <body id="top">
@@ -558,7 +563,7 @@ form{padding:26px 22px}
 <a href="/industries/">Industries</a>
 <a href="/service-areas/">Service areas</a>
 <a href="#pricing">Pricing</a>
-<a href="#about">About</a>
+<a href="/about/">About</a>
 <a href="#faq">FAQ</a>
 </nav>
 <div class="nav-cta">
@@ -583,7 +588,7 @@ form{padding:26px 22px}
 <a href="/service-areas/">Service areas</a>
 <a href="#pricing">Pricing</a>
 <a href="#free-review">Free site review</a>
-<a href="#about">About</a>
+<a href="/about/">About</a>
 <a href="#faq">FAQ</a>
 </nav>
 <div class="drawer-foot">
@@ -824,7 +829,7 @@ the artist
 <p class="pencil">I started Cross Designs because small businesses kept getting handed half a solution: a pretty site nobody ever finds, or ads pointing at a site that does not convert. I build it, rank it, and keep it running, and I answer for how it performs the same way you would.</p>
 <p class="pencil">If you run a local shop, a trade, a studio, or a service business and you want to look legit online and get more calls, that is the entire job I signed up for.</p>
 </div>
-<button class="readmore-btn btn btn-sm" id="aboutToggle" aria-expanded="false">Read more</button>
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center"><button class="readmore-btn btn btn-sm" id="aboutToggle" aria-expanded="false">Read more</button><a class="btn btn-sm" href="/about/" style="text-decoration:none">The full story <svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round" aria-hidden="true"><path d="M5 12 H 19 M13 6 L 19 12 L 13 18"/></svg></a></div>
 </div>
 <div class="polaroid">
 <span class="tape"></span>
@@ -921,7 +926,7 @@ let's talk
 </div>
 <div class="field" id="f-city">
 <label for="city">City &amp; state <span class="marker">where the business lives</span></label>
-<input type="text" id="city" name="city" list="cityList" autocomplete="off" placeholder="Start typing, e.g. Kendall, FL">
+<input type="text" id="city" name="city" autocomplete="off" placeholder="Start typing, e.g. Kendall, FL">
 <span class="err">Pick a real city from the list, or type it like Kendall, FL.</span>
 </div>
 <div class="field" id="f-type">
@@ -945,7 +950,7 @@ let's talk
 <button type="submit" class="btn btn-solid">Send it over</button>
 <p id="formOk" style="display:none;font-family:'Caveat',cursive;font-size:1.5rem;margin-top:16px;color:var(--ink)">Got it. I'll be in touch shortly. Thanks, friend.</p>
 <p id="formErr" style="display:none;font-size:.95rem;margin-top:16px;color:var(--ink);font-weight:500">Hm, that didn't go through. Email me instead: <a href="mailto:cross@crossdesigned.com" style="font-weight:600;border-bottom:2px solid var(--ink)">cross@crossdesigned.com</a></p>
-<datalist id="cityList"><option value="Allapattah, FL"></option><option value="Aventura, FL"></option><option value="Bal Harbour, FL"></option><option value="Belle Glade, FL"></option><option value="Big Pine Key, FL"></option><option value="Boca Raton, FL"></option><option value="Bonita Springs, FL"></option><option value="Boynton Beach, FL"></option><option value="Brickell, FL"></option><option value="Brownsville, FL"></option><option value="Cape Coral, FL"></option><option value="Clewiston, FL"></option><option value="Coconut Creek, FL"></option><option value="Coconut Grove, FL"></option><option value="Cooper City, FL"></option><option value="Coral Gables, FL"></option><option value="Coral Springs, FL"></option><option value="Country Walk, FL"></option><option value="Cutler Bay, FL"></option><option value="Dania Beach, FL"></option><option value="Davie, FL"></option><option value="Daytona Beach, FL"></option><option value="Deerfield Beach, FL"></option><option value="Delray Beach, FL"></option><option value="Doral, FL"></option><option value="Downtown Miami, FL"></option><option value="El Portal, FL"></option><option value="Estero, FL"></option><option value="Florida City, FL"></option><option value="Fontainebleau, FL"></option><option value="Fort Lauderdale, FL"></option><option value="Fort Myers, FL"></option><option value="Fort Pierce, FL"></option><option value="Fountainebleau, FL"></option><option value="Gainesville, FL"></option><option value="Goulds, FL"></option><option value="Greenacres, FL"></option><option value="Hallandale Beach, FL"></option><option value="Hialeah, FL"></option><option value="Hialeah Gardens, FL"></option><option value="Hollywood, FL"></option><option value="Homestead, FL"></option><option value="Islamorada, FL"></option><option value="Jacksonville, FL"></option><option value="Juno Beach, FL"></option><option value="Jupiter, FL"></option><option value="Kendale Lakes, FL"></option><option value="Kendall, FL"></option><option value="Key Biscayne, FL"></option><option value="Key Largo, FL"></option><option value="Key West, FL"></option><option value="Kissimmee, FL"></option><option value="Lake Park, FL"></option><option value="Lake Worth Beach, FL"></option><option value="Lantana, FL"></option><option value="Lauderdale Lakes, FL"></option><option value="Lauderdale-by-the-Sea, FL"></option><option value="Lauderhill, FL"></option><option value="Lehigh Acres, FL"></option><option value="Leisure City, FL"></option><option value="Liberty City, FL"></option><option value="Lighthouse Point, FL"></option><option value="Little Haiti, FL"></option><option value="Little Havana, FL"></option><option value="Marathon, FL"></option><option value="Marco Island, FL"></option><option value="Margate, FL"></option><option value="Medley, FL"></option><option value="Melbourne, FL"></option><option value="Miami, FL"></option><option value="Miami Beach, FL"></option><option value="Miami Gardens, FL"></option><option value="Miami Lakes, FL"></option><option value="Miami Shores, FL"></option><option value="Miami Springs, FL"></option><option value="Midtown Miami, FL"></option><option value="Miramar, FL"></option><option value="Naples, FL"></option><option value="Naranja, FL"></option><option value="North Lauderdale, FL"></option><option value="North Miami, FL"></option><option value="North Miami Beach, FL"></option><option value="North Palm Beach, FL"></option><option value="Oakland Park, FL"></option><option value="Ocala, FL"></option><option value="Okeechobee, FL"></option><option value="Opa-locka, FL"></option><option value="Orlando, FL"></option><option value="Palm Beach, FL"></option><option value="Palm Beach Gardens, FL"></option><option value="Palm Springs, FL"></option><option value="Palmetto Bay, FL"></option><option value="Parkland, FL"></option><option value="Pembroke Park, FL"></option><option value="Pembroke Pines, FL"></option><option value="Perrine, FL"></option><option value="Pinecrest, FL"></option><option value="Plantation, FL"></option><option value="Pompano Beach, FL"></option><option value="Port Charlotte, FL"></option><option value="Port St. Lucie, FL"></option><option value="Princeton, FL"></option><option value="Redland, FL"></option><option value="Richmond Heights, FL"></option><option value="Richmond West, FL"></option><option value="Riviera Beach, FL"></option><option value="Royal Palm Beach, FL"></option><option value="Sarasota, FL"></option><option value="South Miami, FL"></option><option value="South Miami Heights, FL"></option><option value="Southwest Ranches, FL"></option><option value="St. Petersburg, FL"></option><option value="Stuart, FL"></option><option value="Sunny Isles Beach, FL"></option><option value="Sunrise, FL"></option><option value="Sunset, FL"></option><option value="Surfside, FL"></option><option value="Sweetwater, FL"></option><option value="Tallahassee, FL"></option><option value="Tamarac, FL"></option><option value="Tamiami, FL"></option><option value="Tampa, FL"></option><option value="Tavernier, FL"></option><option value="Tequesta, FL"></option><option value="The Crossings, FL"></option><option value="The Hammocks, FL"></option><option value="Three Lakes, FL"></option><option value="Vero Beach, FL"></option><option value="Wellington, FL"></option><option value="West Kendall, FL"></option><option value="West Little River, FL"></option><option value="West Palm Beach, FL"></option><option value="Westchester, FL"></option><option value="Weston, FL"></option><option value="Wilton Manors, FL"></option><option value="Wynwood, FL"></option></datalist><datalist id="cityList"><option value="Allapattah, FL"></option><option value="Aventura, FL"></option><option value="Bal Harbour, FL"></option><option value="Belle Glade, FL"></option><option value="Big Pine Key, FL"></option><option value="Boca Raton, FL"></option><option value="Bonita Springs, FL"></option><option value="Boynton Beach, FL"></option><option value="Brickell, FL"></option><option value="Brownsville, FL"></option><option value="Cape Coral, FL"></option><option value="Clewiston, FL"></option><option value="Coconut Creek, FL"></option><option value="Coconut Grove, FL"></option><option value="Cooper City, FL"></option><option value="Coral Gables, FL"></option><option value="Coral Springs, FL"></option><option value="Country Walk, FL"></option><option value="Cutler Bay, FL"></option><option value="Dania Beach, FL"></option><option value="Davie, FL"></option><option value="Daytona Beach, FL"></option><option value="Deerfield Beach, FL"></option><option value="Delray Beach, FL"></option><option value="Doral, FL"></option><option value="Downtown Miami, FL"></option><option value="El Portal, FL"></option><option value="Estero, FL"></option><option value="Florida City, FL"></option><option value="Fontainebleau, FL"></option><option value="Fort Lauderdale, FL"></option><option value="Fort Myers, FL"></option><option value="Fort Pierce, FL"></option><option value="Fountainebleau, FL"></option><option value="Gainesville, FL"></option><option value="Goulds, FL"></option><option value="Greenacres, FL"></option><option value="Hallandale Beach, FL"></option><option value="Hialeah, FL"></option><option value="Hialeah Gardens, FL"></option><option value="Hollywood, FL"></option><option value="Homestead, FL"></option><option value="Islamorada, FL"></option><option value="Jacksonville, FL"></option><option value="Juno Beach, FL"></option><option value="Jupiter, FL"></option><option value="Kendale Lakes, FL"></option><option value="Kendall, FL"></option><option value="Key Biscayne, FL"></option><option value="Key Largo, FL"></option><option value="Key West, FL"></option><option value="Kissimmee, FL"></option><option value="Lake Park, FL"></option><option value="Lake Worth Beach, FL"></option><option value="Lantana, FL"></option><option value="Lauderdale Lakes, FL"></option><option value="Lauderdale-by-the-Sea, FL"></option><option value="Lauderhill, FL"></option><option value="Lehigh Acres, FL"></option><option value="Leisure City, FL"></option><option value="Liberty City, FL"></option><option value="Lighthouse Point, FL"></option><option value="Little Haiti, FL"></option><option value="Little Havana, FL"></option><option value="Marathon, FL"></option><option value="Marco Island, FL"></option><option value="Margate, FL"></option><option value="Medley, FL"></option><option value="Melbourne, FL"></option><option value="Miami, FL"></option><option value="Miami Beach, FL"></option><option value="Miami Gardens, FL"></option><option value="Miami Lakes, FL"></option><option value="Miami Shores, FL"></option><option value="Miami Springs, FL"></option><option value="Midtown Miami, FL"></option><option value="Miramar, FL"></option><option value="Naples, FL"></option><option value="Naranja, FL"></option><option value="North Lauderdale, FL"></option><option value="North Miami, FL"></option><option value="North Miami Beach, FL"></option><option value="North Palm Beach, FL"></option><option value="Oakland Park, FL"></option><option value="Ocala, FL"></option><option value="Okeechobee, FL"></option><option value="Opa-locka, FL"></option><option value="Orlando, FL"></option><option value="Palm Beach, FL"></option><option value="Palm Beach Gardens, FL"></option><option value="Palm Springs, FL"></option><option value="Palmetto Bay, FL"></option><option value="Parkland, FL"></option><option value="Pembroke Park, FL"></option><option value="Pembroke Pines, FL"></option><option value="Perrine, FL"></option><option value="Pinecrest, FL"></option><option value="Plantation, FL"></option><option value="Pompano Beach, FL"></option><option value="Port Charlotte, FL"></option><option value="Port St. Lucie, FL"></option><option value="Princeton, FL"></option><option value="Redland, FL"></option><option value="Richmond Heights, FL"></option><option value="Richmond West, FL"></option><option value="Riviera Beach, FL"></option><option value="Royal Palm Beach, FL"></option><option value="Sarasota, FL"></option><option value="South Miami, FL"></option><option value="South Miami Heights, FL"></option><option value="Southwest Ranches, FL"></option><option value="St. Petersburg, FL"></option><option value="Stuart, FL"></option><option value="Sunny Isles Beach, FL"></option><option value="Sunrise, FL"></option><option value="Sunset, FL"></option><option value="Surfside, FL"></option><option value="Sweetwater, FL"></option><option value="Tallahassee, FL"></option><option value="Tamarac, FL"></option><option value="Tamiami, FL"></option><option value="Tampa, FL"></option><option value="Tavernier, FL"></option><option value="Tequesta, FL"></option><option value="The Crossings, FL"></option><option value="The Hammocks, FL"></option><option value="Three Lakes, FL"></option><option value="Vero Beach, FL"></option><option value="Wellington, FL"></option><option value="West Kendall, FL"></option><option value="West Little River, FL"></option><option value="West Palm Beach, FL"></option><option value="Westchester, FL"></option><option value="Weston, FL"></option><option value="Wilton Manors, FL"></option><option value="Wynwood, FL"></option></datalist></form>
+</form>
 <div class="contact-info">
 <div class="info-card">
 <h4><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7 L 12 13 L 20 7"/></svg> Email</h4>
@@ -1110,9 +1115,11 @@ function setInvalid(id, bad){
 document.getElementById(id).classList.toggle('invalid', bad);
 }
 function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-function cityOk(v){ if(!v) return false; var dl=document.getElementById('cityList'); if(dl){ for(var i=0;i<dl.options.length;i++){ if(dl.options[i].value.toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
+function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
 
-function cityOk(v){ if(!v) return false; var dl=document.getElementById('cityList'); if(dl){ for(var i=0;i<dl.options.length;i++){ if(dl.options[i].value.toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
+function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
+
+function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
 
 form.addEventListener('submit', function(e){
 e.preventDefault();
@@ -1124,6 +1131,8 @@ var honey = form.querySelector('input[name="company"]').value;
 var bad = false;
 if(!name){ setInvalid('f-name', true); bad = true; } else setInvalid('f-name', false);
 if(!emailOk(email)){ setInvalid('f-email', true); bad = true; } else setInvalid('f-email', false);
+var cityVal = document.getElementById('city').value.trim();
+if(!cityOk(cityVal)){ setInvalid('f-city', true); bad = true; } else setInvalid('f-city', false);
 var cityVal = document.getElementById('city').value.trim();
 if(!cityOk(cityVal)){ setInvalid('f-city', true); bad = true; } else setInvalid('f-city', false);
 var cityVal = document.getElementById('city').value.trim();
@@ -1201,6 +1210,44 @@ el.addEventListener('change', function(){ el.closest('.field').classList.remove(
 // ---- Esc closes drawer ----
 document.addEventListener('keydown', function(e){
 if(e.key === 'Escape' && body.classList.contains('drawer-open')) closeDrawer();
+});
+})();
+</script>
+<script>
+(function(){
+window.CITY_LIST=["Allapattah, FL", "Aventura, FL", "Bal Harbour, FL", "Belle Glade, FL", "Big Pine Key, FL", "Boca Raton, FL", "Bonita Springs, FL", "Boynton Beach, FL", "Brickell, FL", "Brownsville, FL", "Cape Coral, FL", "Clewiston, FL", "Coconut Creek, FL", "Coconut Grove, FL", "Cooper City, FL", "Coral Gables, FL", "Coral Springs, FL", "Country Walk, FL", "Cutler Bay, FL", "Dania Beach, FL", "Davie, FL", "Daytona Beach, FL", "Deerfield Beach, FL", "Delray Beach, FL", "Doral, FL", "Downtown Miami, FL", "El Portal, FL", "Estero, FL", "Florida City, FL", "Fontainebleau, FL", "Fort Lauderdale, FL", "Fort Myers, FL", "Fort Pierce, FL", "Fountainebleau, FL", "Gainesville, FL", "Goulds, FL", "Greenacres, FL", "Hallandale Beach, FL", "Hialeah, FL", "Hialeah Gardens, FL", "Hollywood, FL", "Homestead, FL", "Islamorada, FL", "Jacksonville, FL", "Juno Beach, FL", "Jupiter, FL", "Kendale Lakes, FL", "Kendall, FL", "Key Biscayne, FL", "Key Largo, FL", "Key West, FL", "Kissimmee, FL", "Lake Park, FL", "Lake Worth Beach, FL", "Lantana, FL", "Lauderdale Lakes, FL", "Lauderdale-by-the-Sea, FL", "Lauderhill, FL", "Lehigh Acres, FL", "Leisure City, FL", "Liberty City, FL", "Lighthouse Point, FL", "Little Haiti, FL", "Little Havana, FL", "Marathon, FL", "Marco Island, FL", "Margate, FL", "Medley, FL", "Melbourne, FL", "Miami, FL", "Miami Beach, FL", "Miami Gardens, FL", "Miami Lakes, FL", "Miami Shores, FL", "Miami Springs, FL", "Midtown Miami, FL", "Miramar, FL", "Naples, FL", "Naranja, FL", "North Lauderdale, FL", "North Miami, FL", "North Miami Beach, FL", "North Palm Beach, FL", "Oakland Park, FL", "Ocala, FL", "Okeechobee, FL", "Opa-locka, FL", "Orlando, FL", "Palm Beach, FL", "Palm Beach Gardens, FL", "Palm Springs, FL", "Palmetto Bay, FL", "Parkland, FL", "Pembroke Park, FL", "Pembroke Pines, FL", "Perrine, FL", "Pinecrest, FL", "Plantation, FL", "Pompano Beach, FL", "Port Charlotte, FL", "Port St. Lucie, FL", "Princeton, FL", "Redland, FL", "Richmond Heights, FL", "Richmond West, FL", "Riviera Beach, FL", "Royal Palm Beach, FL", "Sarasota, FL", "South Miami, FL", "South Miami Heights, FL", "Southwest Ranches, FL", "St. Petersburg, FL", "Stuart, FL", "Sunny Isles Beach, FL", "Sunrise, FL", "Sunset, FL", "Surfside, FL", "Sweetwater, FL", "Tallahassee, FL", "Tamarac, FL", "Tamiami, FL", "Tampa, FL", "Tavernier, FL", "Tequesta, FL", "The Crossings, FL", "The Hammocks, FL", "Three Lakes, FL", "Vero Beach, FL", "Wellington, FL", "West Kendall, FL", "West Little River, FL", "West Palm Beach, FL", "Westchester, FL", "Weston, FL", "Wilton Manors, FL", "Wynwood, FL", "Atlanta, GA", "Savannah, GA", "Augusta, GA", "Columbus, GA", "Macon, GA", "New York, NY", "Brooklyn, NY", "Buffalo, NY", "Rochester, NY", "Los Angeles, CA", "San Diego, CA", "San Jose, CA", "San Francisco, CA", "Sacramento, CA", "Fresno, CA", "Long Beach, CA", "Oakland, CA", "Chicago, IL", "Houston, TX", "San Antonio, TX", "Dallas, TX", "Fort Worth, TX", "Austin, TX", "El Paso, TX", "Phoenix, AZ", "Tucson, AZ", "Mesa, AZ", "Philadelphia, PA", "Pittsburgh, PA", "Jacksonville, FL", "Charlotte, NC", "Raleigh, NC", "Durham, NC", "Greensboro, NC", "Wilmington, NC", "Columbus, OH", "Cleveland, OH", "Cincinnati, OH", "Indianapolis, IN", "Seattle, WA", "Spokane, WA", "Tacoma, WA", "Denver, CO", "Colorado Springs, CO", "Washington, DC", "Boston, MA", "Worcester, MA", "Nashville, TN", "Memphis, TN", "Knoxville, TN", "Chattanooga, TN", "Detroit, MI", "Grand Rapids, MI", "Louisville, KY", "Lexington, KY", "Baltimore, MD", "Milwaukee, WI", "Madison, WI", "Albuquerque, NM", "Las Vegas, NV", "Reno, NV", "Kansas City, MO", "St. Louis, MO", "Omaha, NE", "Minneapolis, MN", "St. Paul, MN", "New Orleans, LA", "Baton Rouge, LA", "Oklahoma City, OK", "Tulsa, OK", "Portland, OR", "Salt Lake City, UT", "Birmingham, AL", "Huntsville, AL", "Montgomery, AL", "Mobile, AL", "Richmond, VA", "Virginia Beach, VA", "Norfolk, VA", "Providence, RI", "Hartford, CT", "New Haven, CT", "Newark, NJ", "Jersey City, NJ", "Trenton, NJ", "Charleston, SC", "Columbia, SC", "Myrtle Beach, SC", "Little Rock, AR", "Jackson, MS", "Gulfport, MS", "Des Moines, IA", "Wichita, KS", "Boise, ID", "Anchorage, AK", "Honolulu, HI", "Billings, MT", "Fargo, ND", "Sioux Falls, SD", "Burlington, VT", "Portland, ME", "Manchester, NH", "Cheyenne, WY", "Charleston, WV", "Wilmington, DE", "San Juan, PR"];
+document.querySelectorAll('input[name="city"]').forEach(function(inp){
+  inp.setAttribute('autocomplete','off');
+  var wrap=document.createElement('div'); wrap.className='city-wrap';
+  inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+  var box=document.createElement('div'); box.className='city-suggest'; wrap.appendChild(box);
+  var hot=-1;
+  function close(){ box.classList.remove('open'); box.innerHTML=''; hot=-1; }
+  function render(items){
+    box.innerHTML='';
+    items.forEach(function(c){
+      var b=document.createElement('button'); b.type='button'; b.textContent=c;
+      b.addEventListener('mousedown', function(e){ e.preventDefault(); inp.value=c; close(); inp.dispatchEvent(new Event('input',{bubbles:true})); });
+      box.appendChild(b);
+    });
+    if(items.length){ box.classList.add('open'); } else close();
+  }
+  inp.addEventListener('input', function(){
+    var v=inp.value.trim().toLowerCase();
+    if(v.length<2){ close(); return; }
+    var hits=window.CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(v)===0; });
+    if(hits.length<8){ hits=hits.concat(window.CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(v)>0 && hits.indexOf(c)<0; })); }
+    render(hits.slice(0,8));
+  });
+  inp.addEventListener('keydown', function(e){
+    var opts=box.querySelectorAll('button'); if(!opts.length) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); hot=Math.min(hot+1,opts.length-1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); hot=Math.max(hot-1,0); }
+    else if(e.key==='Enter' && hot>=0){ e.preventDefault(); inp.value=opts[hot].textContent; close(); inp.dispatchEvent(new Event('input',{bubbles:true})); return; }
+    else if(e.key==='Escape'){ close(); return; }
+    opts.forEach(function(o,i){ o.classList.toggle('hot', i===hot); });
+  });
+  inp.addEventListener('blur', function(){ setTimeout(close, 120); });
 });
 })();
 </script>

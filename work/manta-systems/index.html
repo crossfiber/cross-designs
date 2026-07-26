@@ -219,10 +219,15 @@ footer h4{color:#fff;font-size:.8rem;letter-spacing:.08em;text-transform:upperca
 .case-cards .card ul li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border:2px solid var(--ink);border-radius:50%}
 .case-cards .card .k{font-family:'Permanent Marker',cursive;font-size:.82rem;letter-spacing:.06em;color:var(--pencil);text-transform:uppercase;display:block;margin-bottom:6px;transform:rotate(-1deg)}
 @media(max-width:900px){.case-hero{grid-template-columns:1fr;gap:30px}}
+.city-wrap{position:relative}
+.city-suggest{position:absolute;left:0;right:0;top:100%;z-index:60;background:var(--white,#fff);border:2px solid var(--ink,#181613);border-radius:12px 7px 12px 7px;margin-top:6px;box-shadow:4px 5px 0 rgba(24,22,19,.15);max-height:230px;overflow-y:auto;display:none}
+.city-suggest.open{display:block}
+.city-suggest button{display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;font-family:'Space Grotesk',system-ui,sans-serif;font-size:.95rem;color:var(--ink,#181613);padding:10px 14px}
+.city-suggest button:hover,.city-suggest button.hot{background:var(--paper,#F7F4EC)}
 </style>
 </head>
 <body>
-<header><div class="nav"><a href="/" aria-label="Cross Designs home"><img src="/assets/cross-logo.png" alt="Cross Designs" width="1079" height="286"></a><nav class="nav-mid" aria-label="Primary"><a href="/services/">Services</a><a href="/industries/">Industries</a><a href="/service-areas/">Areas</a><a href="/work/">Work</a><a href="/about/">About</a><a href="/blog/">Blog</a></nav><a href="#contact" class="btn sm">Start a project</a></div></header>
+<header><div class="nav"><a href="/" aria-label="Cross Designs home"><img src="/assets/cross-logo.png" alt="Cross Designs" width="1079" height="286"></a><nav class="nav-mid" aria-label="Primary"><a href="/work/">Work</a><a href="/services/">Services</a><a href="/industries/">Industries</a><a href="/service-areas/">Service areas</a><a href="/#pricing">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav><a href="#contact" class="btn sm">Start a project</a></div></header>
 <main>
 <section class="hero wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/work/">Work</a><span class="sep">/</span><span aria-current="page">Manta Systems</span></nav><div class="case-hero"><div><span class="eyebrow"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20.5 5 L20 35 M8 16 L33 15.5"/></svg> product launch</span><h1>Manta Systems</h1><p class="lede">Unreleased marine hardware that needed to feel real before it existed. The job: a pre-launch site that turns renders and an idea into credibility and a waitlist.</p><div class="cta-row"><a href="https://mantasystemsllc.com" target="_blank" rel="noopener" class="btn">Visit the live site</a><a href="/#free-review" class="btn ghost">Get my free website review</a></div></div><article class="browser"><div class="chrome"><i></i><i></i><i></i><span class="url">mantasystemsllc.com</span></div><div class="shot"><picture><source media="(max-width:640px)" srcset="/assets/work/manta-mobile.webp"><img src="/assets/work/manta-desktop.webp" alt="Manta Systems website built by Cross Designs" width="1200" height="750" loading="eager"></picture></div></article></div></section><section class="sec panel"><div class="wrap"><div class="sec-head"><span class="label"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20.5 5 L20 35 M8 16 L33 15.5"/></svg> the build story</span><h2>Challenge, build, outcome.</h2></div><div class="svc case-cards"><div class="card"><span class="k">challenge</span><h3>What needed to work</h3><p>Unreleased marine hardware that needed to feel real before it existed. The job: a pre-launch site that turns renders and an idea into credibility and a waitlist.</p></div><div class="card"><span class="k">build</span><h3>What was built</h3><ul><li><b>Renders as the show:</b> Dark, product-first design that lets the hardware renders carry the site, the way a launch should.</li><li><b>A how-it-works scroll:</b> The product explains itself in one continuous story instead of a specs table, built for a visitor who has never seen anything like it.</li><li><b>One conversion: the waitlist:</b> No fake store, no placeholder pages.</li><li><b>A foundation for launch day:</b> When the product ships, the site grows into specs, ordering, and support without starting over.</li></ul></div><div class="card"><span class="k">outcome</span><h3>Why it matters</h3><p>Pre-launch sites fail by pretending to be more than they are. This one leans into anticipation instead: everything on the page is true, and the single ask, join the waitlist, matches exactly where the product actually is. More builds like this: <a href="/industries/marine-charters/" style="font-weight:600;color:var(--ink)">web design for marine & boating</a>.</p></div></div></div></section><section class="sec wrap" style="padding-top:0"><div class="band"><h2>Want your business in the work section next?</h2><p>Every build here started with a short note about a business and what it needed. Send yours, or grab a free review of your current site first.</p><a href="#contact" class="btn">Start a project</a></div></section>
 </main>
@@ -268,7 +273,7 @@ var form = document.querySelector('form.lead');
 if(form){
   function bad(cls, isBad){ form.querySelector('.'+cls).classList.toggle('invalid', isBad); return isBad; }
   function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-function cityOk(v){ if(!v) return false; var dl=document.getElementById('cityList'); if(dl){ for(var i=0;i<dl.options.length;i++){ if(dl.options[i].value.toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
+function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -312,6 +317,44 @@ function cityOk(v){ if(!v) return false; var dl=document.getElementById('cityLis
     var f = e.target.closest('.field'); if(f) f.classList.remove('invalid');
   });
 }
+})();
+</script>
+<script>
+(function(){
+window.CITY_LIST=["Allapattah, FL", "Aventura, FL", "Bal Harbour, FL", "Belle Glade, FL", "Big Pine Key, FL", "Boca Raton, FL", "Bonita Springs, FL", "Boynton Beach, FL", "Brickell, FL", "Brownsville, FL", "Cape Coral, FL", "Clewiston, FL", "Coconut Creek, FL", "Coconut Grove, FL", "Cooper City, FL", "Coral Gables, FL", "Coral Springs, FL", "Country Walk, FL", "Cutler Bay, FL", "Dania Beach, FL", "Davie, FL", "Daytona Beach, FL", "Deerfield Beach, FL", "Delray Beach, FL", "Doral, FL", "Downtown Miami, FL", "El Portal, FL", "Estero, FL", "Florida City, FL", "Fontainebleau, FL", "Fort Lauderdale, FL", "Fort Myers, FL", "Fort Pierce, FL", "Fountainebleau, FL", "Gainesville, FL", "Goulds, FL", "Greenacres, FL", "Hallandale Beach, FL", "Hialeah, FL", "Hialeah Gardens, FL", "Hollywood, FL", "Homestead, FL", "Islamorada, FL", "Jacksonville, FL", "Juno Beach, FL", "Jupiter, FL", "Kendale Lakes, FL", "Kendall, FL", "Key Biscayne, FL", "Key Largo, FL", "Key West, FL", "Kissimmee, FL", "Lake Park, FL", "Lake Worth Beach, FL", "Lantana, FL", "Lauderdale Lakes, FL", "Lauderdale-by-the-Sea, FL", "Lauderhill, FL", "Lehigh Acres, FL", "Leisure City, FL", "Liberty City, FL", "Lighthouse Point, FL", "Little Haiti, FL", "Little Havana, FL", "Marathon, FL", "Marco Island, FL", "Margate, FL", "Medley, FL", "Melbourne, FL", "Miami, FL", "Miami Beach, FL", "Miami Gardens, FL", "Miami Lakes, FL", "Miami Shores, FL", "Miami Springs, FL", "Midtown Miami, FL", "Miramar, FL", "Naples, FL", "Naranja, FL", "North Lauderdale, FL", "North Miami, FL", "North Miami Beach, FL", "North Palm Beach, FL", "Oakland Park, FL", "Ocala, FL", "Okeechobee, FL", "Opa-locka, FL", "Orlando, FL", "Palm Beach, FL", "Palm Beach Gardens, FL", "Palm Springs, FL", "Palmetto Bay, FL", "Parkland, FL", "Pembroke Park, FL", "Pembroke Pines, FL", "Perrine, FL", "Pinecrest, FL", "Plantation, FL", "Pompano Beach, FL", "Port Charlotte, FL", "Port St. Lucie, FL", "Princeton, FL", "Redland, FL", "Richmond Heights, FL", "Richmond West, FL", "Riviera Beach, FL", "Royal Palm Beach, FL", "Sarasota, FL", "South Miami, FL", "South Miami Heights, FL", "Southwest Ranches, FL", "St. Petersburg, FL", "Stuart, FL", "Sunny Isles Beach, FL", "Sunrise, FL", "Sunset, FL", "Surfside, FL", "Sweetwater, FL", "Tallahassee, FL", "Tamarac, FL", "Tamiami, FL", "Tampa, FL", "Tavernier, FL", "Tequesta, FL", "The Crossings, FL", "The Hammocks, FL", "Three Lakes, FL", "Vero Beach, FL", "Wellington, FL", "West Kendall, FL", "West Little River, FL", "West Palm Beach, FL", "Westchester, FL", "Weston, FL", "Wilton Manors, FL", "Wynwood, FL", "Atlanta, GA", "Savannah, GA", "Augusta, GA", "Columbus, GA", "Macon, GA", "New York, NY", "Brooklyn, NY", "Buffalo, NY", "Rochester, NY", "Los Angeles, CA", "San Diego, CA", "San Jose, CA", "San Francisco, CA", "Sacramento, CA", "Fresno, CA", "Long Beach, CA", "Oakland, CA", "Chicago, IL", "Houston, TX", "San Antonio, TX", "Dallas, TX", "Fort Worth, TX", "Austin, TX", "El Paso, TX", "Phoenix, AZ", "Tucson, AZ", "Mesa, AZ", "Philadelphia, PA", "Pittsburgh, PA", "Jacksonville, FL", "Charlotte, NC", "Raleigh, NC", "Durham, NC", "Greensboro, NC", "Wilmington, NC", "Columbus, OH", "Cleveland, OH", "Cincinnati, OH", "Indianapolis, IN", "Seattle, WA", "Spokane, WA", "Tacoma, WA", "Denver, CO", "Colorado Springs, CO", "Washington, DC", "Boston, MA", "Worcester, MA", "Nashville, TN", "Memphis, TN", "Knoxville, TN", "Chattanooga, TN", "Detroit, MI", "Grand Rapids, MI", "Louisville, KY", "Lexington, KY", "Baltimore, MD", "Milwaukee, WI", "Madison, WI", "Albuquerque, NM", "Las Vegas, NV", "Reno, NV", "Kansas City, MO", "St. Louis, MO", "Omaha, NE", "Minneapolis, MN", "St. Paul, MN", "New Orleans, LA", "Baton Rouge, LA", "Oklahoma City, OK", "Tulsa, OK", "Portland, OR", "Salt Lake City, UT", "Birmingham, AL", "Huntsville, AL", "Montgomery, AL", "Mobile, AL", "Richmond, VA", "Virginia Beach, VA", "Norfolk, VA", "Providence, RI", "Hartford, CT", "New Haven, CT", "Newark, NJ", "Jersey City, NJ", "Trenton, NJ", "Charleston, SC", "Columbia, SC", "Myrtle Beach, SC", "Little Rock, AR", "Jackson, MS", "Gulfport, MS", "Des Moines, IA", "Wichita, KS", "Boise, ID", "Anchorage, AK", "Honolulu, HI", "Billings, MT", "Fargo, ND", "Sioux Falls, SD", "Burlington, VT", "Portland, ME", "Manchester, NH", "Cheyenne, WY", "Charleston, WV", "Wilmington, DE", "San Juan, PR"];
+document.querySelectorAll('input[name="city"]').forEach(function(inp){
+  inp.setAttribute('autocomplete','off');
+  var wrap=document.createElement('div'); wrap.className='city-wrap';
+  inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
+  var box=document.createElement('div'); box.className='city-suggest'; wrap.appendChild(box);
+  var hot=-1;
+  function close(){ box.classList.remove('open'); box.innerHTML=''; hot=-1; }
+  function render(items){
+    box.innerHTML='';
+    items.forEach(function(c){
+      var b=document.createElement('button'); b.type='button'; b.textContent=c;
+      b.addEventListener('mousedown', function(e){ e.preventDefault(); inp.value=c; close(); inp.dispatchEvent(new Event('input',{bubbles:true})); });
+      box.appendChild(b);
+    });
+    if(items.length){ box.classList.add('open'); } else close();
+  }
+  inp.addEventListener('input', function(){
+    var v=inp.value.trim().toLowerCase();
+    if(v.length<2){ close(); return; }
+    var hits=window.CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(v)===0; });
+    if(hits.length<8){ hits=hits.concat(window.CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(v)>0 && hits.indexOf(c)<0; })); }
+    render(hits.slice(0,8));
+  });
+  inp.addEventListener('keydown', function(e){
+    var opts=box.querySelectorAll('button'); if(!opts.length) return;
+    if(e.key==='ArrowDown'){ e.preventDefault(); hot=Math.min(hot+1,opts.length-1); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); hot=Math.max(hot-1,0); }
+    else if(e.key==='Enter' && hot>=0){ e.preventDefault(); inp.value=opts[hot].textContent; close(); inp.dispatchEvent(new Event('input',{bubbles:true})); return; }
+    else if(e.key==='Escape'){ close(); return; }
+    opts.forEach(function(o,i){ o.classList.toggle('hot', i===hot); });
+  });
+  inp.addEventListener('blur', function(){ setTimeout(close, 120); });
+});
 })();
 </script>
 </body>
