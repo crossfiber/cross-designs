@@ -93,7 +93,7 @@ a{color:inherit}
 h1,h2,h3{line-height:1.13;font-weight:700;letter-spacing:-0.01em}
 header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
 .nav{display:flex;align-items:center;justify-content:space-between;padding:13px 24px;max-width:1080px;margin:0 auto}
-.nav img{height:32px;width:auto;display:block}
+.nav img{height:40px;width:auto;display:block}
 .btn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--ink);padding:11px 20px;background:var(--ink);color:var(--paper);border-radius:200px 16px 200px 16px/16px 200px 16px 200px;box-shadow:3px 3px 0 var(--ink);transition:transform .15s,box-shadow .15s;text-decoration:none}
 .btn:hover{transform:translateY(-2px);box-shadow:5px 6px 0 var(--ink)}
 .btn.ghost{background:transparent;color:var(--ink);box-shadow:none}
@@ -184,13 +184,18 @@ footer h4{color:#fff;font-size:.8rem;letter-spacing:.08em;text-transform:upperca
 .foot-bottom{border-top:1px solid #2c2a26;margin-top:26px;padding-top:16px;font-size:.82rem;color:#8a867e;max-width:1080px;margin-left:auto;margin-right:auto;padding-left:24px;padding-right:24px}
 
 @media(max-width:780px){.svc{grid-template-columns:1fr 1fr}.split{grid-template-columns:1fr;gap:34px}.work-grid{grid-template-columns:1fr;gap:26px}}
-@media(max-width:520px){.svc{grid-template-columns:1fr}.nav{padding:11px 16px}.sec{padding-top:58px;padding-bottom:58px}.hero{padding:52px 0 44px}.band{padding:38px 24px}}
+@media(max-width:520px){.svc{grid-template-columns:1fr}.nav{padding:11px 16px}.nav img{height:33px}.sec{padding-top:58px;padding-bottom:58px}.hero{padding:52px 0 44px}.band{padding:38px 24px}}
+.nav-mid{display:flex;gap:30px;align-items:center}
+.nav-mid a{font-size:.95rem;font-weight:500;text-decoration:none;color:inherit}
+.nav-mid a:hover{text-decoration:underline;text-underline-offset:4px}
+@media(max-width:780px){.nav-mid{display:none}}
 </style>
 </head>
 <body>
 <header>
   <div class="nav">
     <a href="https://crossdesigned.com/" aria-label="Cross Designs home"><img src="/assets/cross-logo.png" alt="Cross Designs"></a>
+    <nav class="nav-mid" aria-label="Primary"><a href="/work/">Work</a><a href="/services/">Services</a><a href="/industries/">Industries</a><a href="/service-areas/">Service areas</a><a href="/#pricing">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav>
     <a href="https://crossdesigned.com/#contact" class="btn">Start a project</a>
   </div>
 </header>

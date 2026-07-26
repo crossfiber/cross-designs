@@ -642,6 +642,11 @@ built, found, booked
 <label for="frPhone">Phone <span class="marker">optional</span></label>
 <input type="tel" id="frPhone" name="phone" autocomplete="tel">
 </div>
+<div class="field" id="fr-city">
+<label for="frCity">City &amp; state <span class="marker">where the business lives</span></label>
+<input type="text" id="frCity" name="city" autocomplete="off" placeholder="Start typing, e.g. Kendall, FL">
+<span class="err">Pick a real city from the list, or type it like Kendall, FL.</span>
+</div>
 <button type="submit" class="btn btn-solid">Send my free review</button>
 <p id="frOk" style="display:none;font-family:'Caveat',cursive;font-size:1.5rem;margin-top:16px;color:var(--ink)">Got it. Your review is on the way, usually within a day or two.</p>
 <p id="frErr" style="display:none;font-size:.95rem;margin-top:16px;color:var(--ink);font-weight:500">Hm, that didn't go through. Email me instead: <a href="mailto:cross@crossdesigned.com" style="font-weight:600;border-bottom:2px solid var(--ink)">cross@crossdesigned.com</a></p>
@@ -1018,8 +1023,15 @@ let's talk
 history.scrollRestoration = 'auto';
 // strip any hash on load so refresh lands at top
 if(window.location.hash){
+var landTarget = document.querySelector(window.location.hash);
 history.replaceState(null, '', window.location.pathname + window.location.search);
-window.scrollTo(0,0);
+if(landTarget){
+setTimeout(function(){
+var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 74;
+var y = landTarget.getBoundingClientRect().top + window.pageYOffset - (navH + 20);
+window.scrollTo({top:y, behavior:'instant'});
+}, 80);
+} else { window.scrollTo(0,0); }
 }
 var body = document.body;
 // ---- Drawer ----
@@ -1173,6 +1185,8 @@ var frUrl = document.getElementById('frUrl').value.trim();
 var frBad = false;
 if(!emailOk(frEmail)){ document.getElementById('fr-email').classList.add('invalid'); frBad = true; } else document.getElementById('fr-email').classList.remove('invalid');
 if(!frUrl){ document.getElementById('fr-url').classList.add('invalid'); frBad = true; } else document.getElementById('fr-url').classList.remove('invalid');
+var frCity = document.getElementById('frCity').value.trim();
+if(!cityOk(frCity)){ document.getElementById('fr-city').classList.add('invalid'); frBad = true; } else document.getElementById('fr-city').classList.remove('invalid');
 if(frBad) return;
 var frBtn = frForm.querySelector('button[type="submit"]');
 frBtn.disabled = true; frBtn.textContent = 'Sending...';
@@ -1190,7 +1204,7 @@ frBtn.disabled = false; frBtn.textContent = 'Send my free review';
 document.getElementById('frErr').style.display = 'block';
 });
 });
-['frEmail','frUrl'].forEach(function(id){
+['frEmail','frUrl','frCity'].forEach(function(id){
 var el = document.getElementById(id);
 el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
 });
@@ -1218,6 +1232,7 @@ if(e.key === 'Escape' && body.classList.contains('drawer-open')) closeDrawer();
 window.CITY_LIST=["Allapattah, FL", "Aventura, FL", "Bal Harbour, FL", "Belle Glade, FL", "Big Pine Key, FL", "Boca Raton, FL", "Bonita Springs, FL", "Boynton Beach, FL", "Brickell, FL", "Brownsville, FL", "Cape Coral, FL", "Clewiston, FL", "Coconut Creek, FL", "Coconut Grove, FL", "Cooper City, FL", "Coral Gables, FL", "Coral Springs, FL", "Country Walk, FL", "Cutler Bay, FL", "Dania Beach, FL", "Davie, FL", "Daytona Beach, FL", "Deerfield Beach, FL", "Delray Beach, FL", "Doral, FL", "Downtown Miami, FL", "El Portal, FL", "Estero, FL", "Florida City, FL", "Fontainebleau, FL", "Fort Lauderdale, FL", "Fort Myers, FL", "Fort Pierce, FL", "Fountainebleau, FL", "Gainesville, FL", "Goulds, FL", "Greenacres, FL", "Hallandale Beach, FL", "Hialeah, FL", "Hialeah Gardens, FL", "Hollywood, FL", "Homestead, FL", "Islamorada, FL", "Jacksonville, FL", "Juno Beach, FL", "Jupiter, FL", "Kendale Lakes, FL", "Kendall, FL", "Key Biscayne, FL", "Key Largo, FL", "Key West, FL", "Kissimmee, FL", "Lake Park, FL", "Lake Worth Beach, FL", "Lantana, FL", "Lauderdale Lakes, FL", "Lauderdale-by-the-Sea, FL", "Lauderhill, FL", "Lehigh Acres, FL", "Leisure City, FL", "Liberty City, FL", "Lighthouse Point, FL", "Little Haiti, FL", "Little Havana, FL", "Marathon, FL", "Marco Island, FL", "Margate, FL", "Medley, FL", "Melbourne, FL", "Miami, FL", "Miami Beach, FL", "Miami Gardens, FL", "Miami Lakes, FL", "Miami Shores, FL", "Miami Springs, FL", "Midtown Miami, FL", "Miramar, FL", "Naples, FL", "Naranja, FL", "North Lauderdale, FL", "North Miami, FL", "North Miami Beach, FL", "North Palm Beach, FL", "Oakland Park, FL", "Ocala, FL", "Okeechobee, FL", "Opa-locka, FL", "Orlando, FL", "Palm Beach, FL", "Palm Beach Gardens, FL", "Palm Springs, FL", "Palmetto Bay, FL", "Parkland, FL", "Pembroke Park, FL", "Pembroke Pines, FL", "Perrine, FL", "Pinecrest, FL", "Plantation, FL", "Pompano Beach, FL", "Port Charlotte, FL", "Port St. Lucie, FL", "Princeton, FL", "Redland, FL", "Richmond Heights, FL", "Richmond West, FL", "Riviera Beach, FL", "Royal Palm Beach, FL", "Sarasota, FL", "South Miami, FL", "South Miami Heights, FL", "Southwest Ranches, FL", "St. Petersburg, FL", "Stuart, FL", "Sunny Isles Beach, FL", "Sunrise, FL", "Sunset, FL", "Surfside, FL", "Sweetwater, FL", "Tallahassee, FL", "Tamarac, FL", "Tamiami, FL", "Tampa, FL", "Tavernier, FL", "Tequesta, FL", "The Crossings, FL", "The Hammocks, FL", "Three Lakes, FL", "Vero Beach, FL", "Wellington, FL", "West Kendall, FL", "West Little River, FL", "West Palm Beach, FL", "Westchester, FL", "Weston, FL", "Wilton Manors, FL", "Wynwood, FL", "Atlanta, GA", "Savannah, GA", "Augusta, GA", "Columbus, GA", "Macon, GA", "New York, NY", "Brooklyn, NY", "Buffalo, NY", "Rochester, NY", "Los Angeles, CA", "San Diego, CA", "San Jose, CA", "San Francisco, CA", "Sacramento, CA", "Fresno, CA", "Long Beach, CA", "Oakland, CA", "Chicago, IL", "Houston, TX", "San Antonio, TX", "Dallas, TX", "Fort Worth, TX", "Austin, TX", "El Paso, TX", "Phoenix, AZ", "Tucson, AZ", "Mesa, AZ", "Philadelphia, PA", "Pittsburgh, PA", "Jacksonville, FL", "Charlotte, NC", "Raleigh, NC", "Durham, NC", "Greensboro, NC", "Wilmington, NC", "Columbus, OH", "Cleveland, OH", "Cincinnati, OH", "Indianapolis, IN", "Seattle, WA", "Spokane, WA", "Tacoma, WA", "Denver, CO", "Colorado Springs, CO", "Washington, DC", "Boston, MA", "Worcester, MA", "Nashville, TN", "Memphis, TN", "Knoxville, TN", "Chattanooga, TN", "Detroit, MI", "Grand Rapids, MI", "Louisville, KY", "Lexington, KY", "Baltimore, MD", "Milwaukee, WI", "Madison, WI", "Albuquerque, NM", "Las Vegas, NV", "Reno, NV", "Kansas City, MO", "St. Louis, MO", "Omaha, NE", "Minneapolis, MN", "St. Paul, MN", "New Orleans, LA", "Baton Rouge, LA", "Oklahoma City, OK", "Tulsa, OK", "Portland, OR", "Salt Lake City, UT", "Birmingham, AL", "Huntsville, AL", "Montgomery, AL", "Mobile, AL", "Richmond, VA", "Virginia Beach, VA", "Norfolk, VA", "Providence, RI", "Hartford, CT", "New Haven, CT", "Newark, NJ", "Jersey City, NJ", "Trenton, NJ", "Charleston, SC", "Columbia, SC", "Myrtle Beach, SC", "Little Rock, AR", "Jackson, MS", "Gulfport, MS", "Des Moines, IA", "Wichita, KS", "Boise, ID", "Anchorage, AK", "Honolulu, HI", "Billings, MT", "Fargo, ND", "Sioux Falls, SD", "Burlington, VT", "Portland, ME", "Manchester, NH", "Cheyenne, WY", "Charleston, WV", "Wilmington, DE", "San Juan, PR"];
 document.querySelectorAll('input[name="city"]').forEach(function(inp){
   inp.setAttribute('autocomplete','off');
+  inp.addEventListener('focus', function(){ if(!window.CITY_FULL && !window.CITY_LOADING){ window.CITY_LOADING=1; var s=document.createElement('script'); s.src='/assets/us-cities.js'; document.head.appendChild(s); } });
   var wrap=document.createElement('div'); wrap.className='city-wrap';
   inp.parentNode.insertBefore(wrap, inp); wrap.appendChild(inp);
   var box=document.createElement('div'); box.className='city-suggest'; wrap.appendChild(box);
