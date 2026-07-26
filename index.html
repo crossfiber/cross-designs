@@ -441,7 +441,7 @@ color:#B9B5AC;font-size:.9rem}
 /* ---------- RESPONSIVE ---------- */
 @media(max-width:980px){
 .hero-grid{grid-template-columns:1fr;gap:44px}
-.sketch-wrap{order:-1;max-width:380px}
+.sketch-wrap{max-width:420px}
 .about-grid{grid-template-columns:1fr;gap:40px}
 .contact-grid{grid-template-columns:1fr;gap:30px}
 .why-diagram{grid-template-columns:1fr;gap:30px;justify-items:center;text-align:center}
@@ -465,7 +465,7 @@ body{background-image:repeating-linear-gradient(to bottom, transparent 0, transp
 .hero h1{order:1;font-size:2.05rem}
 .hero h1 .u svg{bottom:-1px;height:9px;left:-2px;right:-2px;width:calc(100% + 4px)}
 .logo-img{height:33px}
-.sketch-wrap{order:2;margin:8px auto 0;max-width:300px}
+.sketch-wrap{order:5;margin:14px auto 0;max-width:340px;width:100%}
 .hero p.lede{order:3;font-size:1.05rem;margin:22px 0 0}
 .hero-actions{order:4;margin-top:22px}
 .hero-actions .btn{flex:1;justify-content:center}
@@ -499,6 +499,14 @@ footer{padding:46px 0 24px}
 form{padding:26px 22px}
 .foot-bottom{flex-direction:column;align-items:flex-start;gap:10px;margin-top:30px;padding-top:18px}
 }
+/* hero free-review card */
+.fr-body{padding:20px 22px 22px}
+.fr-kicker{font-family:'Permanent Marker',cursive;font-size:.88rem;color:var(--pencil);display:inline-block;transform:rotate(-1.2deg);margin-bottom:6px}
+.fr-title{font-weight:600;font-size:1.06rem;line-height:1.35;margin-bottom:16px}
+.fr-body .field{margin-bottom:14px}
+.fr-body .field label{font-size:.88rem;margin-bottom:5px}
+.fr-body .field input{background:var(--paper);padding:10px 12px;font-size:.95rem}
+.fr-body .btn{width:100%;justify-content:center}
 /* pitch services row */
 .why-svcs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
 .why-svcs a{border:2px solid rgba(245,245,245,.55);border-radius:14px 9px 14px 9px;padding:16px 18px;text-decoration:none;display:flex;flex-direction:column;gap:4px;transition:transform .15s,border-color .15s}
@@ -513,12 +521,6 @@ form{padding:26px 22px}
 .review-slot .marker{font-family:'Permanent Marker',cursive;font-size:1.1rem;color:var(--pencil);transform:rotate(-1.2deg);display:inline-block;margin-bottom:8px}
 .review-slot p{color:var(--pencil);font-size:.98rem}
 /* free review */
-.free-review{padding:0 0 76px}
-.free-inner{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:start;background:var(--white);border:2.5px solid var(--ink);border-radius:18px 12px 20px 12px;padding:44px 46px;box-shadow:6px 8px 0 rgba(24,22,19,.1)}
-.free-copy h2{font-size:clamp(1.45rem,3.6vw,2rem);margin:12px 0 14px}
-.free-copy p{color:var(--pencil);font-size:1.04rem;max-width:52ch}
-.free-form .field input{background:var(--paper)}
-.free-form .btn{width:100%;justify-content:center}
 /* pricing */
 .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
 .price-card{position:relative;background:var(--white);border:2px solid var(--ink);border-radius:16px 11px 18px 12px;padding:28px 26px;box-shadow:4px 5px 0 rgba(24,22,19,.08)}
@@ -532,7 +534,6 @@ form{padding:26px 22px}
 .seo-price{margin-top:34px;background:var(--white);border:2px solid var(--ink);border-radius:18px 11px 20px 12px;padding:30px 32px;box-shadow:5px 6px 0 rgba(24,22,19,.09);max-width:760px}
 .seo-price p{color:var(--pencil);font-size:1rem;margin-top:10px}
 .seo-price p b{color:var(--ink)}
-@media(max-width:900px){.free-inner{grid-template-columns:1fr;gap:28px;padding:32px 26px}}
 @media(max-width:780px){.price-grid{grid-template-columns:1fr;gap:26px}}
 </style>
 </head>
@@ -603,39 +604,44 @@ a web studio in kendall, south florida
 <p class="lede">Cross Designs is the one-stop web studio for small businesses, based in Kendall and serving all of South Florida. New site or a revamp of the one you have, the studio <b>builds it, ranks it, and answers for it</b>. Straight prices, no agency runaround.</p>
 <div class="hero-actions">
 <a href="#contact" class="btn btn-solid">Start a project</a>
-<a href="#free-review" class="btn">Get a free site review</a>
+<a href="#work" class="btn">See the work</a>
 <span class="hero-note">
 <svg viewBox="0 0 34 30" aria-hidden="true"><path d="M30 4 C 14 6, 6 14, 5 26 M5 26 L 2 17 M5 26 L 13 22" stroke="#75726B" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
 built, found, booked
 </span>
 </div>
 </div>
-<div class="sketch-wrap">
+<div class="sketch-wrap" id="free-review">
 <div class="sketch-card">
-<div class="bar"><i></i><i></i><i></i><span class="addr">your-business.com</span></div>
-<svg class="wire" viewBox="0 0 400 300" aria-hidden="true">
-<g stroke="#181613" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-<!-- hero block -->
-<path d="M22 28 q -2 -4 4 -4 l 210 1 q 5 0 4 5 l -1 60 q 0 5 -5 4 l -208 -1 q -5 0 -4 -5 z"/>
-<line x1="40" y1="46" x2="150" y2="46"/>
-<line x1="40" y1="62" x2="120" y2="62"/>
-<!-- image placeholder with diagonal -->
-<path d="M262 26 l 112 0 q 4 0 4 4 l 0 62 q 0 4 -4 4 l -112 0 q -4 0 -4 -4 l 0 -62 q 0 -4 4 -4 z"/>
-<line x1="262" y1="96" x2="378" y2="30"/>
-<line x1="262" y1="30" x2="378" y2="96"/>
-<!-- copy squiggle lines -->
-<path d="M24 128 q 90 -6 180 0"/>
-<path d="M24 146 q 70 -6 140 0"/>
-<path d="M24 164 q 100 -6 200 0"/>
-<!-- circled CTA button -->
-<path d="M26 196 q -3 -5 5 -5 l 120 1 q 6 0 5 6 l 0 26 q 0 6 -6 5 l -118 -1 q -6 0 -5 -6 z"/>
-<ellipse cx="90" cy="210" rx="80" ry="26" stroke="#181613" stroke-width="2.2" stroke-dasharray="3 5"/>
-<!-- 3 cards row -->
-<path d="M250 196 l 40 0 0 60 -40 0 z"/>
-<path d="M300 196 l 40 0 0 60 -40 0 z"/>
-<path d="M350 196 l 26 0 0 60 -26 0 z"/>
-</g>
-</svg>
+<div class="bar"><i></i><i></i><i></i><span class="addr">yourbusiness.com</span></div>
+<div class="fr-body">
+<div class="fr-head">
+<span class="fr-kicker">free website review, on the house</span>
+<p class="fr-title">Get an honest teardown of what your site is costing you.</p>
+</div>
+<form class="free-form" style="margin:0" name="website-review" method="POST" action="/" data-netlify="true" netlify-honeypot="company" novalidate>
+<input type="hidden" name="form-name" value="website-review">
+<input type="hidden" name="source" value="homepage: free review">
+<div class="hp"><label>Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+<div class="field" id="fr-email">
+<label for="frEmail">Email</label>
+<input type="email" id="frEmail" name="email" autocomplete="email">
+<span class="err">That looks incomplete. Try something like you@email.com.</span>
+</div>
+<div class="field" id="fr-url">
+<label for="frUrl">Your website <span class="marker">the one I should look at</span></label>
+<input type="text" id="frUrl" name="website" placeholder="yourbusiness.com" autocomplete="url">
+<span class="err">Drop the address of the site you want reviewed.</span>
+</div>
+<div class="field" id="fr-phone">
+<label for="frPhone">Phone <span class="marker">optional</span></label>
+<input type="tel" id="frPhone" name="phone" autocomplete="tel">
+</div>
+<button type="submit" class="btn btn-solid">Send my free review</button>
+<p id="frOk" style="display:none;font-family:'Caveat',cursive;font-size:1.5rem;margin-top:16px;color:var(--ink)">Got it. Your review is on the way, usually within a day or two.</p>
+<p id="frErr" style="display:none;font-size:.95rem;margin-top:16px;color:var(--ink);font-weight:500">Hm, that didn't go through. Email me instead: <a href="mailto:cross@crossdesigned.com" style="font-weight:600;border-bottom:2px solid var(--ink)">cross@crossdesigned.com</a></p>
+</form>
+</div>
 </div>
 <span class="sketch-anno anno-1">
 more calls
@@ -643,7 +649,7 @@ more calls
 </span>
 <span class="sketch-anno anno-2">
 <svg viewBox="0 0 40 34" aria-hidden="true"><path d="M4 30 C 8 14, 22 7, 35 7 M35 7 L 26 5 M35 7 L 31 14" stroke="#181613" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-looks legit
+no charge, no pitch
 </span>
 </div>
 </div>
@@ -732,43 +738,6 @@ the proof
 <div class="review-slot">
 <span class="marker">reviews, the honest way</span>
 <p>Google reviews for the studio are being collected from these exact clients right now, and they will appear here word for word, never invented. Until then, the receipts are one click away: <a href="/work/" style="font-weight:600;color:var(--ink)">the live builds</a> and the <a href="/reviews/" style="font-weight:600;color:var(--ink)">reviews page</a>.</p>
-</div>
-</div>
-</section>
-<!-- FREE WEBSITE REVIEW -->
-<section class="sec free-review" id="free-review">
-<div class="wrap">
-<div class="free-inner">
-<div class="free-copy">
-<span class="label">
-<svg class="lcross" viewBox="0 0 40 40" aria-hidden="true"><path d="M20.5 5 L20 35 M8 16 L33 15.5"/></svg>
-on the house
-</span>
-<h2>Get a free review of your current website.</h2>
-<p>Send me your site. You get back a short, honest teardown: where it is losing you leads, what is worth keeping, and what I would fix first. No charge, no obligation, and if your site is already solid I will tell you that too.</p>
-</div>
-<form class="free-form" name="website-review" method="POST" action="/" data-netlify="true" netlify-honeypot="company" novalidate>
-<input type="hidden" name="form-name" value="website-review">
-<input type="hidden" name="source" value="homepage: free review">
-<div class="hp"><label>Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
-<div class="field" id="fr-email">
-<label for="frEmail">Email</label>
-<input type="email" id="frEmail" name="email" autocomplete="email">
-<span class="err">That looks incomplete. Try something like you@email.com.</span>
-</div>
-<div class="field" id="fr-url">
-<label for="frUrl">Your website <span class="marker">the one I should look at</span></label>
-<input type="text" id="frUrl" name="website" placeholder="yourbusiness.com" autocomplete="url">
-<span class="err">Drop the address of the site you want reviewed.</span>
-</div>
-<div class="field" id="fr-phone">
-<label for="frPhone">Phone <span class="marker">optional</span></label>
-<input type="tel" id="frPhone" name="phone" autocomplete="tel">
-</div>
-<button type="submit" class="btn btn-solid">Send my free review</button>
-<p id="frOk" style="display:none;font-family:'Caveat',cursive;font-size:1.5rem;margin-top:16px;color:var(--ink)">Got it. Your review is on the way, usually within a day or two.</p>
-<p id="frErr" style="display:none;font-size:.95rem;margin-top:16px;color:var(--ink);font-weight:500">Hm, that didn't go through. Email me instead: <a href="mailto:cross@crossdesigned.com" style="font-weight:600;border-bottom:2px solid var(--ink)">cross@crossdesigned.com</a></p>
-</form>
 </div>
 </div>
 </section>
