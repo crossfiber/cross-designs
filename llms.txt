@@ -21,9 +21,9 @@
 - All industries: https://crossdesigned.com/industries/
 
 ## Service areas
-- Miami-Dade County (https://crossdesigned.com/miami-dade/): Miami, Coral Gables, Hialeah, Kendall, Homestead
-- Broward County (https://crossdesigned.com/broward/): Fort Lauderdale, Hollywood, Pembroke Pines, Pompano Beach
-- Palm Beach County (https://crossdesigned.com/palm-beach/): Boca Raton, Delray Beach, West Palm Beach
+- Miami-Dade County (https://crossdesigned.com/miami-dade/), 50 town pages incl. neighborhoods: Allapattah, Aventura, Brickell, Brownsville, Coconut Grove, Coral Gables, Country Walk, Cutler Bay, Doral, Downtown Miami, Florida City, Fountainebleau, Goulds, Hialeah, Hialeah Gardens, Homestead, Kendale Lakes, Kendall, Key Biscayne, Leisure City, Liberty City, Little Haiti, Little Havana, Medley, Miami, Miami Beach, Miami Gardens, Miami Lakes, Miami Shores, Midtown Miami, Naranja, North Miami, North Miami Beach, Opa-locka, Palmetto Bay, Perrine, Pinecrest, Princeton, Redland, Richmond Heights, Richmond West, South Miami, South Miami Heights, Sunny Isles Beach, Sweetwater, Tamiami, The Hammocks, West Little River, Westchester, Wynwood
+- Broward County (https://crossdesigned.com/broward/), 25 town pages: Coconut Creek, Cooper City, Coral Springs, Dania Beach, Davie, Deerfield Beach, Fort Lauderdale, Hallandale Beach, Hollywood, Lauderdale Lakes, Lauderdale-by-the-Sea, Lauderhill, Lighthouse Point, Margate, Miramar, North Lauderdale, Oakland Park, Parkland, Pembroke Pines, Plantation, Pompano Beach, Sunrise, Tamarac, Weston, Wilton Manors
+- Palm Beach County (https://crossdesigned.com/palm-beach/), 18 town pages: Belle Glade, Boca Raton, Boynton Beach, Delray Beach, Greenacres, Juno Beach, Jupiter, Lake Park, Lake Worth Beach, Lantana, North Palm Beach, Palm Beach Gardens, Palm Springs, Riviera Beach, Royal Palm Beach, Tequesta, Wellington, West Palm Beach
 - Upper Keys (https://crossdesigned.com/upper-keys/): Key Largo, Islamorada, Tavernier, Marathon
 - Southwest Florida (https://crossdesigned.com/southwest-florida/): Fort Myers, Naples, Cape Coral, Marco Island
 - All areas: https://crossdesigned.com/service-areas/ (remote work, available nationwide)
