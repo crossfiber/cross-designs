@@ -38,7 +38,11 @@ exports.handler = async function (event) {
   };
 
   const attributes = {};
-  if (data.name) attributes.FIRSTNAME = data.name.trim();
+  if (data.name) {
+    const parts = data.name.trim().split(/\s+/);
+    attributes.FIRSTNAME = parts[0];
+    if (parts.length > 1) attributes.LASTNAME = parts.slice(1).join(" ");
+  }
   if (data.city) attributes.CITY = data.city.trim();
   if (data.phone) attributes.PHONE_TEXT = data.phone.trim();
   if (data.website) attributes.WEBSITE_URL = data.website.trim();

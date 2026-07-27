@@ -620,6 +620,11 @@ built, found, booked
 <input type="hidden" name="form-name" value="website-review">
 <input type="hidden" name="source" value="homepage: free review">
 <div class="hp"><label>Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
+<div class="field" id="fr-name">
+<label for="frName">Your name <span class="marker">first and last</span></label>
+<input type="text" id="frName" name="name" autocomplete="name">
+<span class="err">A name helps me reply to a person, not a form.</span>
+</div>
 <div class="field" id="fr-email">
 <label for="frEmail">Email</label>
 <input type="email" id="frEmail" name="email" autocomplete="email">
@@ -1170,6 +1175,8 @@ if(frForm.querySelector('input[name="company"]').value){ return; }
 var frEmail = document.getElementById('frEmail').value.trim();
 var frUrl = document.getElementById('frUrl').value.trim();
 var frBad = false;
+var frName = document.getElementById('frName').value.trim();
+if(!frName){ document.getElementById('fr-name').classList.add('invalid'); frBad = true; } else document.getElementById('fr-name').classList.remove('invalid');
 if(!emailOk(frEmail)){ document.getElementById('fr-email').classList.add('invalid'); frBad = true; } else document.getElementById('fr-email').classList.remove('invalid');
 if(!frUrl){ document.getElementById('fr-url').classList.add('invalid'); frBad = true; } else document.getElementById('fr-url').classList.remove('invalid');
 var frCity = document.getElementById('frCity').value.trim();
@@ -1192,7 +1199,7 @@ frBtn.disabled = false; frBtn.textContent = 'Send my free review';
 document.getElementById('frErr').style.display = 'block';
 });
 });
-['frEmail','frUrl','frCity'].forEach(function(id){
+['frName','frEmail','frUrl','frCity'].forEach(function(id){
 var el = document.getElementById(id);
 el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
 });
