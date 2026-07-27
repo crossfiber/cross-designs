@@ -70,8 +70,9 @@ exports.handler = async function (event) {
 
     // 3. create deal in "New" (skip duplicates: one open deal per email is fine to dedupe by name)
     const who = data.name ? data.name.trim() : email;
-    const dealName =
+    let dealName =
       who + " - " + (form === "website-review" ? "free review" : "project inquiry");
+    if (data.website) dealName += " - " + data.website.trim();
     const deal = await fetch(BREVO + "/crm/deals", {
       method: "POST",
       headers,
