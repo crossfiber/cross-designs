@@ -1135,10 +1135,6 @@ if(!name){ setInvalid('f-name', true); bad = true; } else setInvalid('f-name', f
 if(!emailOk(email)){ setInvalid('f-email', true); bad = true; } else setInvalid('f-email', false);
 var cityVal = document.getElementById('city').value.trim();
 if(!cityOk(cityVal)){ setInvalid('f-city', true); bad = true; } else setInvalid('f-city', false);
-var cityVal = document.getElementById('city').value.trim();
-if(!cityOk(cityVal)){ setInvalid('f-city', true); bad = true; } else setInvalid('f-city', false);
-var cityVal = document.getElementById('city').value.trim();
-if(!cityOk(cityVal)){ setInvalid('f-city', true); bad = true; } else setInvalid('f-city', false);
 if(!type){ setInvalid('f-type', true); bad = true; } else setInvalid('f-type', false);
 if(!msg){ setInvalid('f-msg', true); bad = true; } else setInvalid('f-msg', false);
 if(honey){ return; } // bot
@@ -1155,6 +1151,7 @@ fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urle
 .then(function(r){
 if(!r.ok) throw new Error('bad status');
 form.querySelectorAll('input,textarea,select,button').forEach(function(el){ el.disabled = true; });
+submitBtn.textContent = 'Sent';
 formOk.style.display = 'block';
 formOk.scrollIntoView({behavior:'smooth', block:'center'});
 if(window.gtag) gtag('event','generate_lead',{form_source:'homepage'});
@@ -1186,6 +1183,7 @@ fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urle
 .then(function(r){
 if(!r.ok) throw new Error('bad status');
 frForm.querySelectorAll('input,button').forEach(function(el){ el.disabled = true; });
+frBtn.textContent = 'Sent';
 document.getElementById('frOk').style.display = 'block';
 if(window.gtag) gtag('event','generate_lead',{form_source:'homepage: free review'});
 })
@@ -1242,6 +1240,7 @@ document.querySelectorAll('input[name="city"]').forEach(function(inp){
     if(v.length<2){ close(); return; }
     var hits=window.CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(v)===0; });
     if(hits.length<8){ hits=hits.concat(window.CITY_LIST.filter(function(c){ return c.toLowerCase().indexOf(v)>0 && hits.indexOf(c)<0; })); }
+    if(hits.length&&hits[0].toLowerCase()===v){ close(); return; }
     render(hits.slice(0,8));
   });
   inp.addEventListener('keydown', function(e){
@@ -1253,6 +1252,7 @@ document.querySelectorAll('input[name="city"]').forEach(function(inp){
     opts.forEach(function(o,i){ o.classList.toggle('hot', i===hot); });
   });
   inp.addEventListener('blur', function(){ setTimeout(close, 120); });
+  document.addEventListener('pointerdown', function(e){ if(!wrap.contains(e.target)){ close(); } }, true);
 });
 })();
 </script>
