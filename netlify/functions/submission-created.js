@@ -9,7 +9,7 @@ const LIST_WEBSITE_LEADS = 5;
 const LIST_FREE_REVIEW = 6;
 
 exports.handler = async function (event) {
-  const key = process.env.BREVO_API_KEY;
+  const key = process.env.BREVO_API_KEY || process.env.Brevo_API_Key || process.env.brevo_api_key;
   if (!key) {
     console.error("BREVO_API_KEY not set");
     return { statusCode: 200, body: "skipped" };
