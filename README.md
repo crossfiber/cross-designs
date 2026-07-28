@@ -41,7 +41,9 @@ something only a studio that draws sites by hand would use.
   assets/cross-logo.png and swap if you want your mark instead.
 - [LOCATION NEEDED FOR LOCAL SEO]: site is positioned as remote/US-wide. If you want to rank
   for a specific city, give me the city and I will add LocalBusiness geo + local keywords.
-- No phone number provided: contact is email + form only. Add a number and I will wire tel: links.
+- Phone: (786) 841-8475 (Quo studio line) is wired site-wide as tel:+17868418475 in the header,
+  footer, contact section, and LocalBusiness/Organization schema. Keep GBP and any invoices on
+  this exact number so NAP stays consistent.
 - Social profiles: none provided; footer omits social icons. Send handles to add them.
 
 ## Reference builds consulted
