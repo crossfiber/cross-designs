@@ -456,8 +456,14 @@ color:#B9B5AC;font-size:.9rem}
 }
 @media(max-width:820px){
 .nav-links{display:none}
-.nav-cta .btn:not(.hamburger){display:none}
+.nav-cta .btn:not(.hamburger):not(.btn-tel){display:none}
 .hamburger{display:flex}
+.nav-cta{gap:10px}
+.nav-cta .btn-tel{display:inline-flex;justify-content:center;width:46px;height:46px;padding:0;
+border-radius:8px 18px 8px 18px;box-shadow:none}
+.nav-cta .btn-tel:hover{transform:none;box-shadow:none}
+.nav-cta .btn-tel svg{width:20px;height:20px}
+body.drawer-open .nav-cta .btn-tel{visibility:hidden}
 }
 @media(max-width:640px){
 :root{--nav-h:var(--nav-h-sm)}
