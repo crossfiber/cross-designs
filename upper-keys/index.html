@@ -406,6 +406,29 @@ document.querySelectorAll('a[href^="#"]').forEach(function(link){
     }
   });
 });
+function cdZone(a){
+if(a.closest('.drawer')) return 'drawer';
+if(a.closest('header')) return 'header';
+if(a.closest('footer')) return 'footer';
+var s=a.closest('section');
+if(s&&s.id) return s.id;
+if(a.closest('form')) return 'contact-form';
+return 'body';
+}
+function cdLinkEvent(sel,name){
+document.querySelectorAll(sel).forEach(function(a){
+a.addEventListener('click',function(){
+if(!window.gtag) return;
+var href=a.getAttribute('href')||'';
+var now=new Date().getTime();
+if(a.cdLastClick&&now-a.cdLastClick<1200) return;
+a.cdLastClick=now;
+gtag('event',name,{link_location:cdZone(a),link_url:href,page_path:window.location.pathname});
+});
+});
+}
+cdLinkEvent('a[href^="tel:"]','phone_click');
+cdLinkEvent('a[href^="mailto:"]','email_click');
 </script>
 </body>
 </html>
