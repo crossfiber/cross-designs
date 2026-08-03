@@ -412,7 +412,7 @@ function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<win
     var anyBad = false;
     anyBad = bad('f-name', !name) || anyBad;
     anyBad = bad('f-email', !emailOk(email)) || anyBad;
-    var cityEl = form.querySelector('[name="city"]');
+    var cityEl = form.querySelector('input[name="city"]:not([type="hidden"])');
     if(cityEl){ anyBad = bad('f-city', !cityOk(cityEl.value.trim())) || anyBad; }
     anyBad = bad('f-type', !type) || anyBad;
     anyBad = bad('f-msg', !msg) || anyBad;
