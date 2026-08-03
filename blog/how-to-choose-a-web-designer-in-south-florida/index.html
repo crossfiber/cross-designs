@@ -306,10 +306,34 @@ background:var(--ink);color:var(--white);font-size:12px;font-weight:700;line-hei
 .sketch-card{transform:none}
 .sketch-anno{display:none}
 }
+
+/* ---------- MOBILE DRAWER ---------- */
+.navburger{display:none;width:46px;height:46px;padding:0;flex:none;border:2px solid var(--ink);background:var(--white);border-radius:18px 8px 18px 8px;box-shadow:3px 3px 0 var(--ink);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;transition:transform .15s,box-shadow .15s}
+.navburger:hover{transform:translateY(-2px);box-shadow:4px 5px 0 var(--ink)}
+.navburger span{width:22px;height:2.4px;background:var(--ink);display:block;border-radius:2px}
+.drawer-scrim{position:fixed;inset:0;background:rgba(24,22,19,.45);opacity:0;visibility:hidden;transition:opacity .3s ease;z-index:95}
+body.drawer-open .drawer-scrim{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(87vw,362px);z-index:96;background:var(--paper);background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,var(--rule) 33px,var(--rule) 34px);border-left:2px solid var(--ink);transform:translateX(105%);visibility:hidden;transition:transform .32s cubic-bezier(.4,0,.2,1),visibility 0s linear .32s;display:flex;flex-direction:column;overflow-y:auto;padding:max(16px,env(safe-area-inset-top)) 24px max(18px,env(safe-area-inset-bottom))}
+body.drawer-open .drawer{transform:translateX(0);visibility:visible;transition:transform .32s cubic-bezier(.4,0,.2,1),visibility 0s}
+.drawer-top{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.drawer-top>a{display:block;line-height:0}
+.drawer-top img{height:32px;width:auto;display:block}
+.drawer-x{width:44px;height:44px;flex:none;padding:0;border:2px solid var(--ink);background:var(--white);border-radius:16px 7px 16px 7px;box-shadow:3px 3px 0 var(--ink);font-family:'Space Grotesk',sans-serif;font-size:1.45rem;line-height:1;cursor:pointer;color:var(--ink);-webkit-text-fill-color:var(--ink);-webkit-appearance:none;appearance:none}
+.drawer-kick{font-family:'Permanent Marker',cursive;color:var(--pencil);font-size:1rem;letter-spacing:.4px;transform:rotate(-1.5deg);transform-origin:left center;display:inline-block;margin:18px 0 6px}
+.drawer-links{display:flex;flex-direction:column;border-top:2px dashed var(--line2)}
+.drawer-links a{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:1.1rem;font-weight:500;padding:12px 2px;text-decoration:none;border-bottom:2px dashed var(--line2)}
+.drawer-links a::after{content:'';width:11px;height:11px;flex:none;border-right:2px solid var(--line2);border-top:2px solid var(--line2);transform:rotate(45deg)}
+.drawer-links a:hover{text-decoration:underline;text-underline-offset:4px}
+.drawer-foot{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:10px}
+.drawer-foot .btn{width:100%;justify-content:center;padding:11px 18px}
+.drawer-foot .btn.tel{padding:11px 18px}
+.drawer-foot .btn.tel span{display:inline}
+.drawer-note{font-family:'Caveat',cursive;font-size:1.16rem;line-height:1.25;color:var(--pencil);text-align:center;margin-top:2px}
+@media(max-width:780px){.navburger{display:flex}.nav-act .btn:not(.tel){display:none}body.drawer-open .nav-act{visibility:hidden}}
 </style>
 </head>
 <body>
-<header><div class="nav"><a href="/" aria-label="Cross Designs home"><img src="/assets/cross-logo.png" alt="Cross Designs" width="1079" height="286"></a><nav class="nav-mid" aria-label="Primary"><a href="/work/">Work</a><a href="/services/">Services</a><a href="/industries/">Industries</a><a href="/service-areas/">Service areas</a><a href="/#pricing">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav><div class="nav-act"><a href="tel:+17868418475" class="btn sm ghost tel" aria-label="Call Cross Designs at 786 841 8475"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.6 L9.1 3.6 L10.8 8.1 L8.7 9.7 C9.7 12 12 14.3 14.3 15.3 L15.9 13.2 L20.4 14.9 L20.4 17.4 C20.4 19.3 18.9 20.6 17.1 20.4 C10.3 19.7 4.3 13.7 3.6 6.9 C3.4 5.1 4.7 3.6 6.6 3.6 Z"/></svg><span>(786) 841-8475</span></a><a href="#contact" class="btn sm">Start a project</a></div></div></header>
+<header><div class="nav"><a href="/" aria-label="Cross Designs home"><img src="/assets/cross-logo.png" alt="Cross Designs" width="1079" height="286"></a><nav class="nav-mid" aria-label="Primary"><a href="/work/">Work</a><a href="/services/">Services</a><a href="/industries/">Industries</a><a href="/service-areas/">Service areas</a><a href="/#pricing">Pricing</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav><div class="nav-act"><a href="tel:+17868418475" class="btn sm ghost tel" aria-label="Call Cross Designs at 786 841 8475"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.6 L9.1 3.6 L10.8 8.1 L8.7 9.7 C9.7 12 12 14.3 14.3 15.3 L15.9 13.2 L20.4 14.9 L20.4 17.4 C20.4 19.3 18.9 20.6 17.1 20.4 C10.3 19.7 4.3 13.7 3.6 6.9 C3.4 5.1 4.7 3.6 6.6 3.6 Z"/></svg><span>(786) 841-8475</span></a><a href="#contact" class="btn sm">Start a project</a><button class="navburger" id="openDrawer" aria-controls="drawer" aria-expanded="false" aria-label="Open menu"><span></span><span></span><span></span></button></div></div></header><div class="drawer-scrim" id="scrim"></div><aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true"><div class="drawer-top"><a href="/" aria-label="Cross Designs home"><img src="/assets/cross-logo.png" alt="Cross Designs" width="1079" height="286"></a><button class="drawer-x" id="closeDrawer" aria-label="Close menu">&times;</button></div><span class="drawer-kick">where to</span><nav class="drawer-links" aria-label="Mobile"><a href="/work/">Work</a><a href="/services/">Services</a><a href="/industries/">Industries</a><a href="/service-areas/">Service areas</a><a href="/#pricing">Pricing</a><a href="#free-review">Free site review</a><a href="/about/">About</a><a href="/#faq">FAQ</a></nav><div class="drawer-foot"><a href="tel:+17868418475" class="btn tel" aria-label="Call Cross Designs at 786 841 8475"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.6 L9.1 3.6 L10.8 8.1 L8.7 9.7 C9.7 12 12 14.3 14.3 15.3 L15.9 13.2 L20.4 14.9 L20.4 17.4 C20.4 19.3 18.9 20.6 17.1 20.4 C10.3 19.7 4.3 13.7 3.6 6.9 C3.4 5.1 4.7 3.6 6.6 3.6 Z"/></svg><span>Call (786) 841-8475</span></a><a href="#contact" class="btn ghost">Start a project</a><span class="drawer-note">straight to me, not an account manager</span></div></aside>
 <main>
 <section class="hero wrap" style="padding-bottom:30px"><nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">/</span><a href="/blog/">Blog</a><span class="sep">/</span><span aria-current="page">the checklist</span></nav><span class="eyebrow"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20.5 5 L20 35 M8 16 L33 15.5"/></svg> the checklist</span><h1 style="max-width:20ch">How to Choose a Web Designer in South Florida (A Vetting Checklist)</h1><p class="post-meta">By Aiden Camacho, Cross Designs. Published 2026-07-22. 6 minute read.</p><div class="cta-row" style="margin-top:22px"><a href="#free-review" class="btn ghost">Get a free review of your site</a><span class="script">no charge, no pitch</span></div></section><section class="sec panel" style="padding-top:54px"><div class="wrap"><div class="prose">
 <p>Every week a South Florida business owner hires the wrong web designer, and six months later I meet the aftermath: a site they do not own, on a platform they cannot leave, that has never once ranked for their own city. Here is the checklist I would hand my own family before they hired anyone, including before they hired me. Make whoever you talk to pass it.</p>
@@ -623,6 +647,37 @@ frForm.addEventListener('submit', function(e){
   var el = document.getElementById(id);
   if(el) el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
 });
+})();
+</script>
+<script>
+(function(){
+"use strict";
+var body = document.body,
+    openBtn = document.getElementById('openDrawer'),
+    closeBtn = document.getElementById('closeDrawer'),
+    scrim = document.getElementById('scrim'),
+    drawer = document.getElementById('drawer');
+if(!openBtn || !drawer) return;
+function openDr(){
+  body.classList.add('drawer-open');
+  body.style.overflow = 'hidden';
+  drawer.setAttribute('aria-hidden','false');
+  openBtn.setAttribute('aria-expanded','true');
+}
+function closeDr(){
+  if(!body.classList.contains('drawer-open')) return;
+  body.classList.remove('drawer-open');
+  body.style.overflow = '';
+  drawer.setAttribute('aria-hidden','true');
+  openBtn.setAttribute('aria-expanded','false');
+}
+openBtn.addEventListener('click', openDr);
+if(closeBtn) closeBtn.addEventListener('click', closeDr);
+if(scrim) scrim.addEventListener('click', closeDr);
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeDr(); });
+/* capture phase: the scroll lock has to come off before the page-wide
+   anchor handler tries to scroll, or the jump lands nowhere */
+drawer.addEventListener('click', function(e){ if(e.target.closest('a')) closeDr(); }, true);
 })();
 </script>
 </body>
