@@ -141,7 +141,7 @@ h1,h2,h3,h4{line-height:1.12;font-weight:600;letter-spacing:-0.01em}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
 section{position:relative}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;--gut:28px}
 .ink-line{color:var(--pencil)}
 /* hand-drawn helpers */
 .marker{font-family:'Caveat',cursive;font-weight:600;line-height:1}
@@ -464,7 +464,7 @@ body.drawer-open .nav-cta .btn-tel{visibility:hidden}
 }
 @media(max-width:640px){
 :root{--nav-h:var(--nav-h-sm)}
-.wrap{padding:0 20px}
+.wrap{padding:0 20px;--gut:20px}
 body{background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 33px, var(--rule) 33px, var(--rule) 34px)}
 .hero{padding:calc(var(--nav-h-sm) + 30px) 0 90px}
 .hero-grid{display:flex;flex-direction:column}
@@ -610,7 +610,7 @@ background:var(--ink);color:var(--white);font-size:12px;font-weight:700;line-hei
 .qarrow:hover:not(:disabled){transform:translateY(-2px);box-shadow:4px 5px 0 var(--ink,#181613)}
 .qarrow:disabled{opacity:.32;cursor:default;box-shadow:2px 2px 0 var(--ink,#181613)}
 .qmore{margin-top:14px}
-@media(max-width:780px){.qwall{gap:14px;padding-bottom:14px}.qwall>.qcard{flex:0 0 84%}.qwall.one>.qcard{flex:0 0 100%}}
+@media(max-width:780px){.qwall{gap:14px;margin-left:calc(var(--gut,24px) * -1);margin-right:calc(var(--gut,24px) * -1);padding:4px var(--gut,24px) 14px;scroll-padding:0 var(--gut,24px)}.qwall>.qcard{flex:0 0 84%}.qwall.one>.qcard{flex:0 0 100%}}
 </style>
 </head>
 <body id="top">

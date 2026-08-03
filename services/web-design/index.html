@@ -60,7 +60,7 @@ gtag('config', 'G-EBZCRKYBGF');
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px}
 body{font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--paper);background-image:repeating-linear-gradient(to bottom,transparent 0,transparent 33px,var(--rule) 33px,var(--rule) 34px);line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;--gut:24px}
 h1,h2,h3{line-height:1.13;font-weight:700;letter-spacing:-0.01em}
 header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:2px solid var(--ink)}
 .nav{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:13.5px 28px;max-width:1240px;margin:0 auto}
@@ -383,7 +383,7 @@ body.drawer-open .drawer{transform:translateX(0);visibility:visible;transition:t
 .qarrow:hover:not(:disabled){transform:translateY(-2px);box-shadow:4px 5px 0 var(--ink,#181613)}
 .qarrow:disabled{opacity:.32;cursor:default;box-shadow:2px 2px 0 var(--ink,#181613)}
 .qmore{margin-top:14px}
-@media(max-width:780px){.qwall{gap:14px;padding-bottom:14px}.qwall>.qcard{flex:0 0 84%}.qwall.one>.qcard{flex:0 0 100%}}
+@media(max-width:780px){.qwall{gap:14px;margin-left:calc(var(--gut,24px) * -1);margin-right:calc(var(--gut,24px) * -1);padding:4px var(--gut,24px) 14px;scroll-padding:0 var(--gut,24px)}.qwall>.qcard{flex:0 0 84%}.qwall.one>.qcard{flex:0 0 100%}}
 </style>
 </head>
 <body>
