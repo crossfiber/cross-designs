@@ -380,7 +380,8 @@ function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<win
     if(form.querySelector('[name="company"]').value){ return; }
     var name = form.querySelector('[name="name"]').value.trim();
     var email = form.querySelector('[name="email"]').value.trim();
-    var type = form.querySelector('[name="ptype"]').value;
+    var ptypeEl = form.querySelector('input[name="ptype"]:checked');
+    var type = ptypeEl ? ptypeEl.value : '';
     var msg = form.querySelector('[name="message"]').value.trim();
     var anyBad = false;
     anyBad = bad('f-name', !name) || anyBad;
