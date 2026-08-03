@@ -401,14 +401,14 @@ padding:34px 34px 30px;box-shadow:6px 7px 0 rgba(24,22,19,.1)}
 .field{margin-bottom:20px}
 .field label{display:block;font-weight:600;font-size:.95rem;margin-bottom:8px}
 .field label .marker{color:var(--pencil);font-size:1.1rem;margin-left:6px}
-.field input,.field textarea,.field select{width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;
+.field input,.field textarea{width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;
 color:var(--ink);background:var(--paper);border:2px solid var(--ink);border-radius:12px 7px 12px 7px;
 padding:13px 15px}
 .field textarea{resize:vertical;min-height:120px}
-.field input:focus,.field textarea:focus,.field select:focus{outline:none;box-shadow:3px 3px 0 var(--ink)}
+.field input:focus,.field textarea:focus{outline:none;box-shadow:3px 3px 0 var(--ink)}
 .field .err{display:none;font-size:.85rem;color:var(--ink);margin-top:7px;font-weight:500}
 .field .err::before{content:"\21B3  "}
-.field.invalid input,.field.invalid textarea,.field.invalid select{background:#fff;border-color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.field.invalid input,.field.invalid textarea{background:#fff;border-color:var(--ink);box-shadow:2px 2px 0 var(--ink)}
 .field.invalid .err{display:block}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 form .btn{width:100%;justify-content:center;margin-top:4px}
@@ -519,6 +519,42 @@ form{padding:26px 22px}
 .fr-body .field label{font-size:.88rem;margin-bottom:5px}
 .fr-body .field input{background:var(--paper);padding:10px 12px;font-size:.95rem}
 .fr-body .btn{width:100%;justify-content:center}
+/* one question at a time */
+.fr-steps.is-stepped .step{display:none}
+.fr-steps.is-stepped .step.active{display:block}
+.fr-prog{display:none;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}
+.fr-steps.is-stepped .fr-prog{display:flex}
+.fr-prog .st{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--pencil);font-weight:600}
+.fr-dots{display:flex;gap:7px}
+.fr-dots i{display:block;width:10px;height:10px;border:2px solid var(--ink);border-radius:50%;background:transparent;transition:background .2s ease}
+.fr-dots i.on{background:var(--ink)}
+.tiles{display:grid;gap:10px}
+.tiles.two{grid-template-columns:1fr 1fr}
+.tiles.two .tile:last-child{grid-column:1/-1}
+.tile{display:block;position:relative;cursor:pointer;height:100%}
+.tile .tl{height:100%}
+.tile input{position:absolute;opacity:0;width:1px;height:1px}
+.tile .tl{display:flex;gap:11px;align-items:flex-start;min-height:52px;padding:13px 15px;background:var(--paper);
+border:2px solid var(--ink);border-radius:12px 7px 12px 7px;
+transition:box-shadow .16s ease,transform .16s ease,background .16s ease}
+.tile .tl::before{content:"";flex:0 0 auto;width:18px;height:18px;margin-top:2px;border:2px solid var(--ink);border-radius:50%;background:var(--white)}
+.tile b{display:block;font-size:1rem;font-weight:600;line-height:1.25}
+.tile em{display:block;font-style:normal;font-weight:400;font-size:.84rem;color:var(--pencil);margin-top:3px;line-height:1.35}
+.tile:hover .tl{transform:translateY(-1px);box-shadow:3px 3px 0 rgba(24,22,19,.22)}
+.tile input:checked+.tl{background:var(--white);box-shadow:4px 4px 0 var(--ink)}
+.tile input:checked+.tl::before{background:var(--ink);box-shadow:inset 0 0 0 3px var(--white)}
+.tile input:focus-visible+.tl{box-shadow:3px 3px 0 var(--ink)}
+.field.invalid .tile .tl{background:#fff;box-shadow:2px 2px 0 var(--ink)}
+.fr-body .tile b{font-size:.95rem}
+.fr-body .tile .tl{min-height:48px;padding:11px 13px}
+.fr-nav{display:flex;gap:10px;align-items:center}
+.fr-back,.fr-next{display:none}
+.is-stepped .fr-back,.is-stepped .fr-next{display:inline-flex}
+.fr-nav .btn{width:auto;flex:1;justify-content:center;margin-top:0}
+.fr-nav .fr-back{flex:0 0 auto;padding:12px 18px}
+.fr-call{margin:14px 0 0;font-size:.85rem;color:var(--pencil);text-align:center;line-height:1.5}
+.fr-call a{color:var(--ink);font-weight:600;border-bottom:2px solid var(--ink);white-space:nowrap}
+@media(max-width:560px){.tiles.two{grid-template-columns:1fr}}
 /* pitch services row */
 .why-svcs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
 .why-svcs a{border:2px solid rgba(245,245,245,.55);border-radius:14px 9px 14px 9px;padding:16px 18px;text-decoration:none;display:flex;flex-direction:column;gap:4px;transition:transform .15s,border-color .15s}
@@ -637,35 +673,56 @@ built, found, booked
 <span class="fr-kicker">free website review, on the house</span>
 <p class="fr-title">Get an honest teardown of what your site is costing you.</p>
 </div>
-<form class="free-form" style="margin:0" name="website-review" method="POST" action="/" data-netlify="true" netlify-honeypot="company" novalidate>
+<form class="free-form fr-steps" style="margin:0" name="website-review" method="POST" action="/" data-netlify="true" netlify-honeypot="company" novalidate>
 <input type="hidden" name="form-name" value="website-review">
 <input type="hidden" name="source" value="homepage: free review">
 <div class="hp"><label>Leave this empty<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div>
-<div class="field" id="fr-name">
-<label for="frName">Your name <span class="marker">first and last</span></label>
-<input type="text" id="frName" name="name" autocomplete="name">
-<span class="err">A name helps me reply to a person, not a form.</span>
+<div class="fr-prog"><span class="st">Step 1 of 3</span><span class="fr-dots"><i class="on"></i><i></i><i></i></span></div>
+<div class="fr-steps-inner">
+<div class="step" data-step="1">
+<div class="field" id="fr-need">
+<label>What do you need? <span class="marker">tap one</span></label>
+<div class="tiles">
+<label class="tile"><input type="radio" name="need" value="A new site"><span class="tl"><span><b>A new site</b><em>Nothing live yet, or starting over from scratch</em></span></span></label>
+<label class="tile"><input type="radio" name="need" value="Fix the site I have"><span class="tl"><span><b>Fix the site I have</b><em>It exists, it just is not bringing in work</em></span></span></label>
+<label class="tile"><input type="radio" name="need" value="Get found on Google"><span class="tl"><span><b>Get found on Google</b><em>The site is fine. The traffic is not.</em></span></span></label>
 </div>
-<div class="field" id="fr-email">
-<label for="frEmail">Email</label>
-<input type="email" id="frEmail" name="email" autocomplete="email">
-<span class="err">That looks incomplete. Try something like you@email.com.</span>
+<span class="err">Pick whichever is closest. We can sort the details later.</span>
 </div>
+<div class="fr-nav"><button type="button" class="btn btn-solid fr-next">Next</button></div>
+</div>
+<div class="step" data-step="2">
 <div class="field" id="fr-url">
-<label for="frUrl">Your website <span class="marker">the one I should look at</span></label>
+<label for="frUrl">Your website <span class="marker" id="frUrlHint">the one I should look at</span></label>
 <input type="text" id="frUrl" name="website" placeholder="yourbusiness.com" autocomplete="url">
 <span class="err">Drop the address of the site you want reviewed.</span>
-</div>
-<div class="field" id="fr-phone">
-<label for="frPhone">Phone <span class="marker">optional</span></label>
-<input type="tel" id="frPhone" name="phone" autocomplete="tel">
 </div>
 <div class="field" id="fr-city">
 <label for="frCity">City &amp; state <span class="marker">where the business lives</span></label>
 <input type="text" id="frCity" name="city" autocomplete="off" placeholder="Start typing, e.g. Kendall, FL">
 <span class="err">Pick a real city from the list, or type it like Kendall, FL.</span>
 </div>
-<button type="submit" class="btn btn-solid">Send my free review</button>
+<div class="fr-nav"><button type="button" class="btn fr-back">Back</button><button type="button" class="btn btn-solid fr-next">Next</button></div>
+</div>
+<div class="step" data-step="3">
+<div class="field" id="fr-name">
+<label for="frName">Your name <span class="marker">first and last</span></label>
+<input type="text" id="frName" name="name" autocomplete="name">
+<span class="err">A name helps me reply to a person, not a form.</span>
+</div>
+<div class="field" id="fr-email">
+<label for="frEmail">Email <span class="marker">where the review lands</span></label>
+<input type="email" id="frEmail" name="email" autocomplete="email">
+<span class="err">That looks incomplete. Try something like you@email.com.</span>
+</div>
+<div class="field" id="fr-phone">
+<label for="frPhone">Phone <span class="marker">optional</span></label>
+<input type="tel" id="frPhone" name="phone" autocomplete="tel">
+</div>
+<div class="fr-nav"><button type="button" class="btn fr-back">Back</button><button type="submit" class="btn btn-solid">Send my free review</button></div>
+</div>
+</div>
+<p class="fr-call">Rather skip the form? Call me at <a href="tel:+17868418475">(786) 841-8475</a>.</p>
 <p id="frOk" style="display:none;font-family:'Caveat',cursive;font-size:1.5rem;margin-top:16px;color:var(--ink)">Got it. Your review is on the way, usually within a day or two.</p>
 <p id="frErr" style="display:none;font-size:.95rem;margin-top:16px;color:var(--ink);font-weight:500">Hm, that didn't go through. Email me instead: <a href="mailto:cross@crossdesigned.com" style="font-weight:600;border-bottom:2px solid var(--ink)">cross@crossdesigned.com</a></p>
 </form>
@@ -952,16 +1009,14 @@ let's talk
 <span class="err">Pick a real city from the list, or type it like Kendall, FL.</span>
 </div>
 <div class="field" id="f-type">
-<label for="ptype">What do you need?</label>
-<select id="ptype" name="ptype">
-<option value="">Pick one</option>
-<option>A new website</option>
-<option>A revamp of my current site</option>
-<option>SEO / getting found on Google</option>
-
-<option>The full studio</option>
-<option>Not sure yet, let's talk</option>
-</select>
+<label>What do you need? <span class="marker">tap one</span></label>
+<div class="tiles two">
+<label class="tile"><input type="radio" name="ptype" value="A new website"><span class="tl"><span><b>A new website</b></span></span></label>
+<label class="tile"><input type="radio" name="ptype" value="A revamp of my current site"><span class="tl"><span><b>A revamp of my current site</b></span></span></label>
+<label class="tile"><input type="radio" name="ptype" value="SEO / getting found on Google"><span class="tl"><span><b>SEO / getting found on Google</b></span></span></label>
+<label class="tile"><input type="radio" name="ptype" value="The full studio"><span class="tl"><span><b>The full studio</b></span></span></label>
+<label class="tile"><input type="radio" name="ptype" value="Not sure yet, let's talk"><span class="tl"><span><b>Not sure yet, let's talk</b></span></span></label>
+</div>
 <span class="err">Pick the closest one. We can sort the details later.</span>
 </div>
 <div class="field" id="f-msg">
@@ -1154,15 +1209,14 @@ document.getElementById(id).classList.toggle('invalid', bad);
 function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
 
-function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
 
-function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<window.CITY_LIST.length;i++){ if(window.CITY_LIST[i].toLowerCase()===v.toLowerCase()) return true; } } var m=v.match(/^[A-Za-z .'\-]{3,},\s*([A-Za-z]{2})$/); return !!(m && ' AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY DC '.indexOf(' '+m[1].toUpperCase()+' ')>=0); }
 
 form.addEventListener('submit', function(e){
 e.preventDefault();
 var name = document.getElementById('name').value.trim();
 var email = document.getElementById('email').value.trim();
-var type = document.getElementById('ptype').value;
+var ptypeEl = form.querySelector('input[name="ptype"]:checked');
+var type = ptypeEl ? ptypeEl.value : '';
 var msg = document.getElementById('message').value.trim();
 var honey = form.querySelector('input[name="company"]').value;
 var bad = false;
@@ -1196,22 +1250,84 @@ submitBtn.disabled = false; submitBtn.textContent = 'Send it over';
 document.getElementById('formErr').style.display = 'block';
 });
 });
-// ---- Free website review form ----
+// ---- Free website review form, one question at a time ----
 var frForm = document.querySelector('form[name="website-review"]');
 if(frForm){
+var frSteps = Array.prototype.slice.call(frForm.querySelectorAll('.step'));
+var frDots = frForm.querySelectorAll('.fr-dots i');
+var frLbl = frForm.querySelector('.fr-prog .st');
+var frCur = 0;
+var frTapped = false;
+function frNeed(){ var r = frForm.querySelector('input[name="need"]:checked'); return r ? r.value : ''; }
+function frFlag(id, isBad){ document.getElementById(id).classList.toggle('invalid', isBad); return isBad; }
+function frCheck(i){
+if(i === 0){ return !frFlag('fr-need', !frNeed()); }
+if(i === 1){
+var urlReq = frNeed() !== 'A new site';
+var b1 = frFlag('fr-url', urlReq && !document.getElementById('frUrl').value.trim());
+var b2 = frFlag('fr-city', !cityOk(document.getElementById('frCity').value.trim()));
+return !(b1 || b2);
+}
+var b3 = frFlag('fr-name', !document.getElementById('frName').value.trim());
+var b4 = frFlag('fr-email', !emailOk(document.getElementById('frEmail').value.trim()));
+return !(b3 || b4);
+}
+function frShow(i, moveFocus){
+frCur = i;
+for(var a = 0; a < frSteps.length; a++) frSteps[a].classList.toggle('active', a === i);
+for(var d = 0; d < frDots.length; d++) frDots[d].classList.toggle('on', d <= i);
+if(frLbl) frLbl.textContent = 'Step ' + (i + 1) + ' of ' + frSteps.length;
+if(moveFocus){
+var el = frSteps[i].querySelector('input[type="text"],input[type="email"],input[type="tel"]');
+if(el) el.focus({preventScroll:true});
+}
+}
+if(frSteps.length > 1){
+frForm.classList.add('is-stepped');
+frShow(0, false);
+frForm.querySelectorAll('.fr-next').forEach(function(b){
+b.addEventListener('click', function(){
+if(!frCheck(frCur)) return;
+if(frCur < frSteps.length - 1){
+frShow(frCur + 1, true);
+if(window.gtag) gtag('event','form_step',{form_source:'homepage: free review', step: frCur + 1});
+}
+});
+});
+frForm.querySelectorAll('.fr-back').forEach(function(b){
+b.addEventListener('click', function(){ if(frCur > 0) frShow(frCur - 1, false); });
+});
+frForm.querySelectorAll('input[name="need"]').forEach(function(r){
+r.addEventListener('change', function(){
+document.getElementById('fr-need').classList.remove('invalid');
+var hint = document.getElementById('frUrlHint');
+if(hint) hint.textContent = (r.value === 'A new site') ? 'optional, if anything is up yet' : 'the one I should look at';
+});
+});
+frForm.querySelectorAll('.step[data-step="1"] .tile').forEach(function(t){
+t.addEventListener('pointerdown', function(){ frTapped = true; });
+t.addEventListener('mousedown', function(){ frTapped = true; });
+t.addEventListener('touchstart', function(){ frTapped = true; }, {passive:true});
+});
+frForm.querySelectorAll('input[name="need"]').forEach(function(r){
+r.addEventListener('change', function(){
+if(!frTapped) return;
+frTapped = false;
+setTimeout(function(){
+if(frCur === 0 && frCheck(0)){
+frShow(1, false);
+if(window.gtag) gtag('event','form_step',{form_source:'homepage: free review', step: 2});
+}
+}, 240);
+});
+});
+}
 frForm.addEventListener('submit', function(e){
 e.preventDefault();
 if(frForm.querySelector('input[name="company"]').value){ return; }
-var frEmail = document.getElementById('frEmail').value.trim();
-var frUrl = document.getElementById('frUrl').value.trim();
-var frBad = false;
-var frName = document.getElementById('frName').value.trim();
-if(!frName){ document.getElementById('fr-name').classList.add('invalid'); frBad = true; } else document.getElementById('fr-name').classList.remove('invalid');
-if(!emailOk(frEmail)){ document.getElementById('fr-email').classList.add('invalid'); frBad = true; } else document.getElementById('fr-email').classList.remove('invalid');
-if(!frUrl){ document.getElementById('fr-url').classList.add('invalid'); frBad = true; } else document.getElementById('fr-url').classList.remove('invalid');
-var frCity = document.getElementById('frCity').value.trim();
-if(!cityOk(frCity)){ document.getElementById('fr-city').classList.add('invalid'); frBad = true; } else document.getElementById('fr-city').classList.remove('invalid');
-if(frBad) return;
+for(var i = 0; i < frSteps.length; i++){
+if(!frCheck(i)){ if(frSteps.length > 1) frShow(i, true); return; }
+}
 var frBtn = frForm.querySelector('button[type="submit"]');
 frBtn.disabled = true; frBtn.textContent = 'Sending...';
 var frData = new URLSearchParams();
@@ -1221,6 +1337,7 @@ fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urle
 if(!r.ok) throw new Error('bad status');
 frForm.querySelectorAll('input,button').forEach(function(el){ el.disabled = true; });
 frBtn.textContent = 'Sent';
+var prog = frForm.querySelector('.fr-prog'); if(prog) prog.style.display = 'none';
 document.getElementById('frOk').style.display = 'block';
 if(window.gtag) gtag('event','generate_lead',{form_source:'homepage: free review'});
 })
@@ -1258,10 +1375,13 @@ gtag('event',name,{link_location:cdZone(a),link_url:href,page_path:window.locati
 }
 cdLinkEvent('a[href^="tel:"]','phone_click');
 cdLinkEvent('a[href^="mailto:"]','email_click');
-['name','email','ptype','message','city'].forEach(function(id){
+['name','email','message','city'].forEach(function(id){
 var el = document.getElementById(id);
 el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
 el.addEventListener('change', function(){ el.closest('.field').classList.remove('invalid'); });
+});
+form.querySelectorAll('input[name="ptype"]').forEach(function(r){
+r.addEventListener('change', function(){ document.getElementById('f-type').classList.remove('invalid'); });
 });
 
 // ---- Esc closes drawer ----
