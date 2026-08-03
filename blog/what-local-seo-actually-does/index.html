@@ -341,7 +341,7 @@ function cityOk(v){ if(!v) return false; if(window.CITY_LIST){ for(var i=0;i<win
       .then(function(r){
         if(!r.ok) throw new Error('bad status');
         form.querySelectorAll('input,textarea,select,button').forEach(function(el){ el.disabled = true; });
-submitBtn.textContent = 'Sent';
+btn.textContent = 'Sent';
         form.querySelector('.form-ok').style.display = 'block';
         if(window.gtag) gtag('event','generate_lead',{form_source:form.querySelector('[name="source"]').value});
       })
