@@ -547,6 +547,14 @@ transition:box-shadow .16s ease,transform .16s ease,background .16s ease}
 .field.invalid .tile .tl{background:#fff;box-shadow:2px 2px 0 var(--ink)}
 .fr-body .tile b{font-size:.95rem}
 .fr-body .tile .tl{min-height:48px;padding:11px 13px}
+.tiles.two.flat .tile:last-child{grid-column:auto}
+.tiles.two.flat .tl{min-height:46px;padding:10px 12px;align-items:center}
+.tiles.two.flat b{font-size:.9rem}
+.tile.chk .tl::before{border-radius:4px 2px 4px 2px;margin-top:0}
+.tile.chk input:checked+.tl::before{content:"\2713";display:flex;align-items:center;justify-content:center;
+background:var(--ink);color:var(--white);font-size:12px;font-weight:700;line-height:1;box-shadow:none}
+.fr-steps.is-stepped .br{display:none}
+.fr-steps.is-stepped .br.on{display:block}
 .fr-nav{display:flex;gap:10px;align-items:center}
 .fr-back,.fr-next{display:none}
 .is-stepped .fr-back,.is-stepped .fr-next{display:inline-flex}
@@ -554,7 +562,7 @@ transition:box-shadow .16s ease,transform .16s ease,background .16s ease}
 .fr-nav .fr-back{flex:0 0 auto;padding:12px 18px}
 .fr-call{margin:14px 0 0;font-size:.85rem;color:var(--pencil);text-align:center;line-height:1.5}
 .fr-call a{color:var(--ink);font-weight:600;border-bottom:2px solid var(--ink);white-space:nowrap}
-@media(max-width:560px){.tiles.two{grid-template-columns:1fr}}
+@media(max-width:560px){.tiles.two:not(.flat){grid-template-columns:1fr}}
 /* pitch services row */
 .why-svcs{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
 .why-svcs a{border:2px solid rgba(245,245,245,.55);border-radius:14px 9px 14px 9px;padding:16px 18px;text-decoration:none;display:flex;flex-direction:column;gap:4px;transition:transform .15s,border-color .15s}
@@ -692,13 +700,31 @@ built, found, booked
 <div class="fr-nav"><button type="button" class="btn btn-solid fr-next">Next</button></div>
 </div>
 <div class="step" data-step="2">
+<div class="br br-have">
 <div class="field" id="fr-url">
-<label for="frUrl">Your website <span class="marker" id="frUrlHint">the one I should look at</span></label>
+<label for="frUrl">Your website <span class="marker">the one to review</span></label>
 <input type="text" id="frUrl" name="website" placeholder="yourbusiness.com" autocomplete="url">
 <span class="err">Drop the address of the site you want reviewed.</span>
 </div>
+</div>
+<div class="br br-new">
+<div class="field" id="fr-trade">
+<label for="frTrade">What you do <span class="marker">one word is fine</span></label>
+<input type="text" id="frTrade" name="industry" placeholder="Roofing, med spa, auto repair, bakery" autocomplete="off">
+<span class="err">Even one word works. Roofing, catering, dog grooming.</span>
+</div>
+<div class="field" id="fr-goal">
+<label>What should it do? <span class="marker">tap any</span></label>
+<div class="tiles two flat">
+<label class="tile chk"><input type="checkbox" name="goal" value="Get more calls"><span class="tl"><span><b>More calls</b></span></span></label>
+<label class="tile chk"><input type="checkbox" name="goal" value="Take bookings"><span class="tl"><span><b>Bookings</b></span></span></label>
+<label class="tile chk"><input type="checkbox" name="goal" value="Sell online"><span class="tl"><span><b>Sell online</b></span></span></label>
+<label class="tile chk"><input type="checkbox" name="goal" value="Show my work"><span class="tl"><span><b>Show work</b></span></span></label>
+</div>
+</div>
+</div>
 <div class="field" id="fr-city">
-<label for="frCity">City &amp; state <span class="marker">where the business lives</span></label>
+<label for="frCity">City &amp; state <span class="marker">where you work</span></label>
 <input type="text" id="frCity" name="city" autocomplete="off" placeholder="Start typing, e.g. Kendall, FL">
 <span class="err">Pick a real city from the list, or type it like Kendall, FL.</span>
 </div>
@@ -1263,8 +1289,9 @@ function frFlag(id, isBad){ document.getElementById(id).classList.toggle('invali
 function frCheck(i){
 if(i === 0){ return !frFlag('fr-need', !frNeed()); }
 if(i === 1){
-var urlReq = frNeed() !== 'A new site';
-var b1 = frFlag('fr-url', urlReq && !document.getElementById('frUrl').value.trim());
+var b1 = (frNeed() === 'A new site')
+? frFlag('fr-trade', !document.getElementById('frTrade').value.trim())
+: frFlag('fr-url', !document.getElementById('frUrl').value.trim());
 var b2 = frFlag('fr-city', !cityOk(document.getElementById('frCity').value.trim()));
 return !(b1 || b2);
 }
@@ -1278,13 +1305,29 @@ for(var a = 0; a < frSteps.length; a++) frSteps[a].classList.toggle('active', a 
 for(var d = 0; d < frDots.length; d++) frDots[d].classList.toggle('on', d <= i);
 if(frLbl) frLbl.textContent = 'Step ' + (i + 1) + ' of ' + frSteps.length;
 if(moveFocus){
-var el = frSteps[i].querySelector('input[type="text"],input[type="email"],input[type="tel"]');
-if(el) el.focus({preventScroll:true});
+var fields = frSteps[i].querySelectorAll('input[type="text"],input[type="email"],input[type="tel"]');
+for(var f = 0; f < fields.length; f++){
+if(fields[f].offsetParent !== null){ fields[f].focus({preventScroll:true}); break; }
+}
+}
+}
+function frBranch(){
+var isNew = frNeed() === 'A new site';
+frForm.querySelectorAll('.br-new').forEach(function(el){ el.classList.toggle('on', isNew); });
+frForm.querySelectorAll('.br-have').forEach(function(el){ el.classList.toggle('on', !isNew); });
+if(isNew){
+document.getElementById('frUrl').value = '';
+document.getElementById('fr-url').classList.remove('invalid');
+} else {
+document.getElementById('frTrade').value = '';
+document.getElementById('fr-trade').classList.remove('invalid');
+frForm.querySelectorAll('input[name="goal"]').forEach(function(c){ c.checked = false; });
 }
 }
 if(frSteps.length > 1){
 frForm.classList.add('is-stepped');
 frShow(0, false);
+frBranch();
 frForm.querySelectorAll('.fr-next').forEach(function(b){
 b.addEventListener('click', function(){
 if(!frCheck(frCur)) return;
@@ -1300,8 +1343,7 @@ b.addEventListener('click', function(){ if(frCur > 0) frShow(frCur - 1, false); 
 frForm.querySelectorAll('input[name="need"]').forEach(function(r){
 r.addEventListener('change', function(){
 document.getElementById('fr-need').classList.remove('invalid');
-var hint = document.getElementById('frUrlHint');
-if(hint) hint.textContent = (r.value === 'A new site') ? 'optional, if anything is up yet' : 'the one I should look at';
+frBranch();
 });
 });
 frForm.querySelectorAll('.step[data-step="1"] .tile').forEach(function(t){
@@ -1346,7 +1388,7 @@ frBtn.disabled = false; frBtn.textContent = 'Send my free review';
 document.getElementById('frErr').style.display = 'block';
 });
 });
-['frName','frEmail','frUrl','frCity'].forEach(function(id){
+['frName','frEmail','frUrl','frCity','frTrade'].forEach(function(id){
 var el = document.getElementById(id);
 el.addEventListener('input', function(){ el.closest('.field').classList.remove('invalid'); });
 });
