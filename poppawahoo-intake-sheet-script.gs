@@ -28,7 +28,7 @@ var FIELDS = ['submitted_at','email','business_name','contact_name','phone','bus
   'captains','captain_bios','capt_brian_photo','capt_david_photo','capt_skip_photo','capt_george_photo',
   'site_corrections','search_phrases',
   'shop_interest','shop_items','shop_details',
-  'photos_link','anything_else'];
+  'photos_link','photos_notes','anything_else'];
 
 function doPost(e){
   var lock = LockService.getScriptLock();
