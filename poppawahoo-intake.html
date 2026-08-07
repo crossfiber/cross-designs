@@ -108,6 +108,7 @@
   .done p{color:var(--pencil);font-size:1.1rem;max-width:46ch;margin:0 auto}
   body.sent form{display:none}
   body.sent .intro{display:none}
+  body.midwiz .intro{display:none}
   body.sent .done{display:block}
   main{flex:1 0 auto}
   body.sent main{display:flex;flex-direction:column;justify-content:center}
@@ -356,6 +357,7 @@
     cur = Math.max(0, Math.min(i, steps.length - 1));
     steps.forEach(function(s, k){ s.classList.toggle('active', k === cur); });
     prog.textContent = 'step ' + (cur + 1) + ' of ' + steps.length + '  ·  ' + titles[cur];
+    document.body.classList.toggle('midwiz', cur > 0);
     backBtn.hidden = (cur === 0);
     var last = (cur === steps.length - 1);
     nextBtn.hidden = last;
