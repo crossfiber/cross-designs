@@ -58,7 +58,7 @@
   input[type=text],input[type=email],input[type=tel],input[type=url],textarea,select{
     width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--ink);background:var(--paper);
     border:2px solid var(--ink);border-radius:12px 7px 12px 7px;padding:12px 14px}
-  textarea{resize:vertical;min-height:88px}
+  textarea{resize:vertical;min-height:88px;overflow-y:hidden}
   input:focus,textarea:focus,select:focus{outline:none;background:var(--white)}
   .err{display:none;font-size:.85rem;color:var(--ink);font-weight:600;margin-top:6px}
   .err::before{content:"\21B3  "}
@@ -365,6 +365,20 @@
   }
   backBtn.addEventListener('click', function(){ show(cur - 1); });
   nextBtn.addEventListener('click', function(){ show(cur + 1); });
+
+  // ---- text boxes grow to fit their content ----
+  function grow(el){
+    if(el.tagName !== 'TEXTAREA') return;
+    el.style.height = 'auto';
+    el.style.height = Math.max(88, el.scrollHeight + 4) + 'px';
+  }
+  form.addEventListener('focusin', function(e){ grow(e.target); });
+  form.addEventListener('input', function(e){ grow(e.target); });
+  var _show = show;
+  show = function(i){
+    _show(i);
+    steps[cur].querySelectorAll('textarea').forEach(function(t){ if(t.value) grow(t); });
+  };
   show(0);
 
   form.addEventListener('submit', function(e){
