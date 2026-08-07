@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Poppa Wahoo Intake | Cross Designs</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#181613">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon.png?v=2">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Permanent+Marker&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#181613;--paper:#F7F4EC;--white:#FFFFFF;--pencil:#75726B;
+    --line:#DEDACF;--line-strong:#C9C4B6;--rule:#EDEAE1;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);background-color:var(--paper);
+    background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 35px, var(--rule) 35px, var(--rule) 36px);
+    line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 22px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{line-height:1.15;font-weight:700;letter-spacing:-0.01em}
+
+  /* header */
+  header{border-bottom:2px solid var(--ink);background:var(--paper);padding:18px 0}
+  header .wrap{display:flex;align-items:center;gap:12px}
+  header img{height:38px;width:auto;display:block}
+
+  .intro{padding:46px 0 8px}
+  .intro .marker{font-family:'Permanent Marker',cursive;color:var(--pencil);font-size:1.3rem;letter-spacing:.4px;
+    display:inline-flex;align-items:center;gap:10px;transform:rotate(-1.5deg);margin-bottom:12px}
+  .intro .marker svg{width:22px;height:22px}
+  .intro .marker svg path{fill:none;stroke:currentColor;stroke-width:2.7;stroke-linecap:round}
+  .intro h1{font-size:clamp(1.9rem,5vw,2.7rem)}
+  .intro p{color:var(--pencil);font-size:1.06rem;margin-top:16px;max-width:60ch}
+  .intro p b{color:var(--ink);font-weight:600}
+
+  /* sections */
+  form{padding:20px 0 80px}
+  .sec{background:var(--white);border:2px solid var(--ink);border-radius:18px 11px 20px 12px;
+    box-shadow:5px 6px 0 rgba(24,22,19,.08);padding:30px 30px 26px;margin-top:26px}
+  .sec-h{font-family:'Permanent Marker',cursive;font-weight:400;font-size:1.45rem;letter-spacing:.4px;
+    display:flex;align-items:center;gap:11px;transform:rotate(-1deg);margin-bottom:4px}
+  .sec-h .n{font-family:'Caveat',cursive;font-weight:700;font-size:2rem;color:var(--ink);line-height:.8}
+  .sec-note{color:var(--pencil);font-size:.98rem;margin:6px 0 18px}
+
+  .field{margin-bottom:20px}
+  .field:last-child{margin-bottom:0}
+  label{display:block;font-weight:600;font-size:.98rem;margin-bottom:7px}
+  label .req{color:var(--ink)}
+  label .hint{display:block;font-weight:400;font-size:.86rem;color:var(--pencil);margin-top:2px}
+  input[type=text],input[type=email],input[type=tel],input[type=url],textarea,select{
+    width:100%;font-family:'Space Grotesk',sans-serif;font-size:1rem;color:var(--ink);background:var(--paper);
+    border:2px solid var(--ink);border-radius:12px 7px 12px 7px;padding:12px 14px}
+  textarea{resize:vertical;min-height:88px}
+  input:focus,textarea:focus,select:focus{outline:none;background:var(--white)}
+  .err{display:none;font-size:.85rem;color:var(--ink);font-weight:600;margin-top:6px}
+  .err::before{content:"\21B3  "}
+  .field.invalid input,.field.invalid textarea,.field.invalid select{background:#fff;border-color:var(--ink)}
+  .field.invalid .err{display:block}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  .btn{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:1.02rem;cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;border:2px solid var(--ink);padding:15px 30px;
+    background:var(--ink);color:var(--paper);border-radius:240px 18px 220px 16px/16px 210px 18px 240px;
+    box-shadow:3px 3px 0 var(--ink);transition:transform .18s,box-shadow .18s}
+  .btn:hover{transform:translateY(-2px);box-shadow:5px 6px 0 var(--ink)}
+  .btn[disabled]{opacity:.6;cursor:default;transform:none}
+  .submit-row{margin-top:30px;display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .submit-row .note{font-family:'Caveat',cursive;font-size:1.3rem;color:var(--pencil)}
+
+  /* row builders (trips + shop) */
+  [hidden]{display:none!important}
+  .rowbuild{margin-top:4px}
+  .price-row{display:flex;gap:10px;margin-bottom:10px}
+  .price-row .ps-name{flex:1 1 58%}
+  .price-row .ps-price{flex:1 1 42%}
+  .price-x{flex:0 0 auto;width:42px;border:2px solid var(--ink);background:var(--paper);border-radius:10px 6px 10px 6px;font-size:1.2rem;line-height:1;cursor:pointer;color:var(--ink)}
+  .price-x:hover{background:var(--white)}
+  .addrow{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.92rem;cursor:pointer;background:var(--paper);border:2px solid var(--ink);border-radius:10px 6px 10px 6px;padding:9px 16px;box-shadow:2px 2px 0 var(--ink);margin-top:2px}
+  .addrow:hover{background:var(--white)}
+  @media(max-width:560px){.price-row{flex-wrap:wrap}.price-row .ps-name{flex:1 1 100%}.price-row .ps-price{flex:1 1 70%}}
+  .price-row{flex-wrap:wrap}
+  .row-up{flex:1 1 100%;display:flex;align-items:center;gap:10px;padding:2px 2px 6px;border-bottom:1px dashed var(--line-strong);margin-bottom:2px}
+  .row-up .up-lab{font-family:'Caveat',cursive;font-size:1.15rem;color:var(--pencil);white-space:nowrap}
+
+  .textbtn{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--pencil)}
+  .textbtn b{color:var(--ink)}
+
+  /* success */
+  .done{display:none;text-align:center;padding:30px 0}
+  .done .marker{font-family:'Permanent Marker',cursive;font-size:2rem;margin-bottom:14px;display:block}
+  .done p{color:var(--pencil);font-size:1.1rem;max-width:46ch;margin:0 auto}
+  body.sent form{display:none}
+  body.sent .intro{display:none}
+  body.sent .done{display:block}
+  main{flex:1 0 auto}
+  body.sent main{display:flex;flex-direction:column;justify-content:center}
+
+  footer{border-top:2px solid var(--ink);background:var(--ink);color:#B9B5AC;padding:22px 0;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer img{height:22px;width:auto;opacity:.9}
+
+  @media(max-width:560px){
+    .sec{padding:24px 20px}
+    .intro{padding:34px 0 4px}
+  }
+  /* Uploadcare widget, matched to the site */
+  .uploadcare--widget{display:inline-flex!important;align-items:center;gap:10px;flex-wrap:wrap}
+  .uploadcare--widget__button{font-family:'Space Grotesk',sans-serif!important;font-weight:600!important;font-size:.95rem!important;border:2px solid var(--ink)!important;background:var(--paper)!important;color:var(--ink)!important;border-radius:12px 7px 12px 7px!important;padding:11px 18px!important;box-shadow:2px 2px 0 var(--ink)!important;text-transform:none!important;line-height:1!important}
+  .uploadcare--widget__button:hover{background:var(--white)!important}
+  .uploadcare--widget__button_type_open{background:var(--ink)!important;color:var(--paper)!important;border-color:var(--ink)!important}
+  .uploadcare--widget__text{font-family:'Space Grotesk',sans-serif!important;color:var(--pencil)!important;font-size:.92rem!important}
+</style>
+</head>
+<body id="top">
+
+<header>
+  <div class="wrap">
+    <img src="assets/cross-logo.png" alt="Cross Designs">
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <section class="intro">
+    <span class="marker">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20.5 5 L20 35 M8 16 L33 15.5"/></svg>
+      poppa wahoo intake
+    </span>
+    <h1>Let's get the site exactly right, Brian.</h1>
+    <p>Everything below is <b>already filled in from your current info</b>. Fix what's wrong, add what's missing, skip what's fine. Nothing goes live until you've seen it.</p>
+    <p style="font-size:.95rem">Photos and merch shots upload right here in the form. Easier to text them? Send to Aiden anytime: <b>(786) 801-7297</b>.</p>
+  </section>
+
+  <form id="intakeForm" novalidate>
+    <div class="hp"><label>Leave blank<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
+    <input type="hidden" name="business_name" value="The Poppa Wahoo Collective">
+
+    <!-- contact email -->
+    <div class="sec">
+      <div class="field" id="f-email">
+        <label for="email">Your email <span class="req">*</span><span class="hint">So I can follow up on what you send.</span></label>
+        <input type="email" id="email" name="email" autocomplete="email">
+        <span class="err">That looks incomplete. Try something like you@email.com.</span>
+      </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">01</span> The Basics</div>
+      <p class="sec-note">This is what shows on the site and Google, so it has to be exactly right. Correct anything that's off.</p>
+      <div class="field"><label>Main contact</label><input type="text" name="contact_name" value="Brian Epstein"></div>
+      <div class="field"><label>Phone number customers should call</label><input type="tel" name="phone" value="(305) 394-5350"></div>
+      <div class="field"><label>Business email</label><input type="email" name="business_email" value="info@poppawahoo.com"></div>
+      <div class="field"><label>Where the boats leave from</label><textarea name="address">Main dock: 84001 Overseas Hwy, Islamorada. Nearshore trips depart Square Grouper, 80461 Overseas Hwy.</textarea></div>
+      <div class="field"><label>Hours</label><input type="text" name="hours" value="Daily, 5:00 AM to 9:00 PM"></div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">02</span> Trips &amp; Rates</div>
+      <p class="sec-note">These are the trips and prices on the site right now. Fix a price, remove a trip with the &times;, add new ones at the bottom. Each trip has its own photo button: add shots from THAT kind of trip so the right fish ends up on the right page.</p>
+      <div class="field" id="f-trips">
+        <div class="rowbuild" id="tripRows"></div>
+        <button type="button" class="addrow" id="addTrip">+ Add a trip</button>
+        <input type="hidden" name="trips_rates">
+      </div>
+      <div class="field"><label>Notes on any trip <span class="hint">Wrong duration, wrong description, seasonal only, whatever needs saying.</span></label><textarea name="trip_notes"></textarea></div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">03</span> The Boats</div>
+      <p class="sec-note">One box per boat. Anything wrong or worth adding: capacity, year, electronics, features customers care about.</p>
+      <div class="field"><label>Poppa Wahoo, 55' Hatteras</label><textarea name="boat_poppa_wahoo" placeholder="Corrections or details to add. Write 'good' if it's right."></textarea></div>
+      <div class="field"><label>Photos of the Poppa Wahoo <span class="hint">Running shots, deck, cabin, cockpit.</span></label><input type="hidden" role="uploadcare-uploader" name="boat_poppa_wahoo_photos" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Poppa Wahoo Too, 53' Hatteras Sportfisher</label><textarea name="boat_wahoo_too" placeholder="Corrections or details to add."></textarea></div>
+      <div class="field"><label>Photos of the Too</label><input type="hidden" role="uploadcare-uploader" name="boat_wahoo_too_photos" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Poppa Bay, 25' Sea Hunt Bay Boat</label><textarea name="boat_poppa_bay" placeholder="Corrections or details to add."></textarea></div>
+      <div class="field"><label>Photos of the Bay</label><input type="hidden" role="uploadcare-uploader" name="boat_poppa_bay_photos" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Poppa Toon, 23' Barletta Tritoon</label><textarea name="boat_poppa_toon" placeholder="Corrections or details to add."></textarea></div>
+      <div class="field"><label>Photos of the Toon</label><input type="hidden" role="uploadcare-uploader" name="boat_poppa_toon_photos" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Any boat missing, sold, or new?</label><input type="text" name="boats_other"></div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">04</span> Captains &amp; Crew</div>
+      <p class="sec-note">The site currently lists: Capt. Brian Epstein, Capt. David Epstein, Capt. Skip Bradeen, Capt. George Clark Jr.</p>
+      <div class="field"><label>Anyone to add, remove, or fix?</label><textarea name="captains"></textarea></div>
+      <div class="field"><label>A line about each guy <span class="hint">Years on the water, what he runs, anything worth telling customers. Optional but it makes the crew page real.</span></label><textarea name="captain_bios"></textarea></div>
+      <p class="sec-note" style="margin-top:22px">One good photo of each captain. On the boat beats against a wall, every time.</p>
+      <div class="field"><label>Capt. Brian Epstein</label><input type="hidden" role="uploadcare-uploader" name="capt_brian_photo" data-public-key="cabcb6e252ae5c50976c" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Capt. David Epstein</label><input type="hidden" role="uploadcare-uploader" name="capt_david_photo" data-public-key="cabcb6e252ae5c50976c" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Capt. Skip Bradeen</label><input type="hidden" role="uploadcare-uploader" name="capt_skip_photo" data-public-key="cabcb6e252ae5c50976c" data-images-only="true" data-clearable="true" /></div>
+      <div class="field"><label>Capt. George Clark Jr.</label><input type="hidden" role="uploadcare-uploader" name="capt_george_photo" data-public-key="cabcb6e252ae5c50976c" data-images-only="true" data-clearable="true" /></div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">05</span> Fix Anything on the Site</div>
+      <p class="sec-note">Open <b>crossfiber.github.io/poppa-wahoo</b> on your phone, scroll through every page, and dump every change you want here. Wording, photos, order of things, stuff that's flat wrong. Big or small, list it all.</p>
+      <div class="field"><label>Your list</label><textarea name="site_corrections" style="min-height:130px" placeholder="Example: shark trip says 4 hours, it's 3. Swap the photo in the swordfish section."></textarea></div>
+      <div class="field"><label>What should people type into Google and find you? <span class="hint">The searches you want to win.</span></label><textarea name="search_phrases" placeholder="Example: swordfish charter florida keys, islamorada sunset cruise"></textarea></div>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">06</span> The Shop</div>
+      <p class="sec-note">If you want to sell anything on the site: shirts, hats, gift cards. Skip this section if it's not for you.</p>
+      <div class="field"><label>Do you want a shop on the site?</label>
+        <select name="shop_interest"><option value="">Pick one</option><option>Yes, set it up now</option><option>Maybe later, just planning</option><option>No shop</option></select>
+      </div>
+      <div class="field" id="f-shop">
+        <label>Items to sell <span class="hint">One per row with its price, and each item has its own photo button, so the shots stay with the right item. Sizes, colors, and details go in the notes box below.</span></label>
+        <div class="rowbuild" id="shopRows"></div>
+        <button type="button" class="addrow" id="addShop">+ Add another item</button>
+        <input type="hidden" name="shop_items">
+      </div>
+      <div class="field"><label>Sizes, colors, details</label><textarea name="shop_details" placeholder="Example: tees run S-3XL, navy and white. Hats one size."></textarea></div>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">07</span> Everything-Else Photos</div>
+      <p class="sec-note">Anything that didn't have its own button above: happy customers, the docks, sunsets, old Bob photos, whatever tells the story. Straight off your phone is perfect.</p>
+      <div class="field"><label>Upload here <span class="hint">Tap the button, then pick from your camera roll or Google Drive. Add as many as you want.</span></label><input type="hidden" role="uploadcare-uploader" name="photos_link" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true" /></div>
+      <p class="textbtn">Easier to text? Send them straight to Aiden: <b>(786) 801-7297</b>. Either way works.</p>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="sec">
+      <div class="sec-h"><span class="n">08</span> Anything Else</div>
+      <p class="sec-note">Ideas, worries, things I didn't ask about. This is the spot.</p>
+      <div class="field"><label>Anything at all</label><textarea name="anything_else"></textarea></div>
+    </div>
+
+    <div class="submit-row">
+      <button type="submit" class="btn" id="submitBtn">Send it to Aiden</button>
+      <span class="note">Goes straight to my desk. You'll hear back within a day.</span>
+    </div>
+  </form>
+
+  <div class="done">
+    <span class="marker">Got it, Brian. Thank you.</span>
+    <p>I'll go through everything and get back to you within a day. Photos can always be texted to <b>(786) 801-7297</b>.</p>
+  </div>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/cross-logo-white.png" alt="Cross Designs">
+    <span>&copy; 2026 Cross Designs</span>
+  </div>
+</footer>
+
+<script>UPLOADCARE_PUBLIC_KEY="cabcb6e252ae5c50976c";UPLOADCARE_TABS="file url gdrive dropbox";</script>
+<script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script>
+<script>
+(function(){
+  "use strict";
+  // ====== CONFIG: paste the deployed Poppa Wahoo Apps Script Web App URL here ======
+  var ENDPOINT = "[PASTE_POPPAWAHOO_APPS_SCRIPT_WEB_APP_URL]";
+  // =================================================================================
+
+  var form = document.getElementById('intakeForm');
+  var body = document.body;
+  function emailOk(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function val(n){ var el=form.querySelector('[name="'+n+'"]'); return el ? el.value.trim() : ''; }
+
+  // ---- row builder (shared by trips + shop), each row with its own photo uploader ----
+  function makeRow(name, price, removable, namePh, pricePh, photoLab){
+    var row=document.createElement('div');
+    row.className='price-row';
+    var safeN=(name||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    var safeP=(price||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+    row.innerHTML='<input type="text" class="ps-name" placeholder="'+namePh+'" value="'+safeN+'">'+
+      '<input type="text" class="ps-price" placeholder="'+pricePh+'" value="'+safeP+'">'+
+      (removable?'<button type="button" class="price-x" aria-label="Remove">&times;</button>':'')+
+      '<div class="row-up"><span class="up-lab">'+photoLab+'</span><input type="hidden" class="row-uc" data-public-key="cabcb6e252ae5c50976c" data-multiple="true" data-images-only="true" data-clearable="true"></div>';
+    var x=row.querySelector('.price-x');
+    if(x) x.addEventListener('click', function(){ row.remove(); });
+    // live per-row uploadcare widget; the group link rides along in row.dataset.photos
+    try{
+      if(window.uploadcare){
+        var w = uploadcare.MultipleWidget(row.querySelector('.row-uc'));
+        w.onChange(function(group){
+          if(!group){ row.dataset.photos=''; return; }
+          group.promise().done(function(info){ row.dataset.photos = info.cdnUrl || ''; });
+        });
+      } else {
+        row.querySelector('.row-up').style.display='none';
+      }
+    }catch(err){ row.querySelector('.row-up').style.display='none'; }
+    return row;
+  }
+  function serializeRows(container, hiddenName){
+    var out=[];
+    container.querySelectorAll('.price-row').forEach(function(row){
+      var n=row.querySelector('.ps-name').value.trim();
+      var pr=row.querySelector('.ps-price').value.trim();
+      if(!n) return;
+      out.push(n + (pr?' - '+pr:'') + (row.dataset.photos?' - photos: '+row.dataset.photos:''));
+    });
+    form.querySelector('[name="'+hiddenName+'"]').value = out.join(' | ');
+  }
+
+  // trips, prefilled from the current site
+  var TRIPS = [
+    ["Deep sea half day","$1,475"],
+    ["Deep sea three-quarter day","$1,975"],
+    ["Deep sea full day","$2,475"],
+    ["Evening shark trip","$1,000"],
+    ["Overnight swordfish","$2,700"],
+    ["Nearshore on Poppa Bay","from $1,050"],
+    ["Sunset cruise","$575"],
+    ["Sandbar cruise","$800"]
+  ];
+  var tripRows = document.getElementById('tripRows');
+  TRIPS.forEach(function(t){ tripRows.appendChild(makeRow(t[0], t[1], true, 'Trip', 'Price', 'photos from this trip:')); });
+  document.getElementById('addTrip').addEventListener('click', function(){
+    tripRows.appendChild(makeRow('', '', true, 'Trip', 'Price', 'photos from this trip:'));
+  });
+
+  // shop items, one starter row
+  var shopRows = document.getElementById('shopRows');
+  shopRows.appendChild(makeRow('', '', true, 'Item (example: Poppa Wahoo tee)', 'Price', 'photos of this item:'));
+  document.getElementById('addShop').addEventListener('click', function(){
+    shopRows.appendChild(makeRow('', '', true, 'Item', 'Price', 'photos of this item:'));
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(form.querySelector('[name="_gotcha"]').value){ return; } // bot
+    serializeRows(tripRows, 'trips_rates');
+    serializeRows(shopRows, 'shop_items');
+
+    var f=document.getElementById('f-email'); var ok=emailOk(val('email'));
+    f.classList.toggle('invalid', !ok);
+    if(!ok){ f.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+
+    var btn=document.getElementById('submitBtn');
+    btn.disabled=true; btn.textContent='Sending...';
+
+    var fd=new FormData(form);
+    fd.append('submitted_at', new Date().toISOString());
+    var data=new URLSearchParams();
+    fd.forEach(function(v,k){ data.append(k,v); });
+
+    if(ENDPOINT.indexOf('http')!==0){
+      // not configured yet: still show success so the page is testable
+      body.classList.add('sent'); window.scrollTo({top:0,behavior:'smooth'}); return;
+    }
+    fetch(ENDPOINT, { method:'POST', body:data, mode:'no-cors' })
+      .then(function(){ body.classList.add('sent'); window.scrollTo({top:0,behavior:'smooth'}); })
+      .catch(function(){ body.classList.add('sent'); window.scrollTo({top:0,behavior:'smooth'}); });
+  });
+
+  // clear invalid state as they fix it
+  form.addEventListener('input', function(e){
+    var f=e.target.closest('.field'); if(f) f.classList.remove('invalid');
+  });
+})();
+</script>
+</body>
+</html>
